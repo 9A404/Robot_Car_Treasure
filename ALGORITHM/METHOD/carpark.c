@@ -14,7 +14,7 @@
 
 u8 parkMethod_default()
 {
-	delay_ms(400);
+	delay_ms(520);
 	return 1;
 }
 
@@ -154,7 +154,7 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 				if(1==QR_code_flag && 1==RunMethod_Check)u3_printf("1");  
 				if(1==QR_code_flag && 2==RunMethod_Check) u3_printf("1"); 
 				
-				/*  在3或4号平台扫码后QR_code_flag置为2*/                                                                                                                                                                                                  
+				/*  在3或4号平台扫码后QR_code_flag置为2*/
 				if(2==QR_code_flag && 2==RunMethod_Check) u3_printf("1");
 				treasure_flag=1;
 			}

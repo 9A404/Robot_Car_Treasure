@@ -13,11 +13,12 @@ u8 BlockHandleMethod_downPlatform(void);//下珠峰
 u8 BlockHandleMethod_S_BOARD_1(void);//减速板1
 u8 BlockHandleMethod_S_BOARD_2(void);//减速板2
 u8 BlockHandleMethod_26_27(void);//26到27节点
+
 u8 BlockHandleMethod_down_27_26(void);
 u8 BlockHandleMethod_Seesaw(void);      //跷跷板
 u8 BlockHandleMethod_Slope(void);      //山丘
 u8 BlockHandleMethod_Step(void);      //台阶
- u8 LimtdeHeight_Method(void);//限高
+
 
 u8 BlockHandleMethod_TIME(void);			 //复杂景点
 u8 BlockHandleMethod_TIME_1(void);
@@ -35,7 +36,19 @@ u8 BlockHandleMethod_BACK_TILT_R(void);   //返回右转斜坡
 u8 BlockHandleMethod_BACK_TILT_L(void);		//返回左转斜坡
 u8 BlockHandleMethod_Crossing_All_TILT(void); //穿过整个斜坡
 
-
+u8 BlockHandleMethod_speedtime_8_6(void);  //加速时间
+u8 BlockHandleMethod_speedtime_11_10(void);  //加速时间
+u8 BlockHandleMethod_speedtime_5_12(void);  //加速时间
+u8 BlockHandleMethod_speedtime_2(void);  //加速时间
+u8 BlockHandleMethod_speedtime_7_6(void);  //加速时间
+u8 BlockHandleMethod_speedtime_36_17(void);
+u8 BlockHandleMethod_speedtime_44_37(void);
+u8 BlockHandleMethod_speedtime_14_37(void);
+u8 BlockHandleMethod_speedtime_38_37(void);
+u8 BlockHandleMethod_speedtime_6_7(void);
+u8 BlockHandleMethod_speedtime_12_6(void);
+u8 BlockHandleMethod_speedtime_5_10(void);
+u8 BlockHandleMethod_speedtime_6_15(void);
 u8 Angle_read();
 #endif
 

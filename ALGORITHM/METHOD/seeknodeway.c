@@ -28,7 +28,7 @@
 * 输入参数：
 * 输出参数：
 * 返回值  ：1(找到节点)0（没有找到节点）
-* 其他		：找点方法思路：“1”的个数为4时将flag置1
+* 其他		：找点方法思路：“1”的个数为4时将flag置1，
 													下一次检测到“1”的个数为5时候判断为此处为节点 
 * 作者    ：@断忆
 
@@ -110,7 +110,6 @@ u8 seekNodeMethod_7_6_15()
 	}
 	else if(1==flag){
 		rotAngle_Right(45);
-		flag=0;
 		return 1;
 	}
 	return 0;	
@@ -133,8 +132,7 @@ u8 seekNodeMethod_6_15_37()
 		flag=1;
 	}
 	else if(1==flag){
-		rotAngle_Left(30);
-		flag=0;
+		rotAngle_Left(45);
 		return 1;
 	}
 	return 0;	

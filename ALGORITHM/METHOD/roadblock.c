@@ -79,7 +79,7 @@ u8 BlockHandleMethod_Brige()
 	if(0==flag && 1==PES_Platform)         //到达桥头底部
 	{
 		save = glHello_control.linkInform.findLineWays;
-		glHello_control.linkInform.findLineWays = FL_brigeup; 
+		glHello_control.linkInform.findLineWays = NFL; 
 		findLineFlag = 0;
 		//angle_flag = 0;
 		flag = 1;
@@ -428,7 +428,7 @@ static float Monitor_ROLL()
 //		speedAdjustment(0,0);
 //		while(1);
 		MPU6050_Pose_usart();
-		angle_read = setYaw(glYaw,85);
+		angle_read = setYaw(glYaw,90);
 		angle_read_back = setYaw(glYaw,-75);
 		flag = 0; 
 		   
@@ -462,7 +462,7 @@ static float Monitor_ROLL()
 		//led_flash();
 		flag=1;
 	}
-	else if(1==flag&&gl_time>95)         
+	else if(1==flag&&gl_time>106)         
 	{
 //		temp = Monitor_ROLL();
 //		if( temp > -10)               //如果车在跷跷板的另外一端则继续盲走后置flag=2
@@ -492,7 +492,6 @@ static float Monitor_ROLL()
 		//if(pes_R==0) {speedAdjustment(2000,2400);delay_ms(10);}
 		//else if(pes_L==0) {speedAdjustment(2400,2000);delay_ms(10);}
 	    delay_ms(800);
-
 
 		temp = Monitor_ROLL();
 		glHello_control.linkInform.findLineWays = FL_slow;
@@ -691,11 +690,9 @@ u8 BlockHandleMethod_Slope ()
 		gl_time=0;
 		flag=3;
 	}
-	else if(gl_time>260 && 3==flag)
+	else if(gl_time>200 && 3==flag)
 	{
 		Time3(STOP); //关闭定时器
-			speedAdjustment(0,0);
-			delay_ms(500);
 		gl_time = 0;
 		glHello_control.linkInform.findLineWays = save;   
 		findLineFlag = 0;
@@ -965,41 +962,7 @@ u8 BlockHandleMethod_TIME_45_46()
 
 }
 
-/**********************************************限高*************************************************************/
-/*
 
-* 函数介绍：过限高障碍
-* 输入参数：无
-* 输出参数：无
-* 返回值  ：1（到达路障）0（未到达路障）
-* 其他		：无
-* 作者    ：@BEE LIU
-
-*/
- u8 LimtdeHeight_Method()
-{
-	static u8 flag=0;
-	if(flag == 0&&0 == PES_R)
-	{
-		flag=1;
-	}
-	if(flag==1)
-	{ 
-		//speedAdjustment(0,0);	
-	  sgAngleControl(BODY,B_UP);
-//	  delay_ms(400);
-		flag=2;	
-	}
-  if(flag==2&&0 == PES_R)
-	{
-		//speedAdjustment(0,0);	
-	  sgAngleControl(BODY,B_DOWN);
-//	  delay_ms(400);
-		flag=0;	
-		return 1;
-	}
-  return 0;
-}
 
 
 
@@ -1614,6 +1577,562 @@ u8 BlockHandleMethod_Crossing_All_TILT()
 
 
 
+/*******************************************加速时间*************************************************/
+/*
+* 函数介绍：对加速进行时间限制，在一定时间后切换回慢速巡线(12-10)
+* 输入参数：限制的时间
+* 输出参数：无
+* 返回值  ：1(加速完成)0（加速未完成）
+* 其他		：将巡线方法切换回慢速巡线
+* 作者    ：@断忆
+
+*/
+
+u8 BlockHandleMethod_speedtime_11_10()
+{
+	static u8 flag=0;
+	if(flag==0)
+	{
+		Time3(START);
+		gl_time=0;
+		flag=1;
+	}
+	else if(gl_time > 25 && 1==flag)
+	{
+	//	Time3(STOP);
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_quickest;
+		findLineFlag = 0;
+		flag=2;
+	}
+	else if(2==flag &&gl_time > TIME_11_TO_10)
+	{
+		Time3(STOP);
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_slow;
+		findLineFlag = 0;
+		flag=0;
+		return 1;
+	}
+	return 0;
+	
+}
+/*
+* 函数介绍：对加速进行时间限制，在一定时间后切换回慢速巡线(12-10)
+* 输入参数：限制的时间
+* 输出参数：无
+* 返回值  ：1(加速完成)0（加速未完成）
+* 其他		：将巡线方法切换回慢速巡线
+* 作者    ：@断忆
+
+*/
+
+u8 BlockHandleMethod_speedtime_5_10()
+{
+	static u8 flag=0;
+	if(flag==0)
+	{
+		Time3(START);
+		gl_time=0;
+		flag=1;
+	}
+	else if(gl_time > 25 && 1==flag)
+	{
+	//	Time3(STOP);
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_quickest;
+		findLineFlag = 0;
+		flag=2;
+	}
+	else if(2==flag &&gl_time > TIME_5_TO_10)
+	{
+		Time3(STOP);
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_default;
+		findLineFlag = 0;
+		flag=0;
+		return 1;
+	}
+	return 0;
+	
+}
+/*
+* 函数介绍：对加速进行时间限制，在一定时间后切换回慢速巡线(12-10)
+* 输入参数：限制的时间
+* 输出参数：无
+* 返回值  ：1(加速完成)0（加速未完成）
+* 其他		：将巡线方法切换回慢速巡线
+* 作者    ：@断忆
+
+*/
+
+u8 BlockHandleMethod_speedtime_6_15()
+{
+	static u8 flag=0;
+	if(flag==0)
+	{
+		Time3(START);
+		gl_time=0;
+		flag=1;
+	}
+	else if(gl_time > 25 && 1==flag)
+	{
+	//	Time3(STOP);
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_quickest;
+		findLineFlag = 0;
+		flag=2;
+	}
+	else if(2==flag &&gl_time > TIME_6_TO_15)
+	{
+		Time3(STOP);
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_default;
+		findLineFlag = 0;
+		flag=0;
+		return 1;
+	}
+	return 0;
+	
+}
+/*******************************************加速时间*************************************************/
+/*
+* 函数介绍：对加速进行时间限制，在一定时间后切换回慢速巡线(12-10)
+* 输入参数：限制的时间
+* 输出参数：无
+* 返回值  ：1(加速完成)0（加速未完成）
+* 其他		：将巡线方法切换回慢速巡线
+* 作者    ：@断忆
+
+*/
+
+u8 BlockHandleMethod_speedtime_8_6()
+{
+	static u8 flag=0;
+	if(flag==0)
+	{
+		Time3(START);
+		gl_time=0;
+		flag=1;
+	}
+	else if(gl_time > 30 && 1==flag)
+	{
+	//	Time3(STOP);
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_quickest;
+		findLineFlag = 0;
+		flag=2;
+	}
+	else if(2==flag &&gl_time > TIME_8_TO_6)
+	{
+		Time3(STOP);
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_slow;
+		findLineFlag = 0;
+		flag=0;
+		return 1;
+	}
+	return 0;
+	
+}
+/*
+* 函数介绍：对加速进行时间限制，在一定时间后切换回慢速巡线(12-10)
+* 输入参数：限制的时间
+* 输出参数：无
+* 返回值  ：1(加速完成)0（加速未完成）
+* 其他		：将巡线方法切换回慢速巡线
+* 作者    ：@断忆
+
+*/
+
+u8 BlockHandleMethod_speedtime_5_12()
+{
+	static u8 flag=0;
+	if(flag==0)
+	{
+		Time3(START);
+		gl_time=0;
+		flag=1;
+	}
+	else if(gl_time > 30 && 1==flag)
+	{
+	//	Time3(STOP);
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_quickest;
+		findLineFlag = 0;
+		flag=2;
+	}
+	else if(2==flag &&gl_time > TIME_5_TO_12)
+	{
+		Time3(STOP);
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_slow;
+		findLineFlag = 0;
+		flag=0;
+		return 1;
+	}
+	return 0;
+	
+}
+/*
+* 函数介绍：对加速进行时间限制，在一定时间后切换回慢速巡线(12-6)
+* 输入参数：限制的时间
+* 输出参数：无
+* 返回值  ：1(加速完成)0（加速未完成）
+* 其他		：将巡线方法切换回慢速巡线
+* 作者    ：@断忆
+
+*/
+
+u8 BlockHandleMethod_speedtime_12_6()
+{
+	static findLine save;
+	static u8 flag=0;
+	if(flag == 0)
+	{
+		save = glHello_control.linkInform.findLineWays;
+		glHello_control.linkInform.findLineWays =NFL;
+		flag = 1;
+	}
+	else if(1==flag&&1==PES_Platform)
+	{
+		glHello_control.linkInform.findLineWays = FL_DownPlatform; 
+		findLineFlag = 0;
+		flag=2;
+	}
+	else if(2==flag&&0==PES_Platform)  flag=3;
+	else if(3==flag&&1==PES_Platform)  flag=4;
+	else if(0==PES_Platform && 4==flag)
+	{
+		glHello_control.linkInform.findLineWays = save; 
+		findLineFlag = 0;
+		flag = 5;
+	}
+	else if(5==flag)
+	{
+		Time3(START);
+		gl_time=0;
+		flag=6;
+	}
+	else if(6==flag && gl_time > 20)
+	{
+		gl_time=0;
+		glHello_control.linkInform.findLineWays = FL_quickest;  //切换到超高速巡线
+		findLineFlag = 0;
+		flag = 7;
+	}	
+	else if(7 == flag && gl_time >TIME_12_TO_6)
+	{	
+		Time3(STOP);
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = save;  //切换到缺省巡线
+		findLineFlag = 0;
+		flag = 0;
+		return 1;
+	}	
+	return 0;	
+	
+}
+/*
+* 函数介绍：对加速进行时间限制，在一定时间后切换回慢速巡线(7-12)
+* 输入参数：限制的时间
+* 输出参数：无
+* 返回值  ：1(加速完成)0（加速未完成）
+* 其他		：将巡线方法切换回慢速巡线
+* 作者    ：@断忆
+
+*/
+u8 BlockHandleMethod_speedtime_2()
+{
+	static findLine save;
+	static u8 flag=0;
+	if(flag == 0)
+	{
+		save = glHello_control.linkInform.findLineWays;
+		glHello_control.linkInform.findLineWays =NFL;
+		flag = 1;
+	}
+	else if(1==flag&&1==PES_Platform)
+	{
+		glHello_control.linkInform.findLineWays = FL_DownPlatform; 
+		findLineFlag = 0;
+		flag=2;
+	}
+	else if(2==flag&&0==PES_Platform)  flag=3;
+	else if(3==flag&&1==PES_Platform)  flag=4;
+	else if(0==PES_Platform && 4==flag)
+	{
+		glHello_control.linkInform.findLineWays = save; 
+		findLineFlag = 0;
+		flag = 5;
+	}
+	else if(5==flag)
+	{
+		Time3(START);
+		gl_time=0;
+		flag=6;
+	}
+	else if(6==flag && gl_time > 20)
+	{
+		gl_time=0;
+		glHello_control.linkInform.findLineWays = FL_quickest;  //切换到超高速巡线
+		findLineFlag = 0;
+		flag = 7;
+	}	
+	else if(7 == flag && gl_time >TIME_7_TO_12)
+	{	
+		Time3(STOP);
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = save;  //切换到缺省巡线
+		findLineFlag = 0;
+		flag = 0;
+		return 1;
+	}	
+	return 0;	
+}
+/*
+* 函数介绍：对加速进行时间限制，在一定时间后切换回慢速巡线(7-12)
+* 输入参数：限制的时间
+* 输出参数：无
+* 返回值  ：1(加速完成)0（加速未完成）
+* 其他		：将巡线方法切换回慢速巡线
+* 作者    ：@断忆
+
+*/
+u8 BlockHandleMethod_speedtime_7_6()
+{
+	static findLine save;
+	static u8 flag=0;
+	if(flag == 0)
+	{
+		save = glHello_control.linkInform.findLineWays;
+		glHello_control.linkInform.findLineWays =NFL;
+		flag = 1;
+	}
+	else if(1==flag&&1==PES_Platform)
+	{
+		glHello_control.linkInform.findLineWays = FL_DownPlatform; 
+		findLineFlag = 0;
+		flag=2;
+	}
+	else if(2==flag&&0==PES_Platform)  flag=3;
+	else if(3==flag&&1==PES_Platform)  flag=4;
+	else if(0==PES_Platform && 4==flag)
+	{
+		glHello_control.linkInform.findLineWays = save; 
+		findLineFlag = 0;
+		flag = 5;
+	}
+	else if(5==flag)
+	{
+		Time3(START);
+		gl_time=0;
+		flag=6;
+	}
+	else if(6==flag && gl_time > 20)
+	{
+		gl_time=0;
+		glHello_control.linkInform.findLineWays = FL_quickest;  //切换到超高速巡线
+		findLineFlag = 0;
+		flag = 7;
+	}	
+	else if(7 == flag && gl_time >TIME_7_TO_6)
+	{	
+		Time3(STOP);
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = save;  //切换到缺省巡线
+		findLineFlag = 0;
+		flag = 0;
+		return 1;
+	}	
+	return 0;	
+}
+
+/*
+* 函数介绍：对加速进行时间限制，在一定时间后切换回慢速巡线(36-17)
+* 输入参数：限制的时间
+* 输出参数：无
+* 返回值  ：1(加速完成)0（加速未完成）
+* 其他		：将巡线方法切换回慢速巡线
+* 作者    ：@断忆
+
+*/
+u8 BlockHandleMethod_speedtime_36_17()
+{
+	static u8 flag=0;
+	if(0==flag)
+	{
+		Time3(START);
+		gl_time=0;
+		flag=1;
+	}
+	if(1==flag && gl_time > 100)
+	{
+		flag = 2;
+		gl_time=0;
+		glHello_control.linkInform.findLineWays = FL_quickest;  //切换到超高速巡线
+		findLineFlag = 0;
+	}	
+	else if(2 == flag && gl_time >TIME_36_TO_17)
+	{	
+		Time3(STOP);
+		flag = 0;
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_default;  //切换到缺省巡线
+		findLineFlag = 0;
+		return 1;
+	}	
+	return 0;	
+}
+
+/*
+* 函数介绍：对加速进行时间限制，在一定时间后切换回慢速巡线(44-37)
+* 输入参数：限制的时间
+* 输出参数：无
+* 返回值  ：1(加速完成)0（加速未完成）
+* 其他		：将巡线方法切换回慢速巡线
+* 作者    ：@断忆
+
+*/
+u8 BlockHandleMethod_speedtime_44_37()
+{
+	static u8 flag=0;
+	if(0==flag)
+	{
+		Time3(START);
+		gl_time=0;
+		flag=1;
+	}
+	if(1==flag && gl_time > 35)
+	{
+		gl_time=0;
+		glHello_control.linkInform.findLineWays = FL_quickest;  //切换到超高速巡线
+		findLineFlag = 0;
+		flag = 2;
+	}	
+	else if(2 == flag && gl_time >TIME_44_TO_37)
+	{	
+		Time3(STOP);
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_default;  //切换到缺省巡线
+		findLineFlag = 0;
+		flag = 0;
+		return 1;
+	}	
+	return 0;	
+}
+
+/*
+* 函数介绍：对加速进行时间限制，在一定时间后切换回慢速巡线(17-37)
+* 输入参数：限制的时间
+* 输出参数：无
+* 返回值  ：1(加速完成)0（加速未完成）
+* 其他		：将巡线方法切换回慢速巡线
+* 作者    ：@断忆
+
+*/
+u8 BlockHandleMethod_speedtime_14_37()
+{
+	static u8 flag=0;
+	if(0==flag)
+	{
+		Time3(START);
+		gl_time=0;
+		flag=1;
+	}
+	if(1==flag && gl_time > 50)
+	{
+		flag = 2;
+		gl_time=0;
+		glHello_control.linkInform.findLineWays = FL_quickest;  //切换到超高速巡线
+		findLineFlag = 0;
+	}	
+	else if(2 == flag && gl_time >TIME_14_TO_37)
+	{	
+		Time3(STOP);
+		flag = 0;
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_default;  //切换到缺省巡线
+		findLineFlag = 0;
+		return 1;
+	}	
+	return 0;	
+}
+
+/*
+* 函数介绍：对加速进行时间限制，在一定时间后切换回慢速巡线(17-37)
+* 输入参数：限制的时间
+* 输出参数：无
+* 返回值  ：1(加速完成)0（加速未完成）
+* 其他		：将巡线方法切换回慢速巡线
+* 作者    ：@断忆
+
+*/
+u8 BlockHandleMethod_speedtime_38_37()
+{
+	static u8 flag=0;
+	if(0==flag)
+	{
+		Time3(START);
+		gl_time=0;
+		flag=1;
+	}
+	if(1==flag && gl_time > 50)
+	{
+		flag = 2;
+		gl_time=0;
+		glHello_control.linkInform.findLineWays = FL_quickest;  //切换到超高速巡线
+		findLineFlag = 0;
+	}	
+	else if(2 == flag && gl_time >TIME_38_TO_37)
+	{	
+		Time3(STOP);
+		flag = 0;
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_default;  //切换到缺省巡线
+		findLineFlag = 0;
+		return 1;
+	}	
+	return 0;	
+}
+
+/*
+* 函数介绍：对加速进行时间限制，在一定时间后切换回慢速巡线(6-7)
+* 输入参数：限制的时间
+* 输出参数：无
+* 返回值  ：1(加速完成)0（加速未完成）
+* 其他		：将巡线方法切换回慢速巡线
+* 作者    ：@断忆
+
+*/
+ u8 BlockHandleMethod_speedtime_6_7()
+{
+	static u8 flag=0;
+	if(0==flag)
+	{
+		Time3(START);
+		gl_time=0;
+		flag=1;
+	}
+	if(1==flag && gl_time > 1)
+	{
+		flag = 2;
+		gl_time=0;
+		glHello_control.linkInform.findLineWays = FL_quickest;  //切换到超高速巡线
+		findLineFlag = 0;
+	}	
+	else if(2 == flag && gl_time >TIME_6_TO_7)
+	{	
+		Time3(STOP);
+		flag = 0;
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_default;  //切换到缺省巡线
+		findLineFlag = 0;
+		return 1;
+	}	
+	return 0;	
+}
+
 
 
 
@@ -1827,10 +2346,10 @@ u8 BlockHandleMethod_S_BOARD_1()
 		gl_time=0;
 		flag=2;
 	}
-	else if(2==flag&&gl_time>130)
+	else if(2==flag&&gl_time>160)
 	{
-		speedAdjustment(0,0);
-		delay_ms(500);
+//		speedAdjustment(0,0);
+//		delay_ms(500);
 		glHello_control.linkInform.findLineWays =save;
 		findLineFlag = 0;
 		Time3(STOP);

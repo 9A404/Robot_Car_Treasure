@@ -92,8 +92,6 @@ u8 rotAngle_Right(float angle)
 		if(angle>=160)
 		speedAdjustment(speed+1500,-speed-1500);
 		else speedAdjustment(speed+900,-speed-900);
-//		speedAdjustment(speed+3000,-speed-0);
-//		else speedAdjustment(speed+1800,-speed-0);
 		//u3_printf("glYaw:%0.2f err:%d\n",glYaw,err);
 	}
 	#else

@@ -20,7 +20,7 @@ const u8 runMethodTable[][100]={
 /*2*/{1,2,3,4,3,5,9,10,11,10,12,10,9,5,6,8,6,7,6,5,2,1,2},
 		
 	/*拿2个宝物 已修改*/	
-/*3*/{1,2,3,4,3,5,12,7,6,15,37,15,14,16,44,45,46,47,46,48,43,16,44,14,6,5,2,1,2},  
+/*3*/{1,2,3,4,3,5,12,7,6,15,37,14,16,44,45,46,47,46,48,43,16,44,14,6,5,2,1,2},  
 		
 	/*拿3个宝物加一个梯形 已修改*/
 /*4*/{1,2,3,4,3,5,12,7,6,15,37,14,16,44,45,46,47,46,48,43,17,18,19,18,20,21,22,23,24,23,25,26,27,26,25,23,22,21,20,18,17,14,6,5,2,1,2},
@@ -119,6 +119,8 @@ u8 pes_R=0;																		//右边光电传感器状态
 u8 SecondGameNum1=3;												//一键切换第二遍路线3（保守路线）
 u8 SecondGameNum2=4;												//一键切换第二遍路线4（高分路线）
 
+u16 currentSpeed=0;
+u16 goalSpeed=0;
 /*
 
 * 函数介绍：比赛
@@ -216,7 +218,7 @@ void Fun_game(void)
 				roadBlocksHandle_Task(&glHello_control,&glrunState);	 // 障碍处理任务
 				speed_Task(&glHello_control,&glrunState);				//加速任务
 			 	carPark_Task(&glHello_control, &glrunState);       		 // 停车任务
-        rotAngle_Task(&glHello_control,&glrunState);           // 转弯任务
+                rotAngle_Task(&glHello_control,&glrunState);           // 转弯任务
 			}
 		seekNode_Task(&glHello_control,&glrunState);      		 // 找点任务
 			

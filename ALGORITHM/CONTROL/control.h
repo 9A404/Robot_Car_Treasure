@@ -8,13 +8,14 @@
 
 
 /*巡线方法*/
-typedef enum {FL_default,FL_circular,FL_node,FL_43_44,FL_16_44,FL_angle,FL_slow_angle,FL_middle,FL_brige,FL_brigeup,FL_brigedown,FL_slow,FL_quick,FL_stop,FL_quickest,FL_upPeak,FL_downPeak,FL_UpPlatform,FL_DownPlatform,FL_left,FL_Right,NFL,NFL_slow,BACK_NFL}findLine;
+typedef enum {FL_default,FL_circular,FL_node,FL_43_44,FL_16_44,FL_angle,FL_slow_angle,FL_middle,FL_brige,FL_brigeup,FL_brigedown,FL_slow,FL_quick,FL_stop,
+			  FL_quickest,FL_upPeak,FL_downPeak,FL_UpPlatform,FL_DownPlatform,FL_left,FL_Right,NFL,NFL_slow,BACK_NFL,FL_UPRISE,FL_DOWNRISE}findLine;
 
 /*路障类型*/
 typedef enum {FREE,BRIGE,DOOR,S_BOARD_1,S_BOARD_2,S_BOARD_26_27,SEESAW,GO_TILT_R,GO_TILT_L,\
 							BACK_TILT_R,BACK_TILT_L,SLOPE,SLOPE_46_43,PLATFORM,PLATFORM_1,Peak,TRAPEZOID_1,TRAPEZOID_2,TRAPEZOID_3,\
-							TIME,TIME_1,TIME_2,TIME_44_43,TIME_45_46,DOWNPLATFORM,ALL_TILT,\
-							DOWN27_26,ANGLE,STEP,HEIGHTLITM	}typeRoadblock;	//无障碍、桥、门、减速带、跷跷板、倾斜路面、斜坡、平台景点、梯形景点、复杂节点定时                                                                                                                                  
+							TIME,TIME_1,TIME_2,TIME_44_43,TIME_45_46,SPEEDTIME_11_10,SPEEDTIME_8_6,SPEEDTIME_7_6,SPEEDTIME_6_7,SPEEDTIME_5_12,SPEEDTIME_2,SPEEDTIME_36_17,SPEEDTIME_44_37,SPEEDTIME_14_37,SPEEDTIME_38_37,DOWNPLATFORM,ALL_TILT,\
+							DOWN27_26,ANGLE,SPEEDTIME_12_6,	SPEEDTIME_5_10,SPEEDTIME_6_15,STEP,	}typeRoadblock;	//无障碍、桥、门、减速带、跷跷板、倾斜路面、斜坡、平台景点、梯形景点、复杂节点定时                                                                                                                                  
 
 	
 /*加速类型*/
