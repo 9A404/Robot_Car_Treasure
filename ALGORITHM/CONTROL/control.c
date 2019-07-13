@@ -737,6 +737,17 @@ void speed_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runState){
 	if(runState->speedState == NTBE){
 		
 		switch(controlp->linkInform.typeSpeed){
+			case UPRISE:if(1 == Speed_upRise(controlp->linkInform.speedTime))
+						{
+							runState->speedState=EIC;
+							#ifdef BlueTooth_Debug
+								u3_printf("SEEK_PESL_EIC\r\n");
+							#endif
+							
+							#ifdef LED_Debug
+								led_flash();
+							#endif
+						}break;
 			
 			case DOWN_SPEED:if(1 == Speed_downMethod(controlp->linkInform.speedTime))
 							{

@@ -618,7 +618,7 @@ u8 flMethod_upRise()
 		}
 		PID_Init(&glsensorPID,20,currentSpeed+200,P,0,D);								//对速度PID的参数进行初始化设置
 		speedRec_Init(&glmotorSpeed,currentSpeed,currentSpeed);					//对初始速度进行设定
-		currentSpeed+=gl_time*20;
+		currentSpeed+=gl_time*10;
 		if(currentSpeed>=goalSpeed){
 			findLineFlag=1;
 			return 1;
@@ -657,7 +657,7 @@ u8 flMethod_downRise()
 		}
 		PID_Init(&glsensorPID,20,currentSpeed+200,P,0,D);								//对速度PID的参数进行初始化设置
 		speedRec_Init(&glmotorSpeed,currentSpeed,currentSpeed);					//对初始速度进行设定
-		currentSpeed-=gl_time*20;
+		currentSpeed-=gl_time*10;
 		if(currentSpeed<=goalSpeed){
 			findLineFlag=1;
 			return 1;

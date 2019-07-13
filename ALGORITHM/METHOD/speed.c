@@ -159,6 +159,7 @@ u8 Speed_upRise(u16 time){
 		gl_time = 0;
 		glHello_control.linkInform.findLineWays = FL_DOWNRISE;
 		findLineFlag = 0;
+		goalSpeed=SLOW_SPEED;
 		flag=2;
 	}
 	else if(2==flag &&gl_time > 30)

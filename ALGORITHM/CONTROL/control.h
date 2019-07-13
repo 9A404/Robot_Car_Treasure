@@ -19,7 +19,7 @@ typedef enum {FREE,BRIGE,DOOR,S_BOARD_1,S_BOARD_2,S_BOARD_26_27,SEESAW,GO_TILT_R
 
 	
 /*加速类型*/
-typedef enum {DOWN_SPEED,COMMON_SPEED,NOSPEED,TME}typeSpeed;//下台加速，普通加速，不加速，占时间（用于处理复杂节点)
+typedef enum {DOWN_SPEED,COMMON_SPEED,NOSPEED,TME,UPRISE}typeSpeed;//下台加速，普通加速，不加速，占时间（用于处理复杂节点)
 
 /*找节点方法*/
 typedef enum {SEEK_PESL,SEEK_PESR,SEEK3,SEEK4,SEEK_default,NOTSEEK,SEEK_SeeSaw,SEEK_SeeSaw_back,SEEK_PesPlatform,SEEK_Collision,SEEK_Collision_1,SEEK_7_6_15,SEEK_6_15_37,}seekNodeWay;
