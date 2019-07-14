@@ -130,9 +130,15 @@ u8 seekNodeMethod_6_15_37()
 	static u8 flag=0;
 	if(seekNodeMethod_digR()){
 		flag=1;
+		Time3(START);
+		gl_time=0;
 	}
-	else if(1==flag){
-		rotAngle_Left(45);
+	else if(1==flag && gl_time>30){
+		
+		//rotAngle_Left(45);
+		gl_time=0;
+		Time3(STOP);
+		flag=0;
 		return 1;
 	}
 	return 0;	
@@ -315,26 +321,26 @@ u8 seekNodeMethod_pesPlatform()
 		if(PES_Platform==1) 
 		{
 			Time3(STOP);
-		  gl_time=0;
+			gl_time=0;
 			flag=1;
 		}
 		else 
 		{
 			Time3(STOP);
-		  gl_time=0;
+			gl_time=0;
 			flag=0;
 		}
 	}	
 	//if (1==flag&&PES_Platform==0) flag = 2;
 	else if (1==flag) 
 	{
-		glHello_control.linkInform.findLineWays = FL_slow;
-	  findLineFlag = 0;
+		glHello_control.linkInform.findLineWays = FL_UpPlatform;
+		findLineFlag = 0;
 		flag=2;
 	}
 	else if(2==flag&&0==PES_Platform) 
 	{
-	flag=3;
+		flag=3;
 
 	}
 	else if(3==flag&&1==PES_Platform)

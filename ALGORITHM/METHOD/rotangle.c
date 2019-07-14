@@ -81,7 +81,7 @@ u8 rotAngle_Right(float angle)
 	err=errCalculation(glYaw,set);
 	if(err<0)err=-err;
 	#ifdef _NEW_MPU6050_
-	PID_Init(&glrotAnglePID,0,4700,60,0,160);																	//对转弯PID的参数进行初始化设置，旋转PID直接传误差值
+	PID_Init(&glrotAnglePID,0,4000,60,0,160);																	//对转弯PID的参数进行初始化设置，旋转PID直接传误差值
 	while(err > 5)
 	{
 		MPU6050_Pose_usart();
@@ -89,9 +89,10 @@ u8 rotAngle_Right(float angle)
 		if(err<0)err=-err;
 		//speed = 4500-(3500/angle)*(angle-err);
 		speed=positionPIDCalc_rotAngle(&glrotAnglePID,err); //速度位置式PID输出,直接传入误差参数
-		if(angle>=160)
+		if(angle>160)
 		speedAdjustment(speed+1500,-speed-1500);
 		else speedAdjustment(speed+900,-speed-900);
+		//speedAdjustment(speed+1000,-speed-1000);
 		//u3_printf("glYaw:%0.2f err:%d\n",glYaw,err);
 	}
 	#else
@@ -142,7 +143,7 @@ u8 rotAngle_Left(float angle)
 	if(err<0)err=-err;
 	
     #ifdef _NEW_MPU6050_
-	PID_Init(&glrotAnglePID,0,4700,60,0,160);																	//对转弯PID的参数进行初始化设置，旋转PID直接传误差值
+	PID_Init(&glrotAnglePID,0,4000,60,0,160);																	//对转弯PID的参数进行初始化设置，旋转PID直接传误差值
 	while(err > 5)
 	{
 		MPU6050_Pose_usart();
@@ -150,8 +151,9 @@ u8 rotAngle_Left(float angle)
 		if(err<0)err=-err;
 		//speed = 4500-(3500/angle)*(angle-err);
 		speed=positionPIDCalc_rotAngle(&glrotAnglePID,err); //速度位置式PID输出,直接传入误差参数
-        if(angle>=160) speedAdjustment(-speed-1500,+speed+1500);
+		if(angle>=160) speedAdjustment(-speed-1500,+speed+1500);
 		else speedAdjustment(-speed-900,speed+900);
+		//speedAdjustment(-speed-1000,speed+1000);
 		//u3_printf("glYaw:%0.2f err:%d\n",glYaw,err);
 	}
 	#else
@@ -294,14 +296,17 @@ u8 rotAngleMethod_LFL()
 		findLineFlag = 0;
 		flag=2;
 	}
-	if((2==flag) && (glsensor_dig_value&0x001))
+	if((2==flag) && (glsensor_dig_value&0x00f))
 	{
 		flag = 3;
-		
+//		speedAdjustment(0,0);
+//		delay_ms(1000);
 	}
-	if(3==flag && 0==(glsensor_dig_value&0x001))
+	if(3==flag && 0==(glsensor_dig_value&0x00f))
 	{
 		flag = 0;
+//		speedAdjustment(0,0);
+//		delay_ms(1000);
 		return 1;
 	}
 	

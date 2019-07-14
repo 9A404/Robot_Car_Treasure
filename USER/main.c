@@ -2,7 +2,7 @@
 
 
 /*全局变量*/
-const u16  basic_sensorThreshold[NUM_OF_SENSOR] = {3800,3800,3800,3800,3800,3800,3800,3800,3800,3800,3800,3800};
+const u16  basic_sensorThreshold[NUM_OF_SENSOR] = {4000,4000,4000,4000,4000,4000,4000,4000,4000,4000,4000,4000};
 const u16  brige_sensorThreshold[NUM_OF_SENSOR] = {800,800,800,800,800,800,800,800,800,800,800,800};
 
                          
@@ -11,7 +11,7 @@ const u16  brige_sensorThreshold[NUM_OF_SENSOR] = {800,800,800,800,800,800,800,8
 /*奔跑路线表格*/
 const u8 runMethodTable[][100]={
 	/* 调试路线 */
-/*0*/{26,25,23,22,21,20,18,17,14,6,5,2,1,2},
+/*0*/{7,6,15,37,14,16,44,45,46,47,46,48,43,16,44,14,6,5,2,1,2},
 	
 	/* 保守路线一,只拿一个宝物 */
 /*1*/{1,2,3,4,3,5,12,7,6,5,2,1,2},
@@ -72,7 +72,7 @@ const u8 runMethodTableTreasure[][100]={
 	{47,46,43,44,37,36,15,30,31,32,31,33,23,24,23,25,26,27,26,25,33,34,35,36,35,14,42,6,5,2,1,2},
 };
 
-u8 runMethod[100]=	{1,2,5,9};	//保守奔跑的路线:方案二
+u8 runMethod[100]={1,2,5,9};	//保守奔跑的路线:方案二
 u8 runMethod_2[100]={1,2,5,9};  //保守奔跑的路线:方案二
 /***********************************************************************************************************************************************/
 
@@ -217,10 +217,11 @@ void Fun_game(void)
 				findLine_Task(&glHello_control,&glrunState);        	 // 巡线任务
 				roadBlocksHandle_Task(&glHello_control,&glrunState);	 // 障碍处理任务
 				speed_Task(&glHello_control,&glrunState);				//加速任务
+				seekNode_Task(&glHello_control,&glrunState);      		 // 找点任务
 			 	carPark_Task(&glHello_control, &glrunState);       		 // 停车任务
                 rotAngle_Task(&glHello_control,&glrunState);           // 转弯任务
 			}
-		seekNode_Task(&glHello_control,&glrunState);      		 // 找点任务
+		
 			
 	}
 }
@@ -253,8 +254,11 @@ int main(void)
 //	MPU6050_Init();		        //MPU6050初始化
 	runMethodNum=sizeof(runMethodTable)/sizeof(runMethodTable[0]); //计算runMethodTable中共有几条线路
 	while(1)
-	{			
+	{	
+		//speedAdjustment(2000,2000);		
 		displayOperation();
+		//rotAngle_Left(180);
+		//delay_ms(1000);
 	}
 }
 		

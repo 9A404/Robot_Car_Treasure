@@ -122,7 +122,8 @@ void sgAngleControl(SgNumber num,RotationAngle angle)
 {
 	switch(num)
 	{
-		case HEAD	:	TIM8->CCR3 = angle;break;
+		case HEAD	:TIM8->CCR3 = angle;break;
+		case BODY   :TIM8->CCR4 = angle;break;
 		case L_ARM: TIM8->CCR1 = angle;break;
 		case R_ARM:	TIM8->CCR2 = angle;break;
 		default 	: break;

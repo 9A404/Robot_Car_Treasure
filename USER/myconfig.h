@@ -32,7 +32,7 @@
 //#define BlueTooth_Debug
 
 /*LEDµ÷ÊÔ*/
-#define LED_Debug
+//#define LED_Debug
 
 /*ÂıËÙÑ²Ïß*/
 //#define Slow_FL

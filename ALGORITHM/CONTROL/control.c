@@ -333,11 +333,11 @@ void findLine_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runStat
 				case FL_downPeak	:flMethod_downPeak();break;
 				case FL_left			:flMethod_left();break;
 				case FL_Right			:flMethod_right();break;
-				case NFL: 			 speedAdjustment(2090,2100);break;
+				case NFL: 			 speedAdjustment(2000,2000);break;
 				case FL_angle:   flMethod_NFL();break;
 				case FL_slow_angle :flMethod_NFL_slow();break;
 				case NFL_slow:   speedAdjustment(1100,1100);break;
-				case BACK_NFL:   speedAdjustment(-1300,-1315);break;
+				case BACK_NFL:   speedAdjustment(-1300,-1300);break;
 				case FL_UPRISE:	 flMethod_upRise();break;
 				case FL_DOWNRISE:flMethod_downRise();break;
 				default:  break;
@@ -594,127 +594,13 @@ void roadBlocksHandle_Task(const controlCenterTypeDef *controlp,runStateTypeDef 
 														u3_printf("Trapezoid_3_EIC\r\n");
 													#endif
 												}break;
-			
-			case TIME				:if(1 == BlockHandleMethod_TIME ())			 
-												{
-													runState->F_RoadBlockState = EIC;
-													#ifdef BlueTooth_Debug
-														u3_printf("TIME_EIC\r\n");
-													#endif
-												}break;
-			case TIME_1			:if(1 == BlockHandleMethod_TIME_1 ())		 
-											{
-												runState->F_RoadBlockState = EIC;
-												#ifdef BlueTooth_Debug
-													u3_printf("TIME_EIC_1\r\n");
-												#endif
-											}break;
-			case TIME_2			:if(1 == BlockHandleMethod_TIME_2 ())		 
-											{
-												runState->F_RoadBlockState = EIC;
-												#ifdef BlueTooth_Debug
-													u3_printf("TIME_EIC_2\r\n");
-												#endif
-											}break;
-			case TIME_44_43			:if(1 == BlockHandleMethod_TIME_44_43 ())		 
-												{
-													runState->F_RoadBlockState = EIC;
-													#ifdef BlueTooth_Debug
-														u3_printf("TIME_EIC_3\r\n");
-													#endif
-												}break;
-		case TIME_45_46			:if(1 == BlockHandleMethod_TIME_45_46 ())		 
+			case HEIGHTLITM    :if(1==LimtdeHeight_Method())
 								{
 									runState->F_RoadBlockState = EIC;
 									#ifdef BlueTooth_Debug
 										u3_printf("TIME_EIC_3\r\n");
 									#endif
 								}break;
-					
-			case SPEEDTIME_11_10:if(1 == BlockHandleMethod_speedtime_11_10())
-												{
-													runState->F_RoadBlockState = EIC;
-													#ifdef BlueTooth_Debug
-															u3_printf("SeedT_1_EIC\r\n");
-													#endif
-												}break;
-		case SPEEDTIME_5_10:if(1 == BlockHandleMethod_speedtime_5_10())
-												{
-													runState->F_RoadBlockState = EIC;
-													#ifdef BlueTooth_Debug
-															u3_printf("SeedT_1_EIC\r\n");
-													#endif
-												}break;
-        case SPEEDTIME_8_6:if(1 == BlockHandleMethod_speedtime_8_6())
-												{
-													runState->F_RoadBlockState = EIC;
-													#ifdef BlueTooth_Debug
-															u3_printf("SeedT_1_EIC\r\n");
-													#endif
-												}break;		
-			case SPEEDTIME_6_15:if(1 == BlockHandleMethod_speedtime_6_15())
-												{
-													runState->F_RoadBlockState = EIC;
-													#ifdef BlueTooth_Debug
-															u3_printf("SeedT_1_EIC\r\n");
-													#endif
-												}break;																
-			case SPEEDTIME_2:if(1 == BlockHandleMethod_speedtime_2())
-												{
-													runState->F_RoadBlockState = EIC;
-													#ifdef BlueTooth_Debug
-														u3_printf("SeedT_2_EIC\r\n");
-													#endif
-												}break;
-			case SPEEDTIME_7_6:if(1 == BlockHandleMethod_speedtime_7_6())
-												{
-													runState->F_RoadBlockState = EIC;
-													#ifdef BlueTooth_Debug
-														u3_printf("SeedT_7_6_EIC\r\n");
-													#endif
-												}break;
-			case SPEEDTIME_36_17	:if(1 == BlockHandleMethod_speedtime_36_17 ())
-															{
-																runState->F_RoadBlockState = EIC;
-																#ifdef BlueTooth_Debug
-																	u3_printf("SeedT_36_17_EIC\r\n");
-																#endif
-															}break;
-			case SPEEDTIME_44_37	:if(1 == BlockHandleMethod_speedtime_44_37()) 
-														{
-															runState->F_RoadBlockState = EIC;
-															#ifdef BlueTooth_Debug
-																u3_printf("SeedT_17_37_EIC\r\n");
-															#endif
-														}break;
-			case SPEEDTIME_14_37  :if(1 == BlockHandleMethod_speedtime_14_37()) 
-															{
-																runState->F_RoadBlockState = EIC;
-																#ifdef BlueTooth_Debug
-																	u3_printf("SeedT_17_37_EIC \r\n");
-																#endif
-															}break;
-			case SPEEDTIME_6_7:if(1 == BlockHandleMethod_speedtime_6_7())
-													{
-														runState->F_RoadBlockState = EIC;
-														#ifdef BlueTooth_Debug
-															u3_printf("SeedT_1_EIC\r\n");
-														#endif
-													}break;
-			case SPEEDTIME_5_12:if(1 == BlockHandleMethod_speedtime_5_12())
-													{
-														runState->F_RoadBlockState = EIC;
-														#ifdef BlueTooth_Debug
-															u3_printf("SeedT_1_EIC\r\n");
-														#endif
-													}break;
-		    case SPEEDTIME_12_6:if(1 == BlockHandleMethod_speedtime_12_6())
-													{
-														runState->F_RoadBlockState = EIC;
-														#ifdef BlueTooth_Debug
-															u3_printf("SeedT_1_EIC\r\n");
-														#endif
-													}break;
 			default:  			break;
 		}
 	}
@@ -901,6 +787,28 @@ void seekNode_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runStat
 									led_flash();
 								#endif
 							}break;
+			case SEEK_digR:if(1 == seekNodeMethod_digR())
+							{
+								runState->seekNodeState=EIC;
+								#ifdef BlueTooth_Debug
+									u3_printf("SEEK_default_EIC\r\n");
+								#endif
+									
+								#ifdef LED_Debug
+									led_flash();
+								#endif
+							}break;		
+			case SEEK_digL:if(1 == seekNodeMethod_digL())
+							{
+								runState->seekNodeState=EIC;
+								#ifdef BlueTooth_Debug
+									u3_printf("SEEK_default_EIC\r\n");
+								#endif
+									
+								#ifdef LED_Debug
+									led_flash();
+								#endif
+							}break;	
 			case NOTSEEK:if(1)
 						{
 								runState->seekNodeState=EIC;

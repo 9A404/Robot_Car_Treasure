@@ -14,7 +14,7 @@
 
 u8 parkMethod_default()
 {
-	delay_ms(520);
+	delay_ms(400);
 	return 1;
 }
 
@@ -158,6 +158,8 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 				if(2==QR_code_flag && 2==RunMethod_Check) u3_printf("1");
 				treasure_flag=1;
 			}
+			
+			
 			flag=1;
 		}
 		if(1==flag&&0==PES_H)
@@ -190,10 +192,8 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 //				flag1=0;
 //			}
 			#ifdef _NEW_MPU6050_
-			if(controlp->curNode==24||controlp->curNode==27)
-			  rotAngle_Right(170);
-			else rotAngle_Right(180);
-			//rotAngle_Right(180);
+			//rotAngle_Left(180);
+			rotAngle_Right(180);
 			#else
 			rotAngle_Left(180);
 			#endif
