@@ -63,7 +63,7 @@ float  errCalculation(float curYaw,float setYaw)
 * ×÷Õß    £º@¶ÏÒä
 
 */
-u8 rotAngle_Right(float angle)
+u8 rotAngle_Right(float angle)//130
 {
 	int err,speed;
 	float set;

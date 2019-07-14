@@ -140,7 +140,7 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 		{
 //		speedAdjustment(0,0);
 //		delay_ms(500);
-			glHello_control.linkInform.findLineWays = NFL;
+			glHello_control.linkInform.findLineWays = NFL;//盲走
 			if(QR_code_flag==0&&controlp->curNode==4)  
 			{
 			//	Lcd_Clear(WHITE);
@@ -167,7 +167,7 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 			glHello_control.linkInform.findLineWays = NFL_slow;
 			flag=2;
 		}
-		if(2==flag&&1==Collision)
+		if(2==flag&&1==Collision)//Collision是否撞墙？
 		{
 			delay_ms(100);
 			flag=3;
@@ -175,7 +175,7 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 		else if(3==flag)
 		{	
 			speedAdjustment(-1300,-1300);
-			delay_ms(270);	
+			delay_ms(320);	
 			speedAdjustment(0,0);
 			sgAngleControl(L_ARM,L_UP);
 			delay_ms(200);
@@ -184,14 +184,14 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 			delay_ms(200);
 			sgAngleControl(R_ARM,R_DOWN);
 			delay_ms(200);
-//			if(flag1)       //用于扫不到码不走
-//			{
-//				while(!(USART3_RX_STA&0x8000));
-//				flag1=0;
-//			}
+			if(flag1)       //用于扫不到码不走
+			{
+				while(!(USART3_RX_STA&0x8000));
+				flag1=0;
+			}
 			#ifdef _NEW_MPU6050_
 			if(controlp->curNode==24||controlp->curNode==27)
-			  rotAngle_Right(170);
+			  rotAngle_Right(180);
 			else rotAngle_Right(180);
 			//rotAngle_Right(180);
 			#else

@@ -333,7 +333,7 @@ void findLine_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runStat
 				case FL_downPeak	:flMethod_downPeak();break;
 				case FL_left			:flMethod_left();break;
 				case FL_Right			:flMethod_right();break;
-				case NFL: 			 speedAdjustment(2090,2100);break;
+				case NFL: 			 speedAdjustment(2090,2100);break;//speedAdjustment(1730,1800)
 				case FL_angle:   flMethod_NFL();break;
 				case FL_slow_angle :flMethod_NFL_slow();break;
 				case NFL_slow:   speedAdjustment(1100,1100);break;
@@ -822,7 +822,7 @@ void seekNode_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runStat
 									led_flash();
 								#endif
 						}break;
-			case SEEK_PesPlatform:if(1==seekNodeMethod_pesPlatform())
+			case SEEK_PesPlatform:if(1==seekNodeMethod_pesPlatform())  //pesÊÇ¹âµçÉ¨ÃèÆ÷
 								{
 									runState->seekNodeState=EIC;
 									#ifdef BlueTooth_Debug
@@ -1046,7 +1046,7 @@ void rotAngle_Task(controlCenterTypeDef *controlp,runStateTypeDef *runState)
 															u3_printf("HR_135_EIC\n\n");
 														#endif
 													}break;
-			case HR_145:if(1 == rotAngle_Right(150))
+			case HR_145:if(1 == rotAngle_Right(145))
 									{
 														runState->RotangleState=EIC;
 														runState->F_LineState=EIC;

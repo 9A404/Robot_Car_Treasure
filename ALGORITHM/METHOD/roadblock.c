@@ -462,7 +462,7 @@ static float Monitor_ROLL()
 		//led_flash();
 		flag=1;
 	}
-	else if(1==flag&&gl_time>95)         
+	else if(1==flag&&gl_time>106)         
 	{
 //		temp = Monitor_ROLL();
 //		if( temp > -10)               //如果车在跷跷板的另外一端则继续盲走后置flag=2
@@ -492,7 +492,6 @@ static float Monitor_ROLL()
 		//if(pes_R==0) {speedAdjustment(2000,2400);delay_ms(10);}
 		//else if(pes_L==0) {speedAdjustment(2400,2000);delay_ms(10);}
 	    delay_ms(800);
-
 
 		temp = Monitor_ROLL();
 		glHello_control.linkInform.findLineWays = FL_slow;
@@ -648,9 +647,13 @@ u8 BlockHandleMethod_Step (){
 		gl_time=0;
 		flag=2;
 	}
-	else if(gl_time>1 && 2==flag){
+	else if(gl_time>8 && 2==flag){
 		Time3(STOP); //关闭定时器
 		gl_time = 0;
+		
+//		speedAdjustment(0,0);
+//		delay_ms(50000);
+		
 		glHello_control.linkInform.findLineWays = save;   
 		findLineFlag = 0;
 		flag = 0;
@@ -679,23 +682,23 @@ u8 BlockHandleMethod_Slope ()
 	}
 	else if(1 == flag&&1 == PES_Platform)          //前下光电开关不亮代表到达山丘底部
 	{
-		glHello_control.linkInform.findLineWays = FL_UpPlatform;   
+		glHello_control.linkInform.findLineWays = FL_UpPlatform;   //2200--2000
 		findLineFlag = 0;
 		flag=2;	
 	}
 	else if(2==flag&&0==PES_Platform)         //前下光电开关亮代表到达山丘顶部
 	{
-		glHello_control.linkInform.findLineWays = FL_DownPlatform;   
+		glHello_control.linkInform.findLineWays = FL_DownPlatform;   ////2000--1300
 		findLineFlag = 0;
 		Time3(START); //打开定时器
 		gl_time=0;
 		flag=3;
 	}
-	else if(gl_time>260 && 3==flag)
+	else if(gl_time>200 && 3==flag)
 	{
 		Time3(STOP); //关闭定时器
-			speedAdjustment(0,0);
-			delay_ms(500);
+		speedAdjustment(0,0);
+		delay_ms(50000);//	delay_ms(500);
 		gl_time = 0;
 		glHello_control.linkInform.findLineWays = save;   
 		findLineFlag = 0;
@@ -805,6 +808,11 @@ u8 BlockHandleMethod_TIME()
 	}
 	if(gl_time > COMMON_TIME)
 	{	
+		
+//		speedAdjustment(0,0);
+//		while(1);
+//		delay_ms(200);
+		
 		Time3(STOP); //关闭定时器
 		gl_time = 0;
 		flag=0;
@@ -1821,16 +1829,12 @@ u8 BlockHandleMethod_S_BOARD_1()
 	{
 		glHello_control.linkInform.findLineWays =FL_slow;
 		findLineFlag = 0;
-//		speedAdjustment(0,0);
-//		delay_ms(500);
 		Time3(START);
 		gl_time=0;
 		flag=2;
 	}
-	else if(2==flag&&gl_time>130)
+	else if(2==flag&&gl_time>100)
 	{
-		speedAdjustment(0,0);
-		delay_ms(500);
 		glHello_control.linkInform.findLineWays =save;
 		findLineFlag = 0;
 		Time3(STOP);
@@ -1916,10 +1920,12 @@ u8 BlockHandleMethod_26_27()
 		gl_time=0;
 		flag = 3;
 	}
-	if(3==flag&&gl_time>200)
+	if(3==flag&&gl_time>100)
 	{
+		
 //		speedAdjustment(0,0);
 //		delay_ms(500);
+		
 		glHello_control.linkInform.findLineWays =save;
 		findLineFlag = 0;
 		led_flash();

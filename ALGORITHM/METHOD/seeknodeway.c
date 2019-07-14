@@ -28,7 +28,7 @@
 * 输入参数：
 * 输出参数：
 * 返回值  ：1(找到节点)0（没有找到节点）
-* 其他		：找点方法思路：“1”的个数为4时将flag置1
+* 其他		：找点方法思路：“1”的个数为4时将flag置1，
 													下一次检测到“1”的个数为5时候判断为此处为节点 
 * 作者    ：@断忆
 
@@ -47,6 +47,11 @@ u8 seekNodeMethod_default()
 //	return 0;
 	 if(3 < calculateNum(glsensor_dig_value))
 	 {
+		 
+//	 delay_ms(50);
+// speedAdjustment(0,0);
+//	 while(1);
+		 
 		return 1;
 	 }
 	 return 0;
@@ -131,8 +136,10 @@ u8 seekNodeMethod_6_15_37()
 	static u8 flag=0;
 	if(seekNodeMethod_digR()){
 		flag=1;
+	
 	}
 	else if(1==flag){
+		delay_ms(100);
 		rotAngle_Left(30);
 		flag=0;
 		return 1;
@@ -313,7 +320,7 @@ u8 seekNodeMethod_pesPlatform()
 	{
 		Time3(START);
 		gl_time=0;
-		while(gl_time<10);
+		while(gl_time<3);
 		if(PES_Platform==1) 
 		{
 			Time3(STOP);
@@ -336,7 +343,7 @@ u8 seekNodeMethod_pesPlatform()
 	}
 	else if(2==flag&&0==PES_Platform) 
 	{
-	flag=3;
+		flag=3;
 
 	}
 	else if(3==flag&&1==PES_Platform)
@@ -460,6 +467,9 @@ u8 seekNodeMethod_SeeSaw()
 	   {
 		speedAdjustment(0,0);
 		delay_ms(200);
+			 
+	//		 while(1);
+			
 		PID_Init(&glrotAnglePID,0,0,0,0,0);//对转弯PID的参数进行初始化设置，旋转PID直接传误差值
 		err=errCalculation(glYaw,angle_read);
 		if(err<0)err=-err;
@@ -476,8 +486,8 @@ u8 seekNodeMethod_SeeSaw()
 		speed=positionPIDCalc_rotAngle(&glrotAnglePID,err); //速度位置式PID输出,直接传入误差参数
 		speedAdjustment(0,speed+2500);
 		}
-//		speedAdjustment(0,0);
-//		while(1);
+		//speedAdjustment(0,0);
+	//	while(1);
 		return 1;
 	}
 		

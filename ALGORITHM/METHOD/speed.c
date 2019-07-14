@@ -93,6 +93,10 @@ u8 Speed_commonMethod(u16 time){
 	{
 		Time3(STOP);
 		gl_time = 0;
+		
+//		speedAdjustment(0,0);
+//		delay_ms(2000);
+		
 		glHello_control.linkInform.findLineWays = FL_slow;
 		findLineFlag = 0;
 		flag=0;

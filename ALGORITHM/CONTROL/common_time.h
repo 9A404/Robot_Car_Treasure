@@ -16,7 +16,7 @@
 #define TIME_5_TO_12  80
 #define TIME_36_TO_17 200
 #define TIME_44_TO_37 275
-#define TIME_14_TO_37 150
+#define TIME_14_TO_37 180
 #define TIME_38_TO_37 150
 #define TIME_7_TO_12  200
 #define TIME_12_TO_6 190
