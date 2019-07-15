@@ -333,11 +333,13 @@ void findLine_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runStat
 				case FL_downPeak	:flMethod_downPeak();break;
 				case FL_left			:flMethod_left();break;
 				case FL_Right			:flMethod_right();break;
-				case NFL: 			 speedAdjustment(2090,2100);break;
+				case NFL: 			 speedAdjustment(1755,2000);	break;
 				case FL_angle:   flMethod_NFL();break;
 				case FL_slow_angle :flMethod_NFL_slow();break;
-				case NFL_slow:   speedAdjustment(1100,1100);break;
-				case BACK_NFL:   speedAdjustment(-1300,-1315);break;
+				case NFL_slow:   speedAdjustment(970,1100);break;
+				case BACK_NFL:   speedAdjustment(-1200,-1300);break;
+				case FL_UPRISE:	 flMethod_upRise();break;
+				case FL_DOWNRISE:flMethod_downRise();break;
 				default:  break;
 			}
 		}
@@ -592,50 +594,13 @@ void roadBlocksHandle_Task(const controlCenterTypeDef *controlp,runStateTypeDef 
 														u3_printf("Trapezoid_3_EIC\r\n");
 													#endif
 												}break;
-			
-			case TIME				:if(1 == BlockHandleMethod_TIME ())			 
-												{
-													runState->F_RoadBlockState = EIC;
-													#ifdef BlueTooth_Debug
-														u3_printf("TIME_EIC\r\n");
-													#endif
-												}break;
-			case TIME_1			:if(1 == BlockHandleMethod_TIME_1 ())		 
-											{
-												runState->F_RoadBlockState = EIC;
-												#ifdef BlueTooth_Debug
-													u3_printf("TIME_EIC_1\r\n");
-												#endif
-											}break;
-			case TIME_2			:if(1 == BlockHandleMethod_TIME_2 ())		 
-											{
-												runState->F_RoadBlockState = EIC;
-												#ifdef BlueTooth_Debug
-													u3_printf("TIME_EIC_2\r\n");
-												#endif
-											}break;
-			case TIME_44_43			:if(1 == BlockHandleMethod_TIME_44_43 ())		 
-												{
-													runState->F_RoadBlockState = EIC;
-													#ifdef BlueTooth_Debug
-														u3_printf("TIME_EIC_3\r\n");
-													#endif
-												}break;
-		case TIME_45_46			:if(1 == BlockHandleMethod_TIME_45_46 ())		 
+			case HEIGHTLITM    :if(1==LimtdeHeight_Method())
 								{
 									runState->F_RoadBlockState = EIC;
 									#ifdef BlueTooth_Debug
 										u3_printf("TIME_EIC_3\r\n");
 									#endif
 								}break;
-		case HEIGHTLITM    :if(1==LimtdeHeight_Method())
-								{
-									runState->F_RoadBlockState = EIC;
-									#ifdef BlueTooth_Debug
-										u3_printf("TIME_EIC_3\r\n");
-									#endif
-								}break;
-					
 			default:  			break;
 		}
 	}
@@ -658,6 +623,17 @@ void speed_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runState){
 	if(runState->speedState == NTBE){
 		
 		switch(controlp->linkInform.typeSpeed){
+			case UPRISE:if(1 == Speed_upRise(controlp->linkInform.speedTime))
+						{
+							runState->speedState=EIC;
+							#ifdef BlueTooth_Debug
+								u3_printf("SEEK_PESL_EIC\r\n");
+							#endif
+							
+							#ifdef LED_Debug
+								led_flash();
+							#endif
+						}break;
 			
 			case DOWN_SPEED:if(1 == Speed_downMethod(controlp->linkInform.speedTime))
 							{
@@ -811,6 +787,28 @@ void seekNode_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runStat
 									led_flash();
 								#endif
 							}break;
+			case SEEK_digR:if(1 == seekNodeMethod_digR())
+							{
+								runState->seekNodeState=EIC;
+								#ifdef BlueTooth_Debug
+									u3_printf("SEEK_default_EIC\r\n");
+								#endif
+									
+								#ifdef LED_Debug
+									led_flash();
+								#endif
+							}break;		
+			case SEEK_digL:if(1 == seekNodeMethod_digL())
+							{
+								runState->seekNodeState=EIC;
+								#ifdef BlueTooth_Debug
+									u3_printf("SEEK_default_EIC\r\n");
+								#endif
+									
+								#ifdef LED_Debug
+									led_flash();
+								#endif
+							}break;	
 			case NOTSEEK:if(1)
 						{
 								runState->seekNodeState=EIC;
@@ -1164,7 +1162,7 @@ void rotAngle_Task(controlCenterTypeDef *controlp,runStateTypeDef *runState)
 															u3_printf("HL_145_EIC\n\n");
 														#endif
 													}break;
-			case HL_180:if(1 == rotAngle_Left(180))
+			case HL_180:if(1 == rotAngle_Left(183))
 									{
 														runState->RotangleState=EIC;
 														runState->F_LineState=EIC;

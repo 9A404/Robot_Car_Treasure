@@ -3,6 +3,7 @@
 /*
 * ×÷Õß    £º@PcDack1
 */
+
 #define COMMON_TIME   30
 
 #define TIME_10_TO_11 30
@@ -24,6 +25,7 @@
 #define TIME_PRAPEZOID_1 75 
 #define TIME_PRAPEZOID_2 30
 #define TIME_PRAPEZOID_3 50
+
 
 
 #endif

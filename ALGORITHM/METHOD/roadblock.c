@@ -359,63 +359,8 @@ static float Monitor_ROLL()
 */
  u8 Angle_read()
 {
-//      static u8 flag=0;
-//	  static u8 i=0;
-//	  float temp;
-//	   int j;
-//	glsensor_dig_value = sensorAD(glsensor_ad_value,basic_sensorThreshold);  
-//  if(0==flag && (glsensor_dig_value==0x060||glsensor_dig_value==0x070)  )
-//  {   
-//	  Time3(START); //打开定时器
-//		gl_time=0;  
-//        flag=1;
-//	  	
-//  }
-//  
-//   else if(1==flag &&  gl_time>20) 
-//	{
-//		Time3(STOP); //关闭定时器
-//		flag=2;
-//	
-//	}
-//	else if( 2 == flag) 
-//	{
-//		Time3(START);
-//		gl_time=0;
-//		flag=3;
-//	
-//	}
-//	else if( 3==flag ) 
-//	{
-//	    if(gl_time%10==0)
-//		{   
-////			u3_printf("1\n");
-//			MPU6050_Pose_usart();
-//			angle_read_temp[i++]=glYaw;
-//		}
-//		if (gl_time>71)
-//		{
-//			flag=4;
-//	      	i=0;
-//			Time3(STOP);
-////			speedAdjustment(0,0);
-////	      	while(1);
-//		}
-//	}
-//	else if( 4==flag ) 
-//	{
-//	    for(j=0;j<5;j++)
-//		{
-//		     temp=temp+angle_read_temp[j];
-//		}
-//		angle_read=temp/5.0;
-//		angle_read = setYaw(angle_read,-90);
-//	
-//        return 1;
-//	}
-//		return 0;
-      
-      static u8 flag=0;
+  
+    static u8 flag=0;
 	if(flag == 0)
 	{
 	    Time3(START);
@@ -425,10 +370,8 @@ static float Monitor_ROLL()
 	else if(flag == 1&&gl_time>50)
 	{
 		Time3(STOP);
-//		speedAdjustment(0,0);
-//		while(1);
 		MPU6050_Pose_usart();
-		angle_read = setYaw(glYaw,85);
+		angle_read = setYaw(glYaw,90);
 		angle_read_back = setYaw(glYaw,-75);
 		flag = 0; 
 		   
@@ -462,7 +405,7 @@ static float Monitor_ROLL()
 		//led_flash();
 		flag=1;
 	}
-	else if(1==flag&&gl_time>95)         
+	else if(1==flag&&gl_time>90)         
 	{
 //		temp = Monitor_ROLL();
 //		if( temp > -10)               //如果车在跷跷板的另外一端则继续盲走后置flag=2
@@ -492,7 +435,6 @@ static float Monitor_ROLL()
 		//if(pes_R==0) {speedAdjustment(2000,2400);delay_ms(10);}
 		//else if(pes_L==0) {speedAdjustment(2400,2000);delay_ms(10);}
 	    delay_ms(800);
-
 
 		temp = Monitor_ROLL();
 		glHello_control.linkInform.findLineWays = FL_slow;
@@ -637,20 +579,31 @@ u8 BlockHandleMethod_Platform ()
 u8 BlockHandleMethod_Step (){
 	static u8 flag=0;
 	static findLine save;
-	if(flag==0){
-		save = glHello_control.linkInform.findLineWays;
+	if(flag == 0)
+	{
+		save=glHello_control.linkInform.findLineWays;
 		flag=1;
 	}
-	else if(flag==1&&1 == PES_Platform){
-		glHello_control.linkInform.findLineWays = FL_slow;
+	else if(1 == flag&&1 == PES_Platform)          //?°??1aμ??a1?2?áá′ú±íμ?′?é??eμ×2?
+	{
+		glHello_control.linkInform.findLineWays = FL_UpPlatform;   
 		findLineFlag = 0;
-		Time3(START); //打开定时器
-		gl_time=0;
-		flag=2;
+		flag=2; 
 	}
-	else if(gl_time>1 && 2==flag){
-		Time3(STOP); //关闭定时器
+	else if(2==flag&&0==PES_Platform)         //?°??1aμ??a1?áá′ú±íμ?′?é??e?￥2?
+	{
+		glHello_control.linkInform.findLineWays = FL_DownPlatform;   
+		findLineFlag = 0;
+		Time3(START); //′ò?a?¨ê±?÷
+		gl_time=0;
+		flag=3;
+	}
+	else if(gl_time>260 && 3==flag)
+	{
+		Time3(STOP); //1?±??¨ê±?÷
 		gl_time = 0;
+	//  speedAdjustment(0,0);
+	//  delay_ms(1000);
 		glHello_control.linkInform.findLineWays = save;   
 		findLineFlag = 0;
 		flag = 0;
@@ -691,11 +644,9 @@ u8 BlockHandleMethod_Slope ()
 		gl_time=0;
 		flag=3;
 	}
-	else if(gl_time>260 && 3==flag)
+	else if(gl_time>200 && 3==flag)
 	{
 		Time3(STOP); //关闭定时器
-			speedAdjustment(0,0);
-			delay_ms(500);
 		gl_time = 0;
 		glHello_control.linkInform.findLineWays = save;   
 		findLineFlag = 0;
@@ -767,6 +718,8 @@ u8 BlockHandleMethod_Platform_1 ()
 	}
 else if(1==flag&&1==PES_Platform)
 	{
+//		speedAdjustment(0,0);
+//		delay_ms(500);
 		//u3_printf("slow");
 		glHello_control.linkInform.findLineWays = FL_DownPlatform; 
 		findLineFlag = 0;
@@ -776,6 +729,8 @@ else if(1==flag&&1==PES_Platform)
 		else if(1==PES_Platform && 3==flag)
 	{
 		//u3_printf("finish");
+//		speedAdjustment(0,0);
+//		delay_ms(500);
 		glHello_control.linkInform.findLineWays = save; 
 		findLineFlag = 0;
 		flag = 0;
@@ -784,36 +739,6 @@ else if(1==flag&&1==PES_Platform)
 		return 0;
 }
 /***********************************************************************************************************/
-/*
-
-* 函数介绍：定时(复杂节点处理方法)
-* 输入参数：无
-* 输出参数：无
-* 返回值  ：1(路障解决)0（路障未解决）
-* 其他		：
-* 作者    ：@断忆
-
-*/
-u8 BlockHandleMethod_TIME()
-{
-	static u8 flag=0;
-	if(0==flag)
-	{
-		Time3(START); //打开定时器
-		gl_time=0;
-		flag=1;
-	}
-	if(gl_time > COMMON_TIME)
-	{	
-		Time3(STOP); //关闭定时器
-		gl_time = 0;
-		flag=0;
-		return 1;
-	}
-		
-	return 0;
-
-}
 
 /*
 
@@ -898,108 +823,8 @@ u8 BlockHandleMethod_TIME_2()
 
 }
 
-/*
 
-* 函数介绍：定时(备用)
-* 输入参数：无
-* 输出参数：无
-* 返回值  ：1(路障解决)0（路障未解决）
-* 其他		：
-* 作者    ：@断忆
 
-*/
-u8 BlockHandleMethod_TIME_44_43()
-{
-	static u8 flag=0;
-	if(0==flag)
-	{
-		Time3(START); //打开定时器
-		gl_time=0;
-		flag=1;
-	}
-	if(gl_time > 15)
-	{	
-		Time3(STOP); //关闭定时器
-		gl_time = 0;
-		flag=0;
-		#ifdef LED_Debug
-		led_flash();
-		#endif
-		return 1;
-	}
-		
-	return 0;
-
-}
-/*
-
-* 函数介绍：定时(备用)
-* 输入参数：无
-* 输出参数：无
-* 返回值  ：1(路障解决)0（路障未解决）
-* 其他		：
-* 作者    ：@断忆
-
-*/
-u8 BlockHandleMethod_TIME_45_46()
-{
-	static u8 flag=0;
-	if(0==flag)
-	{
-		Time3(START); //打开定时器
-		gl_time=0;
-		flag=1;
-	}
-	if(gl_time > 80)
-	{	
-		Time3(STOP); //关闭定时器
-		gl_time = 0;
-		flag=0;
-		#ifdef LED_Debug
-		led_flash();
-		#endif
-		return 1;
-	}
-		
-	return 0;
-
-}
-
-/**********************************************限高*************************************************************/
-/*
-
-* 函数介绍：过限高障碍
-* 输入参数：无
-* 输出参数：无
-* 返回值  ：1（到达路障）0（未到达路障）
-* 其他		：无
-* 作者    ：@BEE LIU
-
-*/
- u8 LimtdeHeight_Method()
-{
-	static u8 flag=0;
-	if(flag == 0&&0 == PES_R)
-	{
-		flag=1;
-	}
-	if(flag==1)
-	{ 
-		//speedAdjustment(0,0);	
-	  sgAngleControl(BODY,B_UP);
-//	  delay_ms(400);
-		flag=2;	
-	}
-  if(flag==2&&0 == PES_R)
-	{
-		//speedAdjustment(0,0);	
-	  sgAngleControl(BODY,B_DOWN);
-//	  delay_ms(400);
-		flag=0;	
-		return 1;
-	}
-  return 0;
-}
 
 
 
@@ -1614,9 +1439,6 @@ u8 BlockHandleMethod_Crossing_All_TILT()
 
 
 
-
-
-
 /*************************************************珠峰**********************************************************/
 /*
 
@@ -1827,7 +1649,7 @@ u8 BlockHandleMethod_S_BOARD_1()
 		gl_time=0;
 		flag=2;
 	}
-	else if(2==flag&&gl_time>130)
+	else if(2==flag&&gl_time>90)
 	{
 		speedAdjustment(0,0);
 		delay_ms(500);
@@ -1949,7 +1771,40 @@ u8 BlockHandleMethod_26_27()
 	return 0;
 }
 
+/*
 
+* 函数介绍：过限高障碍
+* 输入参数：无
+* 输出参数：无
+* 返回值  ：1（到达路障）0（未到达路障）
+* 其他		：无
+* 作者    ：@BEE LIU
+
+*/
+u8 LimtdeHeight_Method()
+{
+	static u8 flag=0;
+	if(flag == 0&&0 == PES_R)
+	{
+		flag=1;
+	}
+	if(flag==1)
+	{ 
+		//speedAdjustment(0,0);	
+	  sgAngleControl(BODY,B_UP);
+//	  delay_ms(400);
+		flag=2;	
+	}
+  if(flag==2&&0 == PES_R)
+	{
+		//speedAdjustment(0,0);	
+	  sgAngleControl(BODY,B_DOWN);
+//	  delay_ms(400);
+		flag=0;	
+		return 1;
+	}
+  return 0;
+}
 
 
 

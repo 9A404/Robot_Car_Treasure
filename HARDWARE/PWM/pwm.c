@@ -122,8 +122,8 @@ void sgAngleControl(SgNumber num,RotationAngle angle)
 {
 	switch(num)
 	{
-		case HEAD	:	TIM8->CCR3 = angle;break;
-		case BODY	:	TIM8->CCR4 = angle;break;
+		case HEAD	:TIM8->CCR3 = angle;break;
+		case BODY   :TIM8->CCR4 = angle;break;
 		case L_ARM: TIM8->CCR1 = angle;break;
 		case R_ARM:	TIM8->CCR2 = angle;break;
 		default 	: break;
@@ -144,7 +144,6 @@ void sg_PWM_Init(void)
 	sgAngleControl(HEAD,H_MID);
 	sgAngleControl(L_ARM,L_DOWN );
 	sgAngleControl(R_ARM,R_DOWN);
-	sgAngleControl(BODY,B_UP);
 }
 
 
@@ -176,25 +175,25 @@ void speedAdjustment(int lspeed,int rspeed)
 {
 	  if(rspeed>0)   
 	{
-		TIM4->CCR4 = 0;         // PB9
-		TIM4->CCR3 = rspeed;	  // PB8          
+		TIM4->CCR3 = 0;         // PB9
+		TIM4->CCR4 = rspeed;	  // PB8          
 
 	}
 	else
 	{ 
-	  TIM4->CCR3 = 0;
-		TIM4->CCR4 = -rspeed;              
+	  TIM4->CCR4 = 0;
+		TIM4->CCR3 = -rspeed;              
 	}
 	
 	if(lspeed>0)
  	{		
-		TIM4->CCR2 = 0;	   			//PB7
-		TIM4->CCR1 = lspeed;	  //PB6     
+		TIM4->CCR1 = 0;	   			//PB7
+		TIM4->CCR2 = lspeed;	  //PB6     
 	}
 		else
 		{
-	  TIM4->CCR1 = 0;
-		TIM4->CCR2 = -lspeed;	         
+	  TIM4->CCR2 = 0;
+		TIM4->CCR1 = -lspeed;	         
 		}
 	
 }

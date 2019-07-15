@@ -2,7 +2,6 @@
 #define _SEEKNODEWAY_H_
 #include "sys.h"
 #include "myconfig.h"
-#include "common_time.h"
 
 u8 seekNodeMethod_default(void);
 u8 seekNodeMethod_4(void);

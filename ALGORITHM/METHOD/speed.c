@@ -1,5 +1,4 @@
 #include "speed.h"
-#include "common_time.h"
 /*
 	*加速任务方法集合
 	*作者：@袁梓聪
@@ -131,3 +130,65 @@ u8 Take_up_time(u16 time){
 	return 0;
 }
 
+/*
+
+* 函数介绍：逐渐加速方法
+* 输入参数：加速时间time
+* 输出参数：
+* 返回值  ：1(加速完成)0（加速还没完成）
+* 其他	：
+* 作者    ：@袁梓聪
+
+*/
+u8 Speed_upRise(u16 time){
+	static findLine save;
+	static u8 flag=0;
+	if(flag==0)
+	{
+		save = glHello_control.linkInform.findLineWays;
+		getCurrentSpeed(save);
+		glHello_control.linkInform.findLineWays = FL_UPRISE;
+		findLineFlag = 0;
+		goalSpeed=QUICK_SPEED;
+		Time3(START);
+		gl_time=0;
+		flag=1;
+	}
+	else if(gl_time > time && 1==flag)
+	{
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_DOWNRISE;
+		findLineFlag = 0;
+		goalSpeed=SLOW_SPEED;
+		flag=2;
+	}
+	else if(2==flag &&gl_time > 30)
+	{
+		Time3(STOP);
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = save;
+		findLineFlag = 0;
+		flag=0;
+		return 1;
+	}
+	return 0;
+}
+
+/*
+
+* 函数介绍：获取当前速度方法
+* 输入参数：循线方法
+* 输出参数：
+* 返回值  ：无
+* 其他	：
+* 作者    ：@袁梓聪
+
+*/
+void getCurrentSpeed(findLine fl){
+	switch(fl){
+		case FL_default:currentSpeed=DEFAULT_SPEED;break;
+		case FL_slow:currentSpeed=SLOW_SPEED;break;
+		case FL_quickest:currentSpeed=QUICK_SPEED;break;
+		default:break;
+	}
+}

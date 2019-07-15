@@ -32,7 +32,7 @@
 //#define BlueTooth_Debug
 
 /*LED调试*/
-#define LED_Debug
+//#define LED_Debug
 
 /*慢速巡线*/
 //#define Slow_FL
@@ -56,6 +56,9 @@
 #define LEFT 0
 #define RIGHT 1
 
+#define DEFAULT_SPEED 3300
+#define SLOW_SPEED 2200
+#define QUICK_SPEED 6500
 extern unsigned short glsensor_ad_value[NUM_OF_SENSOR];       //传感器模拟量数组
 extern unsigned short glsensor_dig_value;									    //传感器数字量数组
 extern unsigned char 	USART3_TX_BUF[USART3_MAX_SEND_LEN];     //串口3发送缓存
@@ -114,6 +117,8 @@ extern u8 pes_R;																		//右边光电传感器状态
 extern u8 SecondGameNum1;														//一键切换第二遍路线1（保守路线）
 extern u8 SecondGameNum2;														//一键切换第二遍路线2（高分路线
 
+extern u16 currentSpeed;
+extern u16 goalSpeed;
 #endif
 
 

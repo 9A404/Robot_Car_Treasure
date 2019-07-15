@@ -22,8 +22,10 @@ void flMethod_node(void);      //圆边巡线方法
 void flMethod_43_44(void);      //圆边巡线方法
 void flMethod_16_44(void);      //圆边巡线方法
 void flMethod_circular(void);      //圆边巡线方法
-void flMethod_NFL();
-void flMethod_NFL_slow();
+void flMethod_NFL(void);
+void flMethod_NFL_slow(void);
+u8 flMethod_upRise();		//慢慢加速
+u8 flMethod_downRise();	//慢慢减速
 #endif
 
 

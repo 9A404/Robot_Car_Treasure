@@ -28,7 +28,7 @@
 * 输入参数：
 * 输出参数：
 * 返回值  ：1(找到节点)0（没有找到节点）
-* 其他		：找点方法思路：“1”的个数为4时将flag置1
+* 其他		：找点方法思路：“1”的个数为4时将flag置1，
 													下一次检测到“1”的个数为5时候判断为此处为节点 
 * 作者    ：@断忆
 
@@ -47,6 +47,8 @@ u8 seekNodeMethod_default()
 //	return 0;
 	 if(3 < calculateNum(glsensor_dig_value))
 	 {
+//		speedAdjustment(0,0);
+//		delay_ms(500);
 		return 1;
 	 }
 	 return 0;
@@ -110,7 +112,6 @@ u8 seekNodeMethod_7_6_15()
 	}
 	else if(1==flag){
 		rotAngle_Right(45);
-		flag=0;
 		return 1;
 	}
 	return 0;	
@@ -131,9 +132,14 @@ u8 seekNodeMethod_6_15_37()
 	static u8 flag=0;
 	if(seekNodeMethod_digR()){
 		flag=1;
+		Time3(START);
+		gl_time=0;
 	}
-	else if(1==flag){
-		rotAngle_Left(30);
+	else if(1==flag && gl_time>30){
+		
+		//rotAngle_Left(45);
+		gl_time=0;
+		Time3(STOP);
 		flag=0;
 		return 1;
 	}
@@ -317,26 +323,26 @@ u8 seekNodeMethod_pesPlatform()
 		if(PES_Platform==1) 
 		{
 			Time3(STOP);
-		  gl_time=0;
+			gl_time=0;
 			flag=1;
 		}
 		else 
 		{
 			Time3(STOP);
-		  gl_time=0;
+			gl_time=0;
 			flag=0;
 		}
 	}	
 	//if (1==flag&&PES_Platform==0) flag = 2;
 	else if (1==flag) 
 	{
-		glHello_control.linkInform.findLineWays = FL_slow;
-	  findLineFlag = 0;
+		glHello_control.linkInform.findLineWays = FL_UpPlatform;
+		findLineFlag = 0;
 		flag=2;
 	}
 	else if(2==flag&&0==PES_Platform) 
 	{
-	flag=3;
+		flag=3;
 
 	}
 	else if(3==flag&&1==PES_Platform)
