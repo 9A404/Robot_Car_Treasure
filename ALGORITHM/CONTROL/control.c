@@ -945,6 +945,20 @@ void carPark_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runState
 												u3_printf("PARK_PesPlatform_EIC\r\n");
 											#endif
 										}break;
+				case PARK_pesR_No:		if(1 == parkMethod_pesR_noline())
+										{
+											runState->carParkState = EIC;
+										#ifdef BlueTooth_Debug
+												u3_printf("PARK_pesR_No_EIC\r\n");
+											#endif
+										}break;
+				case PARK_pesL_No:		if(1 == parkMethod_pesL_noline())
+										{
+											runState->carParkState = EIC;
+										#ifdef BlueTooth_Debug
+												u3_printf("PARK_pesL_No_EIC\r\n");
+											#endif
+										}break;						
 				default:break;		
 			}
 	

@@ -305,6 +305,76 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 	return 0;
 
 }
+/*
+
+* 函数介绍：右边光电传感器前面没有线停车方法
+* 输入参数：
+* 输出参数：
+* 返回值  ：1(完成)0（未完成）
+* 其他		：
+* 作者    ：@断忆
+
+*/
+
+u8 parkMethod_pesR_noline()
+{
+	static u8 flag=0;
+	if(flag ==0)
+	{	
+//		/*反转加速刹车*/
+//		speedAdjustment(-3500,-3500);
+//		delay_ms(20);
+		glHello_control.linkInform.findLineWays = NFL;
+		findLineFlag = 0;
+		flag = 1;
+	}
+	if(0==PES_R && 1==flag)
+	{
+		/*停车*/
+		speedAdjustment(-3600,-3600); 
+		delay_ms(49);
+//		speedAdjustment(0,0);
+		flag = 0;
+		return 1 ;
+	}
+	
+	return 0;	
+}
+/*
+
+* 函数介绍：左边光电传感器前面没有线停车方法
+* 输入参数：
+* 输出参数：
+* 返回值  ：1(完成)0（未完成）
+* 其他		：
+* 作者    ：@断忆
+
+*/
+
+u8 parkMethod_pesL_noline()
+{
+	static u8 flag=0;
+	if(flag ==0)
+	{	
+//		/*反转加速刹车*/
+//		speedAdjustment(-3500,-3500);
+//		delay_ms(20);
+		glHello_control.linkInform.findLineWays = NFL;
+		findLineFlag = 0;
+		flag = 1;
+	}
+	if(0==PES_L && 1==flag)
+	{
+		/*停车*/
+		speedAdjustment(-3600,-3600); 
+		delay_ms(49);
+//		speedAdjustment(0,0);
+		flag = 0;
+		return 1 ;
+	}
+	
+	return 0;	
+}	
 
 
 
