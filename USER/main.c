@@ -23,7 +23,8 @@ const u8 runMethodTable[][100]={
 /*3*/{1,2,3,4,3,5,12,7,6,15,37,14,16,44,45,46,47,46,48,43,16,44,14,6,5,2,1,2},  
 		
 	/*拿3个宝物加一个梯形 已修改*/
-/*4*/{1,2,3,4,3,5,12,7,6,15,37,14,16,44,45,46,47,46,48,43,17,18,19,18,20,21 ,22,23,24,23,25,26,27,26,25,23,22,21,20,18,17,14,6,5,2,1,2},
+///*4*/{1,2,3,4,3,5,12,7,6,15,37,14,16,44,45,46,47,46,48,43,17,18,19,18,20,21 ,22,23,24,23,25,26,27,26,25,23,22,21,20,18,17,14,6,5,2,1,2},
+	/*4*/{1,2,3,4,3,5,12,7,6,15,37,14,16,44,45,46,47,46,48,43,17,18,19,18,20,21,22,23,24,23,25,26,27,26,25,28,50,49,15,9,5,2,1,2},
 	
 	/*过全部景点(少8号)，不切路线 没更新路线*/
 /*5*/{1,2,3,4,3,5,10,11,10,12,7,6,42,14,44,43,17,18,19,18,17,43,16,44,45,46,47,46,43,44,37,36,15,30,31,32,31,33,23,24,23,25,26,27,26,25,33,34,35,36,35,14,42,6,5,2,1,2},	
@@ -255,14 +256,21 @@ int main(void)
 	runMethodNum=sizeof(runMethodTable)/sizeof(runMethodTable[0]); //计算runMethodTable中共有几条线路
 	while(1)
 	{	
-		//speedAdjustment(-3500,-3500);	
-		displayOperation();
+//		 speedAdjustment(2900,3000);
+	    displayOperation();
 //		flMethod_default();
 //		rotAngle_Left(180);
+//		rotAngle_Right(178);
+//		while(1);
 //		delay_ms(1000);
+//		if(PES_Platform==1) {	Gui_DrawFont_GBK16(0,40,BLUE,WHITE,"First");delay_ms(500);}
+//		if(PES_Platform==0) {	Gui_DrawFont_GBK16(0,40,BLUE,WHITE,"Second");delay_ms(500);}
+//			if(Collision==0) {Gui_DrawFont_GBK16(0,80,BLUE,WHITE,"THREE");delay_ms(500);}
+//			if(Collision==1) {Gui_DrawFont_GBK16(0,80,BLUE,WHITE,"FOUR");delay_ms(500);}
+		 // if(PES_Platform==0) {printf("1");delay_ms(500);}
+		 // if(PES_Platform==0) {printf("1");delay_ms(500);}
 	}
 }
-		
 		
 		
 		

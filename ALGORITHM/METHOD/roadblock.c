@@ -405,7 +405,7 @@ static float Monitor_ROLL()
 		//led_flash();
 		flag=1;
 	}
-	else if(1==flag&&gl_time>90)         
+	else if(1==flag&&gl_time>81)         
 	{
 //		temp = Monitor_ROLL();
 //		if( temp > -10)               //如果车在跷跷板的另外一端则继续盲走后置flag=2
@@ -430,7 +430,6 @@ static float Monitor_ROLL()
 
 //			//u3_printf("glPitch%0.2f\r\n",glPitch);
 //		}
-		
 		speedAdjustment(0,0);
 		//if(pes_R==0) {speedAdjustment(2000,2400);delay_ms(10);}
 		//else if(pes_L==0) {speedAdjustment(2400,2000);delay_ms(10);}
@@ -440,7 +439,8 @@ static float Monitor_ROLL()
 		glHello_control.linkInform.findLineWays = FL_slow;
 		findLineFlag = 0;
 		if(temp>-10){
-			speedAdjustment(2000,2000);
+			glHello_control.linkInform.findLineWays = NFL;
+		findLineFlag = 0;
 
 			flag=2;
 		}
@@ -718,18 +718,25 @@ u8 BlockHandleMethod_Platform_1 ()
 	}
 else if(1==flag&&1==PES_Platform)
 	{
-//		speedAdjustment(0,0);
+		speedAdjustment(0,0);
+//		delay_ms(500);
+//		Gui_DrawFont_GBK16(0,60,BLUE,WHITE,"YES1");
 //		delay_ms(500);
 		//u3_printf("slow");
 		glHello_control.linkInform.findLineWays = FL_DownPlatform; 
 		findLineFlag = 0;
 		flag=2;
 	}
-		else if(2==flag&&0==PES_Platform)  flag=3;
+		else if(2==flag&&0==PES_Platform)  
+		{
+			flag=3;	
+		}
 		else if(1==PES_Platform && 3==flag)
 	{
 		//u3_printf("finish");
 //		speedAdjustment(0,0);
+//		delay_ms(500);
+//		Gui_DrawFont_GBK16(0,1,BLUE,WHITE,"YES3");
 //		delay_ms(500);
 		glHello_control.linkInform.findLineWays = save; 
 		findLineFlag = 0;
@@ -1507,71 +1514,16 @@ u8 BlockHandleMethod_Peak()
 */
 u8 BlockHandleMethod_downPlatform()
 {
-//	static findLine save;
-//	static u8 flag=0;
-//	
-//	if(flag == 0)
-//	{
-//	//	DangerFlag=1;            //将危险信号标志位置为1
-//		Time3(START);
-//		gl_time=0;
-//		save = glHello_control.linkInform.findLineWays;
-//		glHello_control.linkInform.findLineWays =NFL;
-//		flag = 1;
-//	}
-//	else if(1==flag && 1==PES_Platform)
-//	{
-////		speedAdjustment(0,0);
-////		delay_ms(500);
-//		glHello_control.linkInform.findLineWays = FL_downPeak; 
-//		findLineFlag = 0;
-//		flag=2;
-//	}
-//	else if(2==flag&&0==PES_Platform)  flag=3;
-//	else if(1==PES_Platform && 3==flag)
-//	{
-
-//		glHello_control.linkInform.findLineWays = NFL; 
-//		findLineFlag = 0;
-//		flag = 4;
-
-//	}
-//	else if(4==flag && 0==PES_Platform) flag=5;
-//	else if(5==flag && 1==PES_Platform)
-//	{
-////		speedAdjustment(0,0);
-////		delay_ms(500);
-//		glHello_control.linkInform.findLineWays = FL_downPeak; 
-//		findLineFlag = 0;
-//		flag=6;
-//	}
-//	else if(6==flag && 0==PES_Platform)	flag=7;
-//	else if(7==flag && 1==PES_Platform)
-//	{
-//		glHello_control.linkInform.findLineWays=save;
-//		findLineFlag = 0;
-//		flag=0;
-//		return 1;
-//	}
-//	else if(gl_time>600)
-//	{
-//		if(1==danger24_23())
-//		{
-//			Time3(STOP); //关闭定时器
-//			gl_time = 0;
-//		}
-//	}
-//		return 0;
-static findLine save;
+	static findLine save;
 	static u8 flag=0;
 	
 	if(flag == 0)
 	{
-	//	DangerFlag=1;            //???￡??D?o?±ê???????a1
+	//	DangerFlag=1;            //将危险信号标志位置为1
 		Time3(START);
 		gl_time=0;
 		save = glHello_control.linkInform.findLineWays;
-		glHello_control.linkInform.findLineWays =NFL;
+		glHello_control.linkInform.findLineWays =NFL_slow;
 		flag = 1;
 	}
 	else if(1==flag && 1==PES_Platform)
@@ -1582,40 +1534,92 @@ static findLine save;
 		findLineFlag = 0;
 		flag=2;
 	}
-	else if(2==flag &&gl_time>150)
+	else if(2==flag&&0==PES_Platform)  flag=3;
+	else if(1==PES_Platform && 3==flag)
 	{
-       glHello_control.linkInform.findLineWays = FL_slow_angle; 
+
+		glHello_control.linkInform.findLineWays = NFL_slow; 
 		findLineFlag = 0;
-		angle_flag = 0;
-		flag = 3;
+		flag = 4;
+
 	}
-	else if(3==flag&&gl_time>325)
-		{
-//      speedAdjustment(0,0);
-//	   while(1);
+	else if(4==flag && 0==PES_Platform) flag=5;
+	else if(5==flag && 1==PES_Platform)
+	{
+//		speedAdjustment(0,0);
+//		delay_ms(500);
 		glHello_control.linkInform.findLineWays = FL_downPeak; 
 		findLineFlag = 0;
-	    flag=4;
-	   }
-
-//	else if(4 == flag && 1==PES_Platform)  flag = 5;	
-	else if(4 == flag && 0==PES_Platform)  flag = 5;
-	else if(5 == flag && 1==PES_Platform)
+		flag=6;
+	}
+	else if(6==flag && 0==PES_Platform)	flag=7;
+	else if(7==flag && 1==PES_Platform)
 	{
 		glHello_control.linkInform.findLineWays=save;
 		findLineFlag = 0;
-		flag = 0;
+		flag=0;
 		return 1;
-	}	
-	else if(gl_time>650)
+	}
+	else if(gl_time>1000) 
 	{
 		if(1==danger24_23())
 		{
-			Time3(STOP); 
+			Time3(STOP); //关闭定时器
 			gl_time = 0;
 		}
 	}
 		return 0;
+//  static findLine save;
+//	static u8 flag=0;
+//	
+//	if(flag == 0)
+//	{
+////	DangerFlag=1;            //???￡??D?o?±ê???????a1
+//		Time3(START);
+//		gl_time=0;
+//		save = glHello_control.linkInform.findLineWays;
+//		glHello_control.linkInform.findLineWays =NFL;
+//		flag = 1;
+//	}
+//	else if(1==flag && 1==PES_Platform)
+//	{
+
+//		glHello_control.linkInform.findLineWays = FL_downPeak; 
+//		findLineFlag = 0;
+//		flag=2;
+//	}
+//	else if(2==flag &&gl_time>150)//
+//	{
+//       glHello_control.linkInform.findLineWays = FL_slow_angle; 
+//		findLineFlag = 0;
+//		angle_flag = 0;
+//		flag = 3;
+//	}
+//	else if(3==flag&&gl_time>325)//
+//		{
+
+//		glHello_control.linkInform.findLineWays = FL_downPeak; 
+//		findLineFlag = 0;
+//	    flag=4;
+//	   }
+
+//	else if(4 == flag && 0==PES_Platform)  flag = 5;
+//	else if(5 == flag && 1==PES_Platform)
+//	{
+//		glHello_control.linkInform.findLineWays=save;
+//		findLineFlag = 0;
+//		flag = 0;
+//		return 1;
+//	}	
+//	else if(gl_time>650)
+//	{
+//		if(1==danger24_23())
+//		{
+//			Time3(STOP); 
+//			gl_time = 0;
+//		}
+//	}
+//		return 0;
 
 }
 
@@ -1651,8 +1655,8 @@ u8 BlockHandleMethod_S_BOARD_1()
 	}
 	else if(2==flag&&gl_time>90)
 	{
-		speedAdjustment(0,0);
-		delay_ms(500);
+//		speedAdjustment(0,0);
+//		delay_ms(500);
 		glHello_control.linkInform.findLineWays =save;
 		findLineFlag = 0;
 		Time3(STOP);
@@ -1791,22 +1795,20 @@ u8 LimtdeHeight_Method()
 	if(flag==1)
 	{ 
 		//speedAdjustment(0,0);	
-	  sgAngleControl(BODY,B_UP);
+	  sgAngleControl(BODY,B_DOWN);
 //	  delay_ms(400);
 		flag=2;	
 	}
   if(flag==2&&0 == PES_R)
 	{
 		//speedAdjustment(0,0);	
-	  sgAngleControl(BODY,B_DOWN);
+	  sgAngleControl(BODY,B_UP);
 //	  delay_ms(400);
 		flag=0;	
 		return 1;
 	}
   return 0;
 }
-
-
 
 
 

@@ -176,7 +176,7 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 		}
 		else if(3==flag)
 		{	
-			speedAdjustment(-1300,-1300);
+			speedAdjustment(-1300,-1315);
 			delay_ms(270);	
 			speedAdjustment(0,0);
 			sgAngleControl(L_ARM,L_UP);
@@ -192,8 +192,8 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 //				flag1=0;
 //			}
 			#ifdef _NEW_MPU6050_
-			//rotAngle_Left(180);
-			rotAngle_Right(180);
+			rotAngle_Left(180);
+			//rotAngle_Right(180);
 			#else
 			rotAngle_Left(180);
 			#endif
@@ -324,15 +324,15 @@ u8 parkMethod_pesR_noline()
 //		/*反转加速刹车*/
 //		speedAdjustment(-3500,-3500);
 //		delay_ms(20);
-		glHello_control.linkInform.findLineWays = NFL;
+		glHello_control.linkInform.findLineWays = NFL_slow;
 		findLineFlag = 0;
 		flag = 1;
 	}
 	if(0==PES_R && 1==flag)
 	{
 		/*停车*/
-		speedAdjustment(-3600,-3600); 
-		delay_ms(49);
+		speedAdjustment(-3500,-3500); 
+		delay_ms(25);
 //		speedAdjustment(0,0);
 		flag = 0;
 		return 1 ;
@@ -359,16 +359,17 @@ u8 parkMethod_pesL_noline()
 //		/*反转加速刹车*/
 //		speedAdjustment(-3500,-3500);
 //		delay_ms(20);
-		glHello_control.linkInform.findLineWays = NFL;
+		glHello_control.linkInform.findLineWays = NFL_slow;
 		findLineFlag = 0;
 		flag = 1;
 	}
 	if(0==PES_L && 1==flag)
 	{
 		/*停车*/
-		speedAdjustment(-3600,-3600); 
-		delay_ms(49);
+		speedAdjustment(-3500,-3500); 
+		delay_ms(25);
 //		speedAdjustment(0,0);
+//		delay_ms(500);
 		flag = 0;
 		return 1 ;
 	}
@@ -376,5 +377,142 @@ u8 parkMethod_pesL_noline()
 	return 0;	
 }	
 
+/*
+
+* 函数介绍：左边光电传感器延时停车方法
+* 输入参数：无
+* 输出参数：无
+* 返回值  ：1(完成)0（未完成）
+* 其他		：
+* 作者    ：@断忆
+
+*/
+u8 parkMethod_pesL_Delay(int time)
+{
+	static u8 flag=0;
+	if(flag ==0)
+	{
+		glHello_control.linkInform.findLineWays = FL_stop;
+		findLineFlag = 0;
+		flag = 1;
+	}
+	if(0==PES_L && 1==flag)
+	{	
+		glHello_control.linkInform.findLineWays = NFL;
+		findLineFlag = 0; 
+		delay_ms(time);
+		flag = 0;
+		return 1 ;
+	}
+	
+	return 0;	
+}
+
+/*
+
+* 函数介绍：右边光电传器延时停车方法
+* 输入参数：
+* 输出参数：
+* 返回值  ：1(完成)0（未完成）
+* 其他		：
+* 作者    ：@断忆
+
+*/
+u8 parkMethod_pesR_Delay(int time)
+{
+	static u8 flag=0;
+	if(flag ==0)
+	{	
+		glHello_control.linkInform.findLineWays = FL_stop;
+		findLineFlag = 0;
+		flag = 1;
+	}
+	if(0==PES_R && 1==flag)
+	{
+		glHello_control.linkInform.findLineWays = NFL;
+		findLineFlag = 0; 
+		delay_ms(time);
+		flag = 0;
+		return 1 ;
+	}
+	
+	return 0;	
+}
+
+/*
+
+* 函数介绍：左边光电传感器停车方法(带反转减速)
+* 输入参数：无
+* 输出参数：无
+* 返回值  ：1(完成)0（未完成）
+* 其他		：
+* 作者    ：@断忆
+
+*/
+
+u8 parkMethod_pesL_back()
+{
+	static u8 flag=0;
+	if(flag ==0)
+	{
+		/*反转加速刹车*/
+		speedAdjustment(-3500,-3500);
+		delay_ms(20);
+		glHello_control.linkInform.findLineWays = FL_stop;
+		findLineFlag = 0;
+		flag = 1;
+	}
+	if(0==PES_L && 1==flag)
+	{	
+		/*停车*/
+		speedAdjustment(-2000,-2000);
+		delay_ms(40);
+		speedAdjustment(0,0);
+		flag = 0;
+		delay_ms(40);		
+		//delay_ms(1000);
+		//delay_ms(1000);
+		return 1;
+	}
+	
+	return 0;	
+}
+
+
+/*
+
+* 函数介绍：右边光电传感器停车方法（带反转减速）
+* 输入参数：
+* 输出参数：
+* 返回值  ：1(完成)0（未完成）
+* 其他		：
+* 作者    ：@断忆
+
+*/
+
+u8 parkMethod_pesR_back()
+{
+	static u8 flag=0;
+	if(flag ==0)
+	{	
+		/*反转加速刹车*/
+		speedAdjustment(-3500,-3500);
+		delay_ms(20);
+		glHello_control.linkInform.findLineWays = FL_stop;
+		findLineFlag = 0;
+		flag = 1;
+	}
+	if(0==PES_R && 1==flag)
+	{
+		/*停车*/
+		speedAdjustment(-3500,-3500); 
+		delay_ms(15);
+		speedAdjustment(0,0);
+		flag = 0;
+		return 1 ;
+	}
+	
+	return 0;	
+}
 
 

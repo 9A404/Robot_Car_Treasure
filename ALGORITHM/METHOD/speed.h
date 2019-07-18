@@ -9,3 +9,4 @@ u8 Take_up_time(u16 time);
 u8 Speed_upRise(u16 time);
 void getCurrentSpeed(findLine fl);
 #endif
+

@@ -45,10 +45,9 @@ u8 seekNodeMethod_default()
 //		return 1;
 //	}
 //	return 0;
+
 	 if(3 < calculateNum(glsensor_dig_value))
 	 {
-//		speedAdjustment(0,0);
-//		delay_ms(500);
 		return 1;
 	 }
 	 return 0;
@@ -320,6 +319,8 @@ u8 seekNodeMethod_pesPlatform()
 		Time3(START);
 		gl_time=0;
 		while(gl_time<10);
+//		speedAdjustment(0,0);
+//		delay_ms(1000);
 		if(PES_Platform==1) 
 		{
 			Time3(STOP);

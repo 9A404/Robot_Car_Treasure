@@ -16,7 +16,7 @@ void flMethod_default()
 	if(findLineFlag == 0)//保证每个路段初始化一次
 	{
 		PID_Init(&glsensorPID,20,3500,200,0,500);																					//对速度PID的参数进行初始化设置
-		speedRec_Init(&glmotorSpeed,3100,3300); 																				//对初始速度进行设定
+		speedRec_Init(&glmotorSpeed,2500,2400); 																				//对初始速度进行设定
 		findLineFlag=1;
 	}
 	glsensor_dig_value = sensorAD(glsensor_ad_value,basic_sensorThreshold);  				//与阈值比较后将模拟量转化成数字量
@@ -119,7 +119,7 @@ void flMethod_slow()
 	int rank;
 	if(findLineFlag == 0)//保证每个路段初始化一次
 	{
-		PID_Init(&glsensorPID,20,2500,200,0,100);																					//对速度PID的参数进行初始化设置
+		PID_Init(&glsensorPID,20,2500,200,0,125);																					//对速度PID的参数进行初始化设置
 		speedRec_Init(&glmotorSpeed,2100,2100); 																				//对初始速度进行设定
 		findLineFlag=1;
 	}
@@ -221,7 +221,7 @@ void flMethod_quick()
 	if(findLineFlag == 0)//保证每个路段初始化一次
 	{
 		PID_Init(&glsensorPID,20,4000,200,0,1000);																					//对速度PID的参数进行初始化设置
-		speedRec_Init(&glmotorSpeed,5000,5000); 																				//对初始速度进行设定
+		speedRec_Init(&glmotorSpeed,4500,5000); 																				//对初始速度进行设定
 		findLineFlag=1;
 	}
 	glsensor_dig_value = sensorAD(glsensor_ad_value,basic_sensorThreshold);  				//与阈值比较后将模拟量转化成数字量
@@ -246,7 +246,7 @@ void flMethod_quickest()
 	int rank;
 	if(findLineFlag == 0)//保证每个路段初始化一次
 	{
-		PID_Init(&glsensorPID,20,5500,250,0,2800);																					//对速度PID的参数进行初始化设置
+		PID_Init(&glsensorPID,20,5500,250,0,2950);																					//对速度PID的参数进行初始化设置
 		speedRec_Init(&glmotorSpeed,6500,6440); 																				//对初始速度进行设定
 		findLineFlag=1;
 	}
@@ -402,7 +402,7 @@ void flMethod_upPeak()
 	if(findLineFlag == 0)//保证每个路段初始化一次
 	{
 		PID_Init(&glsensorPID,20,3500,400,0,100);																					//对速度PID的参数进行初始化设置
-		speedRec_Init(&glmotorSpeed,2950,3000); 																				//对初始速度进行设定
+		speedRec_Init(&glmotorSpeed,2900,3000); 																				//对初始速度进行设定
 		findLineFlag=1;
 	}
 	glsensor_dig_value = sensorAD(glsensor_ad_value,basic_sensorThreshold);  				//与阈值比较后将模拟量转化成数字量
@@ -428,8 +428,10 @@ void flMethod_downPeak()
 	int rank;
 	if(findLineFlag == 0)//保证每个路段初始化一次
 	{
-		PID_Init(&glsensorPID,20,2000,400,0,100);																					//对速度PID的参数进行初始化设置
-		speedRec_Init(&glmotorSpeed,1400-270,1380-270); 																				//对初始速度进行设定
+//		PID_Init(&glsensorPID,20,2000,400,0,100);																					//对速度PID的参数进行初始化设置
+//		speedRec_Init(&glmotorSpeed,1300,1400); 																				//对初始速度进行设定
+				PID_Init(&glsensorPID,20,1500,300,0,200);																					//对速度PID的参数进行初始化设置
+		speedRec_Init(&glmotorSpeed,1035,1100); 	
 		findLineFlag=1;
 	}
 	glsensor_dig_value = sensorAD(glsensor_ad_value,basic_sensorThreshold);  				//与阈值比较后将模拟量转化成数字量
@@ -496,6 +498,35 @@ void flMethod_left()
 
 /*
 
+* 函数介绍：偏左巡线方法45°
+* 输入参数：无
+* 输出参数：无
+* 返回值  ：
+* 其他    ：每个方法最主要的区别：1、glmotorSpeed初始速度 2、glsensorPID的P I D三个参数
+* 作者    ：@断忆
+
+*/
+void flMethod_left_45()
+{
+	int rank;
+	if(findLineFlag == 0)//保证每个路段初始化一次
+	{
+		PID_Init(&glsensorPID,20,3500,100,0,0);																					//对速度PID的参数进行初始化设置
+		speedRec_Init(&glmotorSpeed,1700,3000); 																				//对初始速度进行设定2200+200
+		findLineFlag=1;
+	}
+	glsensor_dig_value = sensorAD(glsensor_ad_value,basic_sensorThreshold);  				//与阈值比较后将模拟量转化成数字量
+	rank=sensorDigitalRank(glsensor_dig_value & 0xF00);                                    //分级
+	gldSpeed=positionPIDCalc(&glsensorPID,rank);   //速度位置式PID输出
+	positionSpeedOut(glmotorSpeed.leftSpeed,glmotorSpeed.rightSpeed,gldSpeed+gldYaw);			//位置式改变电机速度
+
+}
+
+/*
+
+
+/*
+
 * 函数介绍：偏右巡线方法
 * 输入参数：无
 * 输出参数：无
@@ -510,7 +541,7 @@ void flMethod_right()
 	if(findLineFlag == 0)//保证每个路段初始化一次
 	{
 		PID_Init(&glsensorPID,20,3500,160,0,0);																					//对速度PID的参数进行初始化设置
-		speedRec_Init(&glmotorSpeed,3000,1000); 																				//对初始速度进行设定2200+200
+		speedRec_Init(&glmotorSpeed,3500,1000); 																				//对初始速度进行设定2200+200
 		findLineFlag=1;
 	}
 	glsensor_dig_value = sensorAD(glsensor_ad_value,basic_sensorThreshold);  				//与阈值比较后将模拟量转化成数字量

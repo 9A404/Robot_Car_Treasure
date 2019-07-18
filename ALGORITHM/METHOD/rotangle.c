@@ -315,6 +315,46 @@ u8 rotAngleMethod_LFL()
 
 /*
 
+* 函数介绍：左拐巡线45°
+* 输出参数：无
+* 返回值  ：无
+* 其他    ：
+* 作者    ：@断忆
+
+*/
+u8 rotAngleMethod_LFL_45()
+{
+	static u8 flag=0;
+	if(((glsensor_dig_value&0x200)||(glsensor_dig_value&0x800)||(glsensor_dig_value&0x400)) && (0==flag))
+		flag=1;
+	
+	if(flag==1)
+	{
+		glHello_control.linkInform.findLineWays =FL_left_45; 
+		findLineFlag = 0;
+		flag=2;
+	}
+	if((2==flag) && (glsensor_dig_value&0x00f))
+	{
+      flag=0;
+//		flag = 3;
+//		speedAdjustment(0,0);
+//		delay_ms(1000);
+			return 1;
+	}
+//	if(3==flag && 0==(glsensor_dig_value&0x00f))
+//	{
+//		flag = 0;
+////		speedAdjustment(0,0);
+////		delay_ms(1000);
+//		return 1;
+//	}
+	
+	return 0;
+}
+
+/*
+
 * 函数介绍：右拐巡线
 * 输出参数：无
 * 返回值  ：无

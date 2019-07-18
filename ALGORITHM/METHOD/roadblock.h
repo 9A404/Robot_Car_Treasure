@@ -32,6 +32,7 @@ u8 BlockHandleMethod_Crossing_All_TILT(void); //´©¹ıÕû¸öĞ±ÆÂ
 
 u8 LimtdeHeight_Method(void);
 u8 Angle_read(void);
+
 #endif
 
 
