@@ -325,7 +325,7 @@ void flMethod_circular()
 	int rank;
 	if(findLineFlag == 0)//保证每个路段初始化一次
 	{
-		PID_Init(&glsensorPID,22,2000,300,0,400);																					//对速度PID的参数进行初始化设置
+		PID_Init(&glsensorPID,20,3000,500,0,400);																					//对速度PID的参数进行初始化设置
 		speedRec_Init(&glmotorSpeed,1800,1900); 																				//对初始速度进行设定
 		findLineFlag=1;
 	}

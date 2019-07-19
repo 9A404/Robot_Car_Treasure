@@ -371,8 +371,8 @@ static float Monitor_ROLL()
 	{
 		Time3(STOP);
 		MPU6050_Pose_usart();
-		angle_read = setYaw(glYaw,90);
-		angle_read_back = setYaw(glYaw,-75);
+		angle_read = setYaw(glYaw,85);
+		angle_read_back = setYaw(glYaw,-83);
 		flag = 0; 
 		   
 		return 1;
@@ -393,6 +393,7 @@ static float Monitor_ROLL()
 {
 //	static findLine save;
 	static u8 flag=0;
+	u8 Turn_Flag=0;
 	float temp;
 	if(0==flag)                //在找点任务中将车摆正后延时直走
 	{	
@@ -400,12 +401,12 @@ static float Monitor_ROLL()
 		Time3(START);
 		gl_time=0;
 		glHello_control.linkInform.findLineWays = FL_angle;
-        angle_flag = 0; 		
+    angle_flag = 0; 		
 		findLineFlag = 0;
 		//led_flash();
 		flag=1;
 	}
-	else if(1==flag&&gl_time>81)         
+	else if(1==flag&&gl_time>80)         
 	{
 //		temp = Monitor_ROLL();
 //		if( temp > -10)               //如果车在跷跷板的另外一端则继续盲走后置flag=2
@@ -439,18 +440,21 @@ static float Monitor_ROLL()
 		glHello_control.linkInform.findLineWays = FL_slow;
 		findLineFlag = 0;
 		if(temp>-10){
-			glHello_control.linkInform.findLineWays = NFL;
-		findLineFlag = 0;
-
-			flag=2;
-		}
+			speedAdjustment(2100,2200);
+			flag=2;	
 			
+		}
+		
 		
 	}
 	else if(2 == flag)                //车子在跷跷板的另外一端则先检测传感器有没有在白线上
 	{
 		glsensor_dig_value = sensorAD(glsensor_ad_value,basic_sensorThreshold);  				//与阈值比较后将模拟量转化成数字量	
-		if(calculateNum(glsensor_dig_value)<=1||(glsensor_dig_value&0xe00)) rotAngle_Left(20);             //如果不在白线则左转20度，大多数情况下是车子偏右，故左转
+			if(calculateNum(glsensor_dig_value)<=1 && Turn_Flag<3) 
+		{
+			rotAngle_Left(20);             //如果不在白线则左转20度，大多数情况下是车子偏右，故左转
+			Turn_Flag++;
+		}
 		else                         //否则返回1完成障碍任务
 		{
 			flag=0;
