@@ -236,18 +236,21 @@ void Fun_game(void)
 /*********************************************************************************************************************/
 int main(void)
 {	
+	char buff[2];
+	u8 t;
+	u8 len;	
 	/************硬件初始化部分*****************************************************************************/	
 	NVIC_Configuration();				//系统中断优先级分组抢占2：响应2	
 	delay_init();	    	  		//延时函数初始化	
 	Lcd_Init();             //TFT屏幕显示初始化
-	bootDisplay();					//开机界面
+//	bootDisplay();					//开机界面
 	ADC_DMA_Init();        	//ADC&DMA初始化
 	sampingTime_Init(150);	//采样周期为15ms对应的值为150 
 	//mpu6050_sampingTime_Init(80);//mpu6050采样周期8ms
 	TIM3_Config(100-1,7200-1); // 定时器3定时周期为10ms
 	motor_PWM_Init();       //PWM初始化
 	uart_init(115200);			//串口1初始化	
-	usart3_init(115200);			//串口DMA初始化函数		
+	usart3_init(9600);			//串口DMA初始化函数		
 	sg_PWM_Init();					//舵机初始化
 	keyInit();							//按键初始化
 	pesInit();							//光电传感器初始化
@@ -269,9 +272,12 @@ int main(void)
 //			if(Collision==1) {Gui_DrawFont_GBK16(0,80,BLUE,WHITE,"FOUR");delay_ms(500);}
 		 // if(PES_Platform==0) {printf("1");delay_ms(500);}
 		 // if(PES_Platform==0) {printf("1");delay_ms(500);}
+//				USART3_RX_STA=0;
+//			sprintf((char*)buff,"%d",USART3_RX_BUF[0]);
+//			Gui_DrawFont_GBK16(0,60,BLUE,WHITE,(const char*)buff);
 	}
 }
-		
+		 
 		
 		
 		

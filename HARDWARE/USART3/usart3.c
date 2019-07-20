@@ -141,14 +141,16 @@ void usart3_init(u32 bound){
 #if EN_USART3_RX   //如果使能了接收
 void USART3_IRQHandler(void)                	//串口1中断服务程序
 	{
-	u8 Res;
+	u8 Res,i=0;
+		char buff[2];
+//		 	sprintf((char*)buff,"%d",USART3_RX_BUF[0]);
+//			Gui_DrawFont_GBK16(0,40,BLUE,WHITE,(const char*)buff);
 #ifdef OS_TICKS_PER_SEC	 	//如果时钟节拍数定义了,说明要使用ucosII了.
 	OSIntEnter();    
 #endif
 	if(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)  //接收中断(接收到的数据必须是0x0d 0x0a结尾)
 		{
-		Res =USART_ReceiveData(USART3);//(USART3->DR);	//读取接收到的数据
-		
+		Res =USART_ReceiveData(USART3);	//读取接收到的数据
 		if((USART3_RX_STA&0x8000)==0)//接收未完成
 			{
 			if(USART3_RX_STA&0x4000)//接收到了0x0d
@@ -160,15 +162,14 @@ void USART3_IRQHandler(void)                	//串口1中断服务程序
 				{	
 				if(Res==0x0d)USART3_RX_STA|=0x4000;
 				else
-					{
+					{				
 					USART3_RX_BUF[USART3_RX_STA&0X3FFF]=Res ;
 					USART3_RX_STA++;
 					if(USART3_RX_STA>(USART3_REC_LEN-1))USART3_RX_STA=0;//接收数据错误,重新开始接收	  
 					}		 
-				}
+				} 
 			}   
-		}
-				
+     }	
 	
 #ifdef OS_TICKS_PER_SEC	 	//如果时钟节拍数定义了,说明要使用ucosII了.
 	OSIntExit();  											 
@@ -294,8 +295,8 @@ u8 QR_code_u3_printf(controlCenterTypeDef *controlp)
 		{
 			QR_code_flag++;                  //每收到一次从手机发过来二维码数据QR_code_flag++
 			len=USART3_RX_STA&0x3fff;
-			for(t=0;t<len;t++)	QR_code[t]=USART3_RX_BUF[t];
-			//Gui_DrawFont_Num32(0,0,BLUE,WHITE,QR_code_flag);
+			for(t=0;t<len;t++)	QR_code[t]=USART3_RX_BUF[t]&0x0f;
+//			Gui_DrawFont_Num32(0,0,BLUE,WHITE,QR_code_flag);
 			USART3_RX_STA=0;
 			memset(USART3_RX_BUF,'0',sizeof(USART3_RX_BUF));
 		}
@@ -304,8 +305,8 @@ u8 QR_code_u3_printf(controlCenterTypeDef *controlp)
 		/*第一个宝物*/
 		
 		/*  判断在平台1(节点4)扫描到的二维码，返回下一个应该同时举起双手的平台(3或4平台)(节点为7或12)*/
-		case 1:if(QR_code[0]=='7'&&QR_code[1]=='0') 	{temp=7;break;}
-					 else if(QR_code[0]=='1'&&QR_code[1]=='2') 
+		case 1:if(QR_code[0]==3) 	{temp=7;break;}
+					 else if(QR_code[0]==4) 
 					 {
 							temp=12;break;
 					 }
@@ -316,8 +317,8 @@ u8 QR_code_u3_printf(controlCenterTypeDef *controlp)
 					 
 					 
 		/*  判断在平台2或3(节点1或12)扫描到的二维码，返回下一个应该同时举起双手的平台(5或6平台)(节点为37或47)*/
-		case 2:if(QR_code[0]=='3'&&QR_code[1]=='7') {temp= 37;break;}
-						else if(QR_code[0]=='4'&&QR_code[1]=='7') {temp=47;break;}
+		case 2:if(QR_code[0]==5) {temp= 37;break;}
+						else if(QR_code[0]==6) {temp=47;break;}
 						break;
 						
 						
@@ -325,8 +326,8 @@ u8 QR_code_u3_printf(controlCenterTypeDef *controlp)
 					 
 					 
 		/*  判断在平台2或3(节点1或12)扫描到的二维码，返回下一个应该同时举起双手的平台(5或6平台)(节点为37或47)*/
-		case 3:if(QR_code[0]=='2'&&QR_code[1]=='7') {temp=27;break;}
-						else if(QR_code[0]=='2'&&QR_code[1]=='4') {temp=24;break;}break;
+		case 3:if(QR_code[0]==7) {temp=27;break;}
+						else if(QR_code[0]==8) {temp=24;break;}break;
 	}
 	return temp;
 }

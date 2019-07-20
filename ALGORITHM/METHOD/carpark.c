@@ -132,7 +132,7 @@ u8 parkMethod_pesL()
 
 u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 {
-//	char buff[2];
+	char buff[2];
 //	u8 i=0,j=0,k=0;
 	static u8 flag=0,flag1=0;
 	#ifdef BlueTooth
@@ -201,6 +201,8 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 		}
 		else if(4==flag)
 		{
+			sprintf((char*)buff,"%d",USART3_RX_BUF[0]);
+			Gui_DrawFont_GBK16(0,140,BLUE,WHITE,(const char*)buff);
 			if(treasure_flag)       //如果宝物在这个平台抬手
 			{
 				speedAdjustment(0,0);
