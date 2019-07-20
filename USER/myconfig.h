@@ -46,6 +46,14 @@
 
 #define _NEW_MPU6050_//ĞÂ°æÍÓÂİÒÇ
 
+/*ÊÖ»úÉ¨Âë*/
+//#define PHONE
+
+/*Ä£¿éÉ¨Âë*/
+#define MODULAR
+
+#define AUTO_Treasure
+
 #define max(a,b)			(a>b ? a:b)
 #define min(a,b)			(a<b ? a:b)
 #define limit(x,a,b)	(min(max(x,a) , b))	

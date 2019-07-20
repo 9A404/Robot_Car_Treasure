@@ -134,7 +134,7 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 {
 	char buff[2];
 //	u8 i=0,j=0,k=0;
-	static u8 flag=0,flag1=0;
+	static u8 flag=0,flag1=0,next_treasure=0;
 	#ifdef BlueTooth
 		if(0==flag)
 		{
@@ -143,23 +143,20 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 			glHello_control.linkInform.findLineWays = NFL;
 			if(QR_code_flag==0&&controlp->curNode==4)  
 			{
-			//	Lcd_Clear(WHITE);
-				u3_printf("1");              //在2号平台发送1扫描二维码
+				next_treasure=QR_code_u3_printf(&glHello_control); 
 				flag1=1;
 			}
-			else if(controlp->curNode==QR_code_u3_printf(&glHello_control))        
+			else if(controlp->curNode==next_treasure)        
 			{
-				flag1=1;
+					flag1=1;
 				/*  在2号平台扫码后QR_code_flag置为1*/
-				if(1==QR_code_flag && 1==RunMethod_Check)u3_printf("1");  
-				if(1==QR_code_flag && 2==RunMethod_Check) u3_printf("1"); 
+				if(1==QR_code_flag && 1==RunMethod_Check) next_treasure=QR_code_u3_printf(&glHello_control);
+				if(1==QR_code_flag && 2==RunMethod_Check) next_treasure=QR_code_u3_printf(&glHello_control);
 				
 				/*  在3或4号平台扫码后QR_code_flag置为2*/
-				if(2==QR_code_flag && 2==RunMethod_Check) u3_printf("1");
+				if(2==QR_code_flag && 2==RunMethod_Check) next_treasure=QR_code_u3_printf(&glHello_control);
 				treasure_flag=1;
 			}
-			
-			
 			flag=1;
 		}
 		if(1==flag&&0==PES_H)
@@ -201,8 +198,6 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 		}
 		else if(4==flag)
 		{
-			sprintf((char*)buff,"%d",USART3_RX_BUF[0]);
-			Gui_DrawFont_GBK16(0,140,BLUE,WHITE,(const char*)buff);
 			if(treasure_flag)       //如果宝物在这个平台抬手
 			{
 				speedAdjustment(0,0);

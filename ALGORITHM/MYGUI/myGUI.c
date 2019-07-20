@@ -1178,18 +1178,21 @@ void Fun_scanQRcode()
 	while(1)
 	{
 		keyFlag  = keyScan(0);
-		if(keyFlag == KEY2_ENTER)
-			u3_printf("1");
-		else if(keyFlag == KEY4_ESC) break;
+//		if(keyFlag == KEY2_ENTER)
+//			u3_printf("1");
+	  if(keyFlag == KEY4_ESC) break;
 		if(USART3_RX_STA&0x8000)
 		{
 			len=USART3_RX_STA&0x3fff;
 			for(t=0;t<len;t++)	buff[t]=USART3_RX_BUF[t];
+			for(t=0;t<len;t++)	QR_code[t]=USART3_RX_BUF[t]&0x0f;
 			USART3_RX_STA=0;
 			memset(USART3_RX_BUF,'0',sizeof(USART3_RX_BUF));
 			
-			Gui_DrawFont_GBK16(50,50,BLUE,WHITE,"  ");
-			Gui_DrawFont_GBK16(50,50,BLUE,WHITE,buff);
+//			Gui_DrawFont_GBK16(50,50,BLUE,WHITE,"  ");
+//			Gui_DrawFont_GBK16(50,50,BLUE,WHITE,buff);
+			sprintf((char*)buff,"%d",QR_code[0]);
+			Gui_DrawFont_GBK16(50,50,BLUE,WHITE,(const char*)buff);
 		}
 		
 	}
