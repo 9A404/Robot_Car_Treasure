@@ -35,6 +35,7 @@ extern u16 USART3_RX_STA;         				//接收状态标记
 void usart3_init(u32 bound);
 void u3_printf(char* fmt,...);
 u8 QR_code_u3_printf(controlCenterTypeDef *controlp);
+u8 QR_code_u3_print();
 void sensorBit_u3printf(const unsigned short int value);
 void sensor3printf(const unsigned short int value);
 void Treasure_Reset_Usart3(void);

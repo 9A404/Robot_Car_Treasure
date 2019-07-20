@@ -291,25 +291,22 @@ u8 QR_code_u3_printf(controlCenterTypeDef *controlp)
 	u16 len=0;
 	u8 t=0;
 	if(USART3_RX_STA&0x8000)
-		{
-			QR_code_flag++;                  //每收到一次从手机发过来二维码数据QR_code_flag++
-			len=USART3_RX_STA&0x3fff;
-			for(t=0;t<len;t++)	QR_code[t]=USART3_RX_BUF[t];
-			//Gui_DrawFont_Num32(0,0,BLUE,WHITE,QR_code_flag);
-			USART3_RX_STA=0;
-			memset(USART3_RX_BUF,'0',sizeof(USART3_RX_BUF));
-		}
+	{
+		QR_code_flag++;                  //每收到一次从手机发过来二维码数据QR_code_flag++
+		len=USART3_RX_STA&0x3fff;
+		for(t=0;t<len;t++)	QR_code[t]=USART3_RX_BUF[t];
+		//Gui_DrawFont_Num32(0,0,BLUE,WHITE,QR_code_flag);
+		USART3_RX_STA=0;
+		memset(USART3_RX_BUF,'0',sizeof(USART3_RX_BUF));
+	}
 	switch(QR_code_flag)
 	{
 		/*第一个宝物*/
 		
 		/*  判断在平台1(节点4)扫描到的二维码，返回下一个应该同时举起双手的平台(3或4平台)(节点为7或12)*/
 		case 1:if(QR_code[0]=='7'&&QR_code[1]=='0') 	{temp=7;break;}
-					 else if(QR_code[0]=='1'&&QR_code[1]=='2') 
-					 {
-							temp=12;break;
-					 }
-					 break;
+			   else if(QR_code[0]=='1'&&QR_code[1]=='2') {temp=12;break;}
+			   break;
 					 
 					 
 		/*第二个宝物*/
@@ -317,8 +314,8 @@ u8 QR_code_u3_printf(controlCenterTypeDef *controlp)
 					 
 		/*  判断在平台2或3(节点1或12)扫描到的二维码，返回下一个应该同时举起双手的平台(5或6平台)(节点为37或47)*/
 		case 2:if(QR_code[0]=='3'&&QR_code[1]=='7') {temp= 37;break;}
-						else if(QR_code[0]=='4'&&QR_code[1]=='7') {temp=47;break;}
-						break;
+			   else if(QR_code[0]=='4'&&QR_code[1]=='7') {temp=47;break;}
+			   break;
 						
 						
 		/*第三个宝物*/
@@ -326,7 +323,60 @@ u8 QR_code_u3_printf(controlCenterTypeDef *controlp)
 					 
 		/*  判断在平台2或3(节点1或12)扫描到的二维码，返回下一个应该同时举起双手的平台(5或6平台)(节点为37或47)*/
 		case 3:if(QR_code[0]=='2'&&QR_code[1]=='7') {temp=27;break;}
-						else if(QR_code[0]=='2'&&QR_code[1]=='4') {temp=24;break;}break;
+			   else if(QR_code[0]=='2'&&QR_code[1]=='4') {temp=24;break;}break;
+	}
+	return temp;
+}
+
+/*
+
+* 函数介绍：通过串口3接收从扫码发过来的二维码数据并分析
+* 输入参数：controlCenterTypeDef
+* 输出参数：无
+* 返回值  ：二维码数据（宝物自定义节点）
+*	其他		：无
+* 作者    ：@林浩杰
+
+*/
+u8 QR_code_u3_print()
+{
+	u8 temp;
+	u16 len=0;
+	u8 t=0;
+	if(USART3_RX_STA&0x8000)
+	{
+		QR_code_flag++;                  //每收到一次从手机发过来二维码数据QR_code_flag++
+		len=USART3_RX_STA&0x3fff;
+		for(t=0;t<len;t++)	QR_code[t]=USART3_RX_BUF[t]&0x0f;
+		//Gui_DrawFont_Num32(0,0,BLUE,WHITE,QR_code_flag);
+		USART3_RX_STA=0;
+		memset(USART3_RX_BUF,'0',sizeof(USART3_RX_BUF));
+	}
+	switch(QR_code_flag)
+	{
+		/*第一个宝物*/
+		
+		/*  判断在平台1(节点4)扫描到的二维码，返回下一个应该同时举起双手的平台(3或4平台)(节点为7或12)*/
+		case 1:if(QR_code[0]==3) 	{temp=7;break;}
+			   else if(QR_code[0]==4) {temp=12;break;}
+			   break;
+					 
+					 
+		/*第二个宝物*/
+					 
+					 
+		/*  判断在平台2或3(节点1或12)扫描到的二维码，返回下一个应该同时举起双手的平台(5或6平台)(节点为37或47)*/
+		case 2:if(QR_code[0]==5) {temp= 37;break;}
+			   else if(QR_code[0]==6) {temp=47;break;}
+			   break;
+						
+						
+		/*第三个宝物*/
+					 
+					 
+		/*  判断在平台2或3(节点1或12)扫描到的二维码，返回下一个应该同时举起双手的平台(5或6平台)(节点为37或47)*/
+		case 3:if(QR_code[0]==7) {temp=27;break;}
+			   else if(QR_code[0]==8) {temp=24;break;}break;
 	}
 	return temp;
 }

@@ -40,7 +40,11 @@
 /*快速巡线*/
 #define Fast_FL
 
-#define BlueTooth
+/*手机扫码*/
+//#define PHONE
+
+/*模块扫码*/
+#define MODULAR
 
 #define AUTO_Treasure
 
