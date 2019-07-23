@@ -530,6 +530,11 @@
               <FilePath>..\HARDWARE\LED\led.c</FilePath>
             </File>
             <File>
+              <FileName>control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ALGORITHM\CONTROL\control.c</FilePath>
+            </File>
+            <File>
               <FileName>Lcd_Driver.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\LCD\Lcd_Driver.c</FilePath>
@@ -549,11 +554,6 @@
         <Group>
           <GroupName>ALGORITHM</GroupName>
           <Files>
-            <File>
-              <FileName>control.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\ALGORITHM\CONTROL\control.c</FilePath>
-            </File>
             <File>
               <FileName>myGUI.c</FileName>
               <FileType>1</FileType>

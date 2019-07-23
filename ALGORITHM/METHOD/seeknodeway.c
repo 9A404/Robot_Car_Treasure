@@ -134,7 +134,7 @@ u8 seekNodeMethod_6_15_37()
 		Time3(START);
 		gl_time=0;
 	}
-	else if(1==flag && gl_time>30){
+	else if(1==flag && gl_time>18){
 		
 		//rotAngle_Left(45);
 		gl_time=0;
@@ -313,17 +313,17 @@ u8 seekNodeMethod_4()
 u8 seekNodeMethod_pesPlatform()
 {
   static u8 flag=0;	
-	
 	if(flag==0&&PES_Platform==1)
 	{
 		Time3(START);
 		gl_time=0;
 		while(gl_time<10);
-		speedAdjustment(0,0);
-		delay_ms(1000);
+
 		if(PES_Platform==1) 
 		{
 			Time3(STOP);
+//		speedAdjustment(0,0);
+//		delay_ms(1000);
 			gl_time=0;
 			flag=1;
 		}

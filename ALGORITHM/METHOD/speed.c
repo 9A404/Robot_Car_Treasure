@@ -73,7 +73,7 @@ u8 Speed_downMethod(u16 time){
 * ×÷Õß    £º@Ô¬è÷´Ï
 
 */
-u8 Speed_commonMethod(u16 time){
+  u8 Speed_commonMethod(u16 time){
 	static u8 flag=0;
 	if(flag==0)
 	{

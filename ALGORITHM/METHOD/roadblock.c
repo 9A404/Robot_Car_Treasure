@@ -1746,7 +1746,7 @@ u8 BlockHandleMethod_26_27()
 		gl_time=0;
 		flag = 3;
 	}
-	if(3==flag&&gl_time>200)
+	if(3==flag&&gl_time>150)
 	{
 //		speedAdjustment(0,0);
 //		delay_ms(500);
