@@ -393,7 +393,7 @@ static float Monitor_ROLL()
 {
 //	static findLine save;
 	static u8 flag=0;
-	u8 Turn_Flag=0;
+	static u8 Turn_Flag=0;
 	float temp;
 	if(0==flag)                //在找点任务中将车摆正后延时直走
 	{	
@@ -457,6 +457,7 @@ static float Monitor_ROLL()
 		}
 		else                         //否则返回1完成障碍任务
 		{
+			Turn_Flag=0;
 			flag=0;
 			return 1;
 		}

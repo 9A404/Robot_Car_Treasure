@@ -26,7 +26,7 @@ SEEK_PesPlatform,SEEK_Collision,SEEK_Collision_1,SEEK_7_6_15,SEEK_6_15_37,SEEK_d
 
 /*停车方法*/
 typedef enum {NOTPARK,PARK1,PARK_pesR,PARK_pesR_150,PARK_pesR_200,PARK_pesR_250,PARK_pesR_300,PARK_pesR_350,PARK_pesR_400,
-							PARK_default,PARK_pesL,PARK_pesL_200,PARK_pesL_250,PARK_pesL_300,PARK_pesL_350,PARK_pesL_400,	
+							PARK_default,PARK_pesL,PARK_pesL_150,PARK_pesL_200,PARK_pesL_250,PARK_pesL_300,PARK_pesL_350,PARK_pesL_400,	
 							PARK_PesPlatform,PARK_Door,PARK_pesR_No,PARK_pesL_No,PARK_pesL_back,PARK_pesR_back}carPark;
 
 /*车头旋转角度*/
