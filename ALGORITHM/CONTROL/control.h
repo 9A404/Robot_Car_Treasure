@@ -11,27 +11,27 @@
 typedef enum {FL_default,FL_circular,FL_node,FL_43_44,FL_16_44,FL_angle,
 							FL_slow_angle,FL_middle,FL_brige,FL_brigeup,FL_brigedown,FL_slow,
 							FL_quick,FL_stop,FL_quickest,FL_upPeak,FL_downPeak,FL_UpPlatform,
-							FL_DownPlatform,FL_left,FL_Right,NFL,NFL_slow,BACK_NFL}findLine;
+							FL_DownPlatform,FL_left,FL_Right,NFL,NFL_slow,BACK_NFL,FL_Step,FL_UPRISE,FL_DOWNRISE}findLine;//FL_left_45
 
 /*路障类型*/
 typedef enum {FREE,BRIGE,DOOR,S_BOARD_1,S_BOARD_2,S_BOARD_26_27,SEESAW,GO_TILT_R,GO_TILT_L,\
 							BACK_TILT_R,BACK_TILT_L,SLOPE,SLOPE_46_43,PLATFORM,PLATFORM_1,Peak,TRAPEZOID_1,TRAPEZOID_2,TRAPEZOID_3,\
-							TIME,TIME_1,TIME_2,TIME_44_43,TIME_45_46,DOWNPLATFORM,ALL_TILT,\
-							DOWN27_26,ANGLE,STEP,HEIGHTLITM	}typeRoadblock;	//无障碍、桥、门、减速带、跷跷板、倾斜路面、斜坡、平台景点、梯形景点、复杂节点定时                                                                                                                                  
+							DOWNPLATFORM,ALL_TILT,DOWN27_26,ANGLE,STEP,HEIGHTLITM	}typeRoadblock;	//无障碍、桥、门、减速带、跷跷板、倾斜路面、斜坡、平台景点、梯形景点、复杂节点定时                                                                                                                                  
 
 	
 /*加速类型*/
-typedef enum {DOWN_SPEED,COMMON_SPEED,NOSPEED,TME}typeSpeed;//下台加速，普通加速，不加速，占时间（用于处理复杂节点)
+typedef enum {DOWN_SPEED,COMMON_SPEED,NOSPEED,TME,UPRISE}typeSpeed;//下台加速，普通加速，不加速，占时间（用于处理复杂节点)
 
 /*找节点方法*/
 typedef enum {SEEK_PESL,SEEK_PESR,SEEK3,SEEK4,SEEK_default,NOTSEEK,SEEK_SeeSaw,SEEK_SeeSaw_back,
-              SEEK_PesPlatform,SEEK_Collision,SEEK_Collision_1,SEEK_7_6_15,SEEK_6_15_37,}seekNodeWay;
+              SEEK_PesPlatform,SEEK_Collision,SEEK_Collision_1,SEEK_7_6_15,SEEK_6_15_37,SEEK_digR,SEEK_digL}seekNodeWay;
 
 /*停车方法*/
-typedef enum {NOTPARK,PARK1,PARK_pesR,PARK_default,PARK_pesL,PARK_PesPlatform,PARK_Door}carPark;
+typedef enum {NOTPARK,PARK1,PARK_pesR,PARK_pesR_time,PARK_pesR_50,PARK_pesR_100,PARK_default,PARK_pesL,PARK_pesL_time,PARK_PesPlatform,PARK_Door,
+              PARK_pesR_No,PARK_pesL_No,PARK_pesL_back,PARK_pesR_back}carPark;
 
 /*车头旋转角度*/
-typedef enum {HL_180,HL_145,HL_135,HL_105,HL_120,HL_90,HL_60,HL_45,HL_35,HL_30,HN_Rotate,
+typedef enum {HL_180,HL_145,HL_135,HL_130,HL_105,HL_120,HL_90,HL_60,HL_45,HL_35,HL_30,HN_Rotate,
               HR_35,HR_45,HR_60,HR_90,HR_110,HR_130,HR_135,HR_145,HR_180,rot_LFL,
               rot_RFL,rot_UL,rot_UR,Sensor_L90,Sensor_R90}carRotAngle;
 

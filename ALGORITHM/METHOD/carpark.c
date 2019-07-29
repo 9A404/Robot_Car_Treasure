@@ -14,7 +14,7 @@
 
 u8 parkMethod_default()
 {
-	delay_ms(400);
+	delay_ms(450);
 	return 1;
 }
 
@@ -55,9 +55,10 @@ u8 parkMethod_pesR()
 		}
 		if(0==PES_R && 1==flag)
 		{
-			speedAdjustment(0,0);
-			delay_ms(10);
-			led_flash();
+			
+//			speedAdjustment(0,0);
+//		while(1);
+//			led_flash();
 			flag = 0;
 			return 1 ;
 		}
@@ -118,6 +119,141 @@ u8 parkMethod_pesL()
 }
 
 
+/*
+
+* 函数介绍：右边光电传感器前面没有线停车方法
+* 输入参数：
+* 输出参数：
+* 返回值  ：1(完成)0（未完成）
+* 其他		：
+* 作者    ：@断忆
+
+*/
+
+u8 parkMethod_pesR_noline()
+{
+	static u8 flag=0;
+	if(flag ==0)
+	{	
+//		/*反转加速刹车*/
+//		speedAdjustment(-3500,-3500);
+//		delay_ms(20);
+		glHello_control.linkInform.findLineWays = NFL_slow;
+		findLineFlag = 0;
+		flag = 1;
+	}
+	if(0==PES_R && 1==flag)
+	{
+		/*停车*/
+		speedAdjustment(-3500,-3500); 
+		delay_ms(25);
+//		speedAdjustment(0,0);
+		flag = 0;
+		return 1 ;
+	}
+	
+	return 0;	
+}
+/*
+
+* 函数介绍：左边光电传感器前面没有线停车方法
+* 输入参数：
+* 输出参数：
+* 返回值  ：1(完成)0（未完成）
+* 其他		：
+* 作者    ：@断忆
+
+*/
+
+u8 parkMethod_pesL_noline()
+{
+	static u8 flag=0;
+	if(flag ==0)
+	{	
+//		/*反转加速刹车*/
+//		speedAdjustment(-3500,-3500);
+//		delay_ms(20);
+		glHello_control.linkInform.findLineWays = NFL_slow;
+		findLineFlag = 0;
+		flag = 1;
+	}
+	if(0==PES_L && 1==flag)
+	{
+		/*停车*/
+		speedAdjustment(-3500,-3500); 
+		delay_ms(25);
+//		speedAdjustment(0,0);
+//		delay_ms(500);
+		flag = 0;
+		return 1 ;
+	}
+	
+	return 0;	
+}	
+
+
+/*
+
+* 函数介绍：左边光电传感器延时停车方法
+* 输入参数：无
+* 输出参数：无
+* 返回值  ：1(完成)0（未完成）
+* 其他		：
+* 作者    ：@断忆
+
+*/
+u8 parkMethod_pesL_Delay(int time)
+{
+	static u8 flag=0;
+	if(flag ==0)
+	{
+		glHello_control.linkInform.findLineWays = FL_stop;
+		findLineFlag = 0;
+		flag = 1;
+	}
+	if(0==PES_L && 1==flag)
+	{	
+		glHello_control.linkInform.findLineWays = NFL;
+		findLineFlag = 0; 
+		delay_ms(time);
+		flag = 0;
+		return 1 ;
+	}
+	
+	return 0;	
+}
+
+/*
+
+* 函数介绍：右边光电传器延时停车方法
+* 输入参数：
+* 输出参数：
+* 返回值  ：1(完成)0（未完成）
+* 其他		：
+* 作者    ：@断忆
+
+*/
+u8 parkMethod_pesR_Delay(int time)
+{
+	static u8 flag=0;
+	if(flag ==0)
+	{	
+		glHello_control.linkInform.findLineWays = FL_stop;
+		findLineFlag = 0;
+		flag = 1;
+	}
+	if(0==PES_R && 1==flag)
+	{
+		glHello_control.linkInform.findLineWays = NFL;
+		findLineFlag = 0; 
+		delay_ms(time);
+		flag = 0;
+		return 1 ;
+	}
+	
+	return 0;	
+}
+
 
 /*
 
@@ -147,17 +283,20 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 				u3_printf("1");              //在2号平台发送1扫描二维码
 				flag1=1;
 			}
-			else if(controlp->curNode==QR_code_u3_printf(&glHello_control))        
+			else if(controlp->curNode==QR_code_u3_printf(&glHello_control))        //进入有宝物的平台
 			{
 				flag1=1;
 				/*  在2号平台扫码后QR_code_flag置为1*/
-				if(1==QR_code_flag && 1==RunMethod_Check)u3_printf("1");  
+				if(1==QR_code_flag && 1==RunMethod_Check)u3_printf("1");  // u8 RunMethod_Check;  检查你所选路线是跑到哪一个平台(用于寻宝切换路线) 
 				if(1==QR_code_flag && 2==RunMethod_Check) u3_printf("1"); 
 				
 				/*  在3或4号平台扫码后QR_code_flag置为2*/                                                                                                                                                                                                  
 				if(2==QR_code_flag && 2==RunMethod_Check) u3_printf("1");
 				treasure_flag=1;
+				if(controlp->curNode==24 || controlp->curNode==27)  flag1=0;
 			}
+			
+			
 			flag=1;
 		}
 		if(1==flag&&0==PES_H)
@@ -175,7 +314,7 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 		else if(3==flag)
 		{	
 			speedAdjustment(-1300,-1300);
-			delay_ms(320);	
+			delay_ms(300);	
 			speedAdjustment(0,0);
 			sgAngleControl(L_ARM,L_UP);
 			delay_ms(200);
@@ -184,16 +323,20 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 			delay_ms(200);
 			sgAngleControl(R_ARM,R_DOWN);
 			delay_ms(200);
-			if(flag1)       //用于扫不到码不走
-			{
-				while(!(USART3_RX_STA&0x8000));
-				flag1=0;
-			}
+			
+//			if(flag1)       
+//			{
+//				while(!(USART3_RX_STA&0x8000));//用于扫不到码不走
+//				flag1=0;
+//			}
+			
 			#ifdef _NEW_MPU6050_
-			if(controlp->curNode==24||controlp->curNode==27)
-			  rotAngle_Right(180);
-			else rotAngle_Right(180);
-			//rotAngle_Right(180);
+//			if(controlp->curNode==24||controlp->curNode==27)
+//			  rotAngle_Right(180);
+//			else rotAngle_Right(180);
+			//rotAngle_Left(180);
+			rotAngle_Left(180);
+			
 			#else
 			rotAngle_Left(180);
 			#endif
@@ -263,7 +406,7 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 			else if(3==flag)
 		{
 			speedAdjustment(-1300,-1300);
-			delay_ms(270);	
+			delay_ms(260);	
 			speedAdjustment(0,0);
 			sgAngleControl(L_ARM,L_UP);
 			delay_ms(400);
@@ -272,7 +415,14 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 			delay_ms(400);
 			sgAngleControl(R_ARM,R_DOWN);
 			delay_ms(400);
-			rotAngle_Right(180);
+			
+//			if(flag1)       
+//			{
+//				while(!(USART3_RX_STA&0x8000));//用于扫不到码不走
+//				flag1=0;
+//			}
+			
+			rotAngle_Left(180);
 			flag=4;
 		}
 		else if(4==flag)
@@ -306,5 +456,81 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 
 }
 
+
+/*
+
+* 函数介绍：左边光电传感器停车方法(带反转减速)
+* 输入参数：无
+* 输出参数：无
+* 返回值  ：1(完成)0（未完成）
+* 其他		：
+* 作者    ：@断忆
+
+*/
+
+u8 parkMethod_pesL_back()
+{
+	static u8 flag=0;
+	if(flag ==0)
+	{
+		/*反转加速刹车*/
+		speedAdjustment(-3500,-3500);
+		delay_ms(20);
+		glHello_control.linkInform.findLineWays = FL_stop;
+		findLineFlag = 0;
+		flag = 1;
+	}
+	if(0==PES_L && 1==flag)
+	{	
+		/*停车*/
+		speedAdjustment(-2000,-2000);
+		delay_ms(40);
+		speedAdjustment(0,0);
+		flag = 0;
+		delay_ms(40);		
+		//delay_ms(1000);
+		//delay_ms(1000);
+		return 1;
+	}
+	
+	return 0;	
+}
+
+
+/*
+
+* 函数介绍：右边光电传感器停车方法（带反转减速）
+* 输入参数：
+* 输出参数：
+* 返回值  ：1(完成)0（未完成）
+* 其他		：
+* 作者    ：@断忆
+
+*/
+
+u8 parkMethod_pesR_back()
+{
+	static u8 flag=0;
+	if(flag ==0)
+	{	
+		/*反转加速刹车*/
+		speedAdjustment(-3500,-3500);
+		delay_ms(20);
+		glHello_control.linkInform.findLineWays = FL_stop;
+		findLineFlag = 0;
+		flag = 1;
+	}
+	if(0==PES_R && 1==flag)
+	{
+		/*停车*/
+		speedAdjustment(-3500,-3500); 
+		delay_ms(15);
+		speedAdjustment(0,0);
+		flag = 0;
+		return 1 ;
+	}
+	
+	return 0;	
+}
 
 

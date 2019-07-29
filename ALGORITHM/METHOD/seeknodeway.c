@@ -49,9 +49,9 @@ u8 seekNodeMethod_default()
 	 {
 		 
 //	 delay_ms(50);
-// speedAdjustment(0,0);
-//	 while(1);
-		 
+//    speedAdjustment(0,0);
+//	  while(1);
+	
 		return 1;
 	 }
 	 return 0;
@@ -136,10 +136,14 @@ u8 seekNodeMethod_6_15_37()
 	static u8 flag=0;
 	if(seekNodeMethod_digR()){
 		flag=1;
-	
+  	Time3(START);
+		gl_time=0;
 	}
-	else if(1==flag){
-		delay_ms(100);
+	else if(1==flag && gl_time>10){
+		
+		Time3(STOP);
+		gl_time=0;
+		
 		rotAngle_Left(30);
 		flag=0;
 		return 1;
@@ -248,6 +252,8 @@ u8 seekNodeMethod_pesR()
 	//	pesRSwitch(STOP);//πÿ÷–∂œ
 		pes_R=0;
 		flag = 0;	
+//		speedAdjustment(0,0);
+//	  while(1);
 		return 1;
 	}
 		
@@ -337,7 +343,7 @@ u8 seekNodeMethod_pesPlatform()
 	//if (1==flag&&PES_Platform==0) flag = 2;
 	else if (1==flag) 
 	{
-		glHello_control.linkInform.findLineWays = FL_slow;
+		glHello_control.linkInform.findLineWays = FL_UpPlatform;
 	  findLineFlag = 0;
 		flag=2;
 	}

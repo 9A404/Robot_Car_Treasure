@@ -90,8 +90,8 @@ u8 rotAngle_Right(float angle)//130
 		//speed = 4500-(3500/angle)*(angle-err);
 		speed=positionPIDCalc_rotAngle(&glrotAnglePID,err); //速度位置式PID输出,直接传入误差参数
 		if(angle>=160)
-		speedAdjustment(speed+1500,-speed-1500);
-		else speedAdjustment(speed+900,-speed-900);
+		speedAdjustment(speed+1450,-speed-1600);
+		else speedAdjustment(speed+700,-speed-800);
 //		speedAdjustment(speed+3000,-speed-0);
 //		else speedAdjustment(speed+1800,-speed-0);
 		//u3_printf("glYaw:%0.2f err:%d\n",glYaw,err);
@@ -106,11 +106,13 @@ u8 rotAngle_Right(float angle)//130
 		if(err<0)err=-err;
 		//speed = 4500-(3500/angle)*(angle-err);
 		speed=positionPIDCalc_rotAngle(&glrotAnglePID,err); //速度位置式PID输出,直接传入误差参数
-		speedAdjustment(speed+1000,-speed-1000);
+		speedAdjustment(speed+900,-speed-1000);
 		//u3_printf("glYaw:%0.2f err:%d\n",glYaw,err);
 	}
 	#endif
 	speedAdjustment(0,0);
+//	delay_ms(6000);
+//	while(1);
 	return 1;
 }
 
@@ -152,8 +154,8 @@ u8 rotAngle_Left(float angle)
 		if(err<0)err=-err;
 		//speed = 4500-(3500/angle)*(angle-err);
 		speed=positionPIDCalc_rotAngle(&glrotAnglePID,err); //速度位置式PID输出,直接传入误差参数
-        if(angle>=160) speedAdjustment(-speed-1500,+speed+1500);
-		else speedAdjustment(-speed-900,speed+900);
+        if(angle>=160) speedAdjustment(-speed-1500,+speed+1400);
+		else speedAdjustment(-speed-1000,speed+900);
 		//u3_printf("glYaw:%0.2f err:%d\n",glYaw,err);
 	}
 	#else
@@ -166,11 +168,12 @@ u8 rotAngle_Left(float angle)
 		if(err<0)err=-err;
 		//speed = 4500-(3500/angle)*(angle-err);
 		speed=positionPIDCalc_rotAngle(&glrotAnglePID,err); //速度位置式PID输出,直接传入误差参数
-		speedAdjustment(speed+1000,-speed-1000);
+		speedAdjustment(speed+900,-speed-1000);
 		//u3_printf("glYaw:%0.2f err:%d\n",glYaw,err);
 	}
 	#endif
 	speedAdjustment(0,0);
+//	delay_ms(6000);
 	return 1;
 }
 /*
@@ -184,9 +187,10 @@ u8 rotAngle_Left(float angle)
 */
 u8 rotAngleMethod_R35()
 {
-	speedAdjustment(2000,-2000);
-	delay_ms(210);
+	speedAdjustment(1800,-2000);
+	delay_ms(220);
 	speedAdjustment(0,0);
+//	while(1);
 	return 1;
 
 }
@@ -330,12 +334,12 @@ u8 rotAngleMethod_RFL()
 		findLineFlag = 0;
 		flag=2;
 	}
-	if((2==flag) && (glsensor_dig_value&0xf00))
+	if((2==flag) && (glsensor_dig_value&0x700))
 	{
 		flag = 3;
 		
 	}
-	if(3==flag && 0==(glsensor_dig_value&0xf00))
+	if(3==flag && 0==(glsensor_dig_value&0x700))
 	{
 		flag = 0;
 		return 1;

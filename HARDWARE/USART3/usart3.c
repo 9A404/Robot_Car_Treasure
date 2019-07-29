@@ -290,7 +290,7 @@ u8 QR_code_u3_printf(controlCenterTypeDef *controlp)
 	u8 temp;
 	u16 len=0;
 	u8 t=0;
-	if(USART3_RX_STA&0x8000)
+	if(USART3_RX_STA&0x8000)  //接收完成
 		{
 			QR_code_flag++;                  //每收到一次从手机发过来二维码数据QR_code_flag++
 			len=USART3_RX_STA&0x3fff;
