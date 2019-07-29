@@ -1787,29 +1787,24 @@ u8 BlockHandleMethod_26_27()
 * 输出参数：无
 * 返回值  ：1（到达路障）0（未到达路障）
 * 其他		：无
-* 作者    ：@BEE LIU
+* 作者    ：@断忆
 
 */
 u8 LimtdeHeight_Method()
 {
 	static u8 flag=0;
-	if(flag == 0&&0 == PES_R)
+	if(flag == 0)
 	{
-		flag=1;
+	  Time3(START);
+		gl_time = 0;
+		sgAngleControl(BODY,B_DOWN);
+		flag = 1;
 	}
-	if(flag==1)
-	{ 
-		//speedAdjustment(0,0);	
-	  sgAngleControl(BODY,B_DOWN);
-//	  delay_ms(400);
-		flag=2;	
-	}
-  if(flag==2&&0 == PES_R)
+	else if(flag == 1&&gl_time>190)
 	{
-		//speedAdjustment(0,0);	
-	  sgAngleControl(BODY,B_UP);
-//	  delay_ms(400);
-		flag=0;	
+		Time3(STOP);
+		sgAngleControl(BODY,B_UP);
+		flag = 0; 
 		return 1;
 	}
   return 0;

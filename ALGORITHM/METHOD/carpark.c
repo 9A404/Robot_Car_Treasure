@@ -193,7 +193,7 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 //			}
 			#ifdef _NEW_MPU6050_
 			rotAngle_Left(180);
-			//rotAngle_Right(180);
+//			rotAngle_Right(180);
 			#else
 			rotAngle_Left(180);
 			#endif

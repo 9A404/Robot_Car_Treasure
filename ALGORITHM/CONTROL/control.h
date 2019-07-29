@@ -8,8 +8,9 @@
 
 
 /*巡线方法*/
-typedef enum {FL_default,FL_circular,FL_node,FL_43_44,FL_16_44,FL_angle,FL_slow_angle,FL_middle,FL_brige,FL_brigeup,FL_brigedown,FL_slow,FL_quick,FL_stop,
-							FL_quickest,FL_upPeak,FL_downPeak,FL_UpPlatform,FL_DownPlatform,FL_left,FL_left_45,FL_Right,NFL,NFL_slow,BACK_NFL,FL_UPRISE,FL_DOWNRISE}findLine;
+typedef enum {FL_default,FL_circular,FL_node,FL_43_44,FL_16_44,FL_angle,FL_slow_angle,FL_middle,FL_brige,FL_brigeup,FL_brigedown,
+	FL_slow,FL_quick,FL_stop,FL_quickest,FL_upPeak,FL_downPeak,FL_UpPlatform,FL_DownPlatform,
+	FL_left,FL_left_45,FL_Right,NFL,NFL_slow,BACK_NFL,FL_UPRISE,FL_DOWNRISE}findLine;
 		
 /*路障类型*/
 typedef enum {FREE,BRIGE,DOOR,S_BOARD_1,S_BOARD_2,S_BOARD_26_27,SEESAW,GO_TILT_R,GO_TILT_L,

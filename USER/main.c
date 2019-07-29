@@ -11,7 +11,7 @@ const u16  brige_sensorThreshold[NUM_OF_SENSOR] = {800,800,800,800,800,800,800,8
 /*奔跑路线表格*/
 const u8 runMethodTable[][100]={
 	/* 调试路线 */
-/*0*/{20,21,22,23,24,23,25,26,27},
+/*0*/{26,25,28,50,30,31},
  
 	/* 保守路线一,只拿一个宝物 */ 
 /*1*/{1,2,3,4,3,5,12,7,6,5,2,1,2},
@@ -258,19 +258,24 @@ int main(void)
 	runMethodNum=sizeof(runMethodTable)/sizeof(runMethodTable[0]); //计算runMethodTable中共有几条线路
 	while(1)
 	{	
-//		 speedAdjustment(2250,2240);
-	    displayOperation();
-//		flMethod_default();
+//		speedAdjustment(2200,1600);
+	  displayOperation();
 //		rotAngle_Left(180);
 //		rotAngle_Right(178);
-//		while(1);
-//		delay_ms(1000);
+//		  delay_ms(1000);
+//			delay_ms(1000);
+
 //		if(PES_Platform==1) {	Gui_DrawFont_GBK16(0,40,BLUE,WHITE,"First");delay_ms(500);}
-//		if(PES_Platform==0) {	Gui_DrawFont_GBK16(0,40,BLUE,WHITE,"Second");delay_ms(500);}
-//			if(Collision==0) {Gui_DrawFont_GBK16(0,80,BLUE,WHITE,"THREE");delay_ms(500);}
-//			if(Collision==1) {Gui_DrawFont_GBK16(0,80,BLUE,WHITE,"FOUR");delay_ms(500);}
-//		u3_printf("1");	
-	}
+//		if(PES_Platform==0) {	delay_ms(500);}
+//		if(Collision==0) {Gui_DrawFont_GBK16(0,80,BLUE,WHITE,"THREE");delay_ms(500);}
+//		if(Collision==1) {Gui_DrawFont_GBK16(0,80,BLUE,WHITE,"FOUR");delay_ms(500);}
+//		sgAngleControl(BODY,B_DOWN);
+//	  Gui_DrawFont_GBK16(0,40,BLUE,WHITE,"First");
+//		delay_ms(1000);
+//		delay_ms(1000);
+//		sgAngleControl(BODY,B_UP);
+//	  Gui_DrawFont_GBK16(0,40,BLUE,WHITE,"Second");
+	}       
 }
 		
 		

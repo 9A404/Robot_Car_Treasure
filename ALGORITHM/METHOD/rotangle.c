@@ -97,7 +97,7 @@ u8 rotAngle_Right(float angle)
 	}
 	#else
 	PID_Init(&glrotAnglePID,0,4200,60,0,160);																	//对转弯PID的参数进行初始化设置，旋转PID直接传误差值
-	while(err > 5)
+	while(err > 5)/.
 	{ 
 		for(i=0;i<50;i++)
 		MPU6050_Pose();
