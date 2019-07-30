@@ -173,7 +173,7 @@ void motor_PWM_Init(void)
 */
 void speedAdjustment(int lspeed,int rspeed)
 {
-	  if(rspeed>0)   
+	 if(rspeed>0)   
 	{
 		TIM4->CCR4 = 0;         // PB9
 		TIM4->CCR3 = rspeed;	  // PB8          
@@ -181,7 +181,7 @@ void speedAdjustment(int lspeed,int rspeed)
 	}
 	else
 	{ 
-	  TIM4->CCR3 = 0;
+		TIM4->CCR3 = 0;
 		TIM4->CCR4 = -rspeed;              
 	}
 	
@@ -190,11 +190,11 @@ void speedAdjustment(int lspeed,int rspeed)
 		TIM4->CCR2 = 0;	   			//PB7
 		TIM4->CCR1 = lspeed;	  //PB6     
 	}
-		else
-		{
-	  TIM4->CCR1 = 0;
+	else
+	{
+		TIM4->CCR1 = 0;
 		TIM4->CCR2 = -lspeed;	         
-		}
+	}
 	
 }
 

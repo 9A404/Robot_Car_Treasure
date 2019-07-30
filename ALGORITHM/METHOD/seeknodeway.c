@@ -272,7 +272,6 @@ u8 seekNodeMethod_4()
 		mpu6050_samping(START);
 		flag=1;
 		u3_printf("1\n");
-	
 	}
 	
 	if(mpu6050_flag == 1&&1==flag)
@@ -429,8 +428,16 @@ u8 seekNodeMethod_Collision_1()
 //		flag=0;
 //		return 1;
 //	}
-	if(1==Collision) return 1;
-		
+	static u8 flag=0;
+	if(0==PES_H && 0==flag){
+		glHello_control.linkInform.findLineWays = FL_stop;
+		findLineFlag=0;
+		flag=1;
+	}
+	if(1==Collision && 1==flag) {
+		flag=0;
+		return 1;
+	}
 	return 0;
 	
 }

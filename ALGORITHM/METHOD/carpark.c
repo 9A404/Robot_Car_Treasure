@@ -14,7 +14,7 @@
 
 u8 parkMethod_default()
 {
-	delay_ms(400);
+	delay_ms(700);
 	return 1;
 }
 
@@ -137,24 +137,28 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 		if(0==flag)
 		{
 			glHello_control.linkInform.findLineWays = NFL;
-			if(QR_code_flag==0&&controlp->curNode==4)  
-			{
-				u3_printf("1");              //在2号平台发送1扫描二维码
-				flag1=1;
-			}
-			else if(controlp->curNode==QR_code_u3_printf(&glHello_control))        
-			{
-				flag1=1;
-				/*  在2号平台扫码后QR_code_flag置为1*/
-				if(1==QR_code_flag && 1==RunMethod_Check)u3_printf("1");  
-				if(1==QR_code_flag && 2==RunMethod_Check) u3_printf("1"); 
-				
-				/*  在3或4号平台扫码后QR_code_flag置为2*/
-				if(2==QR_code_flag && 2==RunMethod_Check) u3_printf("1");
+			if(Treasure_code[0]==0){
+				if(QR_code_flag==0&&controlp->curNode==4)  
+				{
+					//get_from_phone();
+					u3_printf("1");              //在2号平台发送1扫描二维码
+					flag1=1;
+				}
+				else if(controlp->curNode==QR_code_u3_printf(&glHello_control))        
+				{
+					//get_from_phone();
+					flag1=1;
+					/*  在2号平台扫码后QR_code_flag置为1*/
+					if(1==QR_code_flag && 1==RunMethod_Check) u3_printf("1");  
+					if(1==QR_code_flag && 2==RunMethod_Check) u3_printf("1"); 
+					
+					/*  在3或4号平台扫码后QR_code_flag置为2*/
+					if(2==QR_code_flag && 2==RunMethod_Check) u3_printf("1");
+					treasure_flag=1;
+				}
+			}else if(controlp->curNode==Treasure_code[0]||controlp->curNode==Treasure_code[1]||controlp->curNode==Treasure_code[2]){
 				treasure_flag=1;
-			}
-			
-			
+			}	
 			flag=1;
 		}
 		if(1==flag&&0==PES_H)
@@ -171,7 +175,7 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 		}
 		else if(3==flag)
 		{	
-			speedAdjustment(-1300,-1300);
+			speedAdjustment(-1100,-1100);
 			delay_ms(270);	
 			speedAdjustment(0,0);
 			sgAngleControl(L_ARM,L_UP);
@@ -181,11 +185,21 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 			delay_ms(200);
 			sgAngleControl(R_ARM,R_DOWN);
 			delay_ms(200);
-//			if(flag1)       //用于扫不到码不走
-//			{
-//				while(!(USART3_RX_STA&0x8000));
-//				flag1=0;
-//			}
+			if(flag1)       //用于扫不到码不走
+			{
+				Time3(START);
+				gl_time = 0;
+				while(!(USART3_RX_STA&0x8000)){
+					if(gl_time==200) 
+					{
+						//u3_printf("2");
+						break;
+					}
+				}
+				Time3(STOP);
+				gl_time = 0;
+				flag1=0;
+			}
 			#ifdef _NEW_MPU6050_
 			//rotAngle_Left(180);
 			rotAngle_Right(180);

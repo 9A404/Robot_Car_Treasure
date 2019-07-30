@@ -75,8 +75,10 @@ u8 Speed_downMethod(u16 time){
 */
 u8 Speed_commonMethod(u16 time){
 	static u8 flag=0;
+	static findLine save;
 	if(flag==0)
 	{
+		save = glHello_control.linkInform.findLineWays;
 		Time3(START);
 		gl_time=0;
 		flag=1;
@@ -92,7 +94,7 @@ u8 Speed_commonMethod(u16 time){
 	{
 		Time3(STOP);
 		gl_time = 0;
-		glHello_control.linkInform.findLineWays = FL_slow;
+		glHello_control.linkInform.findLineWays = save;
 		findLineFlag = 0;
 		flag=0;
 		return 1;

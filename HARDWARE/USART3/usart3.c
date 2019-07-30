@@ -142,19 +142,23 @@ void usart3_init(u32 bound){
 void USART3_IRQHandler(void)                	//串口1中断服务程序
 	{
 	u8 Res;
+	char buff[2];
 #ifdef OS_TICKS_PER_SEC	 	//如果时钟节拍数定义了,说明要使用ucosII了.
 	OSIntEnter();    
 #endif
 	if(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)  //接收中断(接收到的数据必须是0x0d 0x0a结尾)
 		{
 		Res =USART_ReceiveData(USART3);//(USART3->DR);	//读取接收到的数据
-		
+			
 		if((USART3_RX_STA&0x8000)==0)//接收未完成
 			{
 			if(USART3_RX_STA&0x4000)//接收到了0x0d
 				{
 				if(Res!=0x0a)USART3_RX_STA=0;//接收错误,重新开始
-				else USART3_RX_STA|=0x8000;	//接收完成了 
+				else {
+					USART3_RX_STA|=0x8000;	//接收完成了 
+					get_from_phone();
+				}
 				}
 			else //还没收到0X0D
 				{	
@@ -327,59 +331,50 @@ u8 QR_code_u3_printf(controlCenterTypeDef *controlp)
 	}
 	return temp;
 }
-
 /*
 
-* 函数介绍：通过串口3接收从扫码发过来的二维码数据并分析
-* 输入参数：controlCenterTypeDef
+* 函数介绍：通过串口3接收从另一部手机发过来的信息进行解析算出宝物坐标
+* 输入参数：无
 * 输出参数：无
-* 返回值  ：二维码数据（宝物自定义节点）
-*	其他		：无
-* 作者    ：@林浩杰
+* 返回值  ：无
+* 其他	  ：Treasure_code数组赋值
+* 作者    ：@袁梓聪
 
 */
-u8 QR_code_u3_print()
+void get_from_phone()
 {
-	u8 temp;
+	int i=0;
 	u16 len=0;
 	u8 t=0;
+	char buff[2];
+	u8 temp[3];
 	if(USART3_RX_STA&0x8000)
 	{
-		QR_code_flag++;                  //每收到一次从手机发过来二维码数据QR_code_flag++
 		len=USART3_RX_STA&0x3fff;
-		for(t=0;t<len;t++)	QR_code[t]=USART3_RX_BUF[t]&0x0f;
-		//Gui_DrawFont_Num32(0,0,BLUE,WHITE,QR_code_flag);
+		for(t=0;t<len;t++)	temp[t]=USART3_RX_BUF[t];	
+	}
+	if(t==3){
+		Lcd_Clear(WHITE);
 		USART3_RX_STA=0;
 		memset(USART3_RX_BUF,'0',sizeof(USART3_RX_BUF));
+		for(i=0;i<3;i++){
+			switch(temp[i]){
+				case '3':Treasure_code[i]=7;break;
+				case '4':Treasure_code[i]=12;break;
+				case '5':Treasure_code[i]=37;break;
+				case '6':Treasure_code[i]=47;break;
+				case '7':Treasure_code[i]=27;break;
+				case '8':Treasure_code[i]=24;break;
+				default:break;
+			}
+		}
 	}
-	switch(QR_code_flag)
-	{
-		/*第一个宝物*/
-		
-		/*  判断在平台1(节点4)扫描到的二维码，返回下一个应该同时举起双手的平台(3或4平台)(节点为7或12)*/
-		case 1:if(QR_code[0]==3) 	{temp=7;break;}
-			   else if(QR_code[0]==4) {temp=12;break;}
-			   break;
-					 
-					 
-		/*第二个宝物*/
-					 
-					 
-		/*  判断在平台2或3(节点1或12)扫描到的二维码，返回下一个应该同时举起双手的平台(5或6平台)(节点为37或47)*/
-		case 2:if(QR_code[0]==5) {temp= 37;break;}
-			   else if(QR_code[0]==6) {temp=47;break;}
-			   break;
-						
-						
-		/*第三个宝物*/
-					 
-					 
-		/*  判断在平台2或3(节点1或12)扫描到的二维码，返回下一个应该同时举起双手的平台(5或6平台)(节点为37或47)*/
-		case 3:if(QR_code[0]==7) {temp=27;break;}
-			   else if(QR_code[0]==8) {temp=24;break;}break;
-	}
-	return temp;
+	//Lcd_Clear(WHITE);
+	sprintf(buff,"%d",Treasure_code[0]);
+	USART3_RX_STA=0;
+	Gui_DrawFont_GBK16(50,50,BLUE,WHITE,buff);
 }
+
 
 /*
 

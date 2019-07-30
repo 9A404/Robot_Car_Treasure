@@ -327,17 +327,17 @@ void findLine_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runStat
 				case FL_UpPlatform:	flMethod_UpPlatform();break;
 				case FL_DownPlatform:	flMethod_DownPlatform();break;
 				case FL_quick:		 flMethod_quick();break;
-				case FL_stop :		 flMethod_stop();break;
+				case FL_stop:		 flMethod_stop();break;
 				case FL_quickest	:flMethod_quickest();	break;
 				case FL_upPeak		:flMethod_upPeak();break;
 				case FL_downPeak	:flMethod_downPeak();break;
-				case FL_left			:flMethod_left();break;
-				case FL_Right			:flMethod_right();break;
-				case NFL: 			 speedAdjustment(2000,2000);break;
+				case FL_left		:flMethod_left();break;
+				case FL_Right		:flMethod_right();break;
+				case NFL: 			 speedAdjustment(1800,1800);break;
 				case FL_angle:   flMethod_NFL();break;
 				case FL_slow_angle :flMethod_NFL_slow();break;
-				case NFL_slow:   speedAdjustment(1100,1100);break;
-				case BACK_NFL:   speedAdjustment(-1300,-1300);break;
+				case NFL_slow:   speedAdjustment(900,900);break;
+				case BACK_NFL:   speedAdjustment(-1100,-1100);break;
 				case FL_UPRISE:	 flMethod_upRise();break;
 				case FL_DOWNRISE:flMethod_downRise();break;
 				default:  break;
@@ -601,6 +601,12 @@ void roadBlocksHandle_Task(const controlCenterTypeDef *controlp,runStateTypeDef 
 										u3_printf("TIME_EIC_3\r\n");
 									#endif
 								}break;
+			case STEP2:			if(1==BlockHandleMethod_Step_2()){
+									runState->F_RoadBlockState = EIC;
+									#ifdef BlueTooth_Debug
+										u3_printf("TIME_EIC_3\r\n");
+									#endif
+								}
 			default:  			break;
 		}
 	}
@@ -1018,6 +1024,15 @@ void rotAngle_Task(controlCenterTypeDef *controlp,runStateTypeDef *runState)
 														#endif
 													}break;
 			case HR_110:if(1 == rotAngle_Right(110))
+									{
+														runState->RotangleState=EIC;
+														runState->F_LineState=EIC;
+														updataState_Reset(controlp,EIC);
+														#ifdef BlueTooth_Debug
+															u3_printf("HR_110_EIC\n\n");
+														#endif
+													}break;
+			case HR_120:if(1 == rotAngle_Right(120))
 									{
 														runState->RotangleState=EIC;
 														runState->F_LineState=EIC;

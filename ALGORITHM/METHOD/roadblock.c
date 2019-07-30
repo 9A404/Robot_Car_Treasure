@@ -372,7 +372,7 @@ static float Monitor_ROLL()
 		Time3(STOP);
 		MPU6050_Pose_usart();
 		angle_read = setYaw(glYaw,90);
-		angle_read_back = setYaw(glYaw,-75);
+		angle_read_back = setYaw(glYaw,-85);
 		flag = 0; 
 		   
 		return 1;
@@ -405,7 +405,7 @@ static float Monitor_ROLL()
 		//led_flash();
 		flag=1;
 	}
-	else if(1==flag&&gl_time>90)         
+	else if(1==flag&&gl_time>96)         
 	{
 //		temp = Monitor_ROLL();
 //		if( temp > -10)               //如果车在跷跷板的另外一端则继续盲走后置flag=2
@@ -450,7 +450,7 @@ static float Monitor_ROLL()
 	else if(2 == flag)                //车子在跷跷板的另外一端则先检测传感器有没有在白线上
 	{
 		glsensor_dig_value = sensorAD(glsensor_ad_value,basic_sensorThreshold);  				//与阈值比较后将模拟量转化成数字量	
-		if(calculateNum(glsensor_dig_value)<=1||(glsensor_dig_value&0xe00)) rotAngle_Left(20);             //如果不在白线则左转20度，大多数情况下是车子偏右，故左转
+		if(calculateNum(glsensor_dig_value)<=1||(glsensor_dig_value&0xe00)) rotAngle_Left(15);             //如果不在白线则左转20度，大多数情况下是车子偏右，故左转
 		else                         //否则返回1完成障碍任务
 		{
 			flag=0;
@@ -607,6 +607,77 @@ u8 BlockHandleMethod_Step (){
 		glHello_control.linkInform.findLineWays = save;   
 		findLineFlag = 0;
 		flag = 0;
+		return 1;
+	}
+	return 0;
+}
+
+/*
+
+* 函数介绍：过两个台阶方法
+* 输入参数：无
+* 输出参数：无
+* 返回值  ：1(路障解决)0（路障未解决）
+* 其他		：无
+* 作者    ：@袁梓聪
+
+*/
+u8 BlockHandleMethod_Step_2 (){
+	static u8 flag=0;
+	static findLine save;
+	if(flag == 0)
+	{
+		save=glHello_control.linkInform.findLineWays;
+		flag=1;
+	}
+	else if(1 == flag&&1 == PES_Platform) 
+	{
+		glHello_control.linkInform.findLineWays = FL_UpPlatform;   
+		findLineFlag = 0;
+		Time3(START);
+		gl_time=0;
+		flag=2; 
+	}
+	else if(2==flag&&gl_time>100){
+		Time3(STOP);
+		gl_time=0;
+		flag=3;
+	}
+	else if(3==flag) 
+	{
+		glHello_control.linkInform.findLineWays = FL_DownPlatform;   
+		findLineFlag = 0;
+		Time3(START); //′ò?a?¨ê±?÷
+		gl_time=0;
+		flag=4;
+	}
+	else if(gl_time>100 && 4==flag)
+	{
+		Time3(STOP); //1?±??¨ê±?÷
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_UpPlatform;
+		findLineFlag = 0;
+		Time3(START);
+		gl_time = 0;
+		flag = 5;
+	}
+	else if(flag==5 && gl_time>100)
+	{
+		Time3(STOP);
+		gl_time=0;
+		glHello_control.linkInform.findLineWays = FL_DownPlatform;
+		findLineFlag = 0;
+		Time3(START);
+		gl_time=0;
+		flag = 6;
+	}
+	else if(flag==6 && gl_time>100)
+	{
+		Time3(STOP);
+		gl_time=0;
+		glHello_control.linkInform.findLineWays = save;
+		findLineFlag=0;
+		flag=0;
 		return 1;
 	}
 	return 0;
@@ -1687,10 +1758,10 @@ u8 BlockHandleMethod_S_BOARD_2()
 		gl_time=0;
 		flag = 3;
 	}
-	if(3==flag&&gl_time>150)
+	if(3==flag&&gl_time>200)
 	{
-//		speedAdjustment(0,0);
-//		delay_ms(500);
+		speedAdjustment(0,0);
+		delay_ms(500);
 		glHello_control.linkInform.findLineWays =FL_default;
 		findLineFlag = 0;
 		Time3(STOP);
