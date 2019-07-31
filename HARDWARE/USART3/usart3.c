@@ -299,7 +299,7 @@ u8 QR_code_u3_printf(controlCenterTypeDef *controlp)
 		QR_code_flag++;                  //每收到一次从手机发过来二维码数据QR_code_flag++
 		len=USART3_RX_STA&0x3fff;
 		for(t=0;t<len;t++)	QR_code[t]=USART3_RX_BUF[t];
-		//Gui_DrawFont_Num32(0,0,BLUE,WHITE,QR_code_flag);
+		Gui_DrawFont_Num32(0,0,BLUE,WHITE,QR_code_flag);
 		USART3_RX_STA=0;
 		memset(USART3_RX_BUF,'0',sizeof(USART3_RX_BUF));
 	}
@@ -350,7 +350,7 @@ void get_from_phone()
 	int i=0;
 	u16 len=0;
 	u8 t=0;
-	char buff[2];
+	char buff[5];
 	u8 temp[3];
 	if(USART3_RX_STA&0x8000)
 	{
@@ -358,7 +358,7 @@ void get_from_phone()
 		for(t=0;t<len;t++)	temp[t]=USART3_RX_BUF[t];	
 	}
 	if(t==3){
-//		Lcd_Clear(WHITE);
+		//Lcd_Clear(WHITE);
 		USART3_RX_STA=0;
 		memset(USART3_RX_BUF,'0',sizeof(USART3_RX_BUF));
 		for(i=0;i<3;i++){
@@ -374,9 +374,9 @@ void get_from_phone()
 		}
 	}
 //	Lcd_Clear(WHITE);
-//	sprintf(buff,"%d",Treasure_code[0]);
+	//sprintf(buff,"%d %d %d",Treasure_code[0],Treasure_code[1],Treasure_code[2]);
 //	//USART3_RX_STA=0;
-//	Gui_DrawFont_GBK16(50,50,BLUE,WHITE,buff);
+	//Gui_DrawFont_GBK16(50,80,BLUE,WHITE,buff);
 }
 
 

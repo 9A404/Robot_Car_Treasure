@@ -370,9 +370,43 @@ static float Monitor_ROLL()
 	else if(flag == 1&&gl_time>50)
 	{
 		Time3(STOP);
+		gl_time = 0;
 		MPU6050_Pose_usart();
 		angle_read = setYaw(glYaw,90);
 		angle_read_back = setYaw(glYaw,-85);
+		flag = 0; 
+		   
+		return 1;
+	}
+	return 0;
+}
+/*
+
+* 函数介绍: 另一方向路障读角度方法
+* 输入参数：无
+* 输出参数：无
+* 返回值  ：1(路障解决)0（路障未解决）
+* 其他		：将巡线方法切换成过桥的巡线
+* 作者    ：你猜
+
+*/
+ u8 Angle_read_back()
+{
+  
+    static u8 flag=0;
+	if(flag == 0)
+	{
+	    Time3(START);
+		gl_time = 0;
+		flag = 1;
+	}
+	else if(flag == 1&&gl_time>50)
+	{
+		Time3(STOP);
+		gl_time = 0;
+		MPU6050_Pose_usart();
+		angle_read = setYaw(glYaw,-90);
+		angle_read_back = setYaw(glYaw,85);
 		flag = 0; 
 		   
 		return 1;
@@ -655,7 +689,7 @@ u8 BlockHandleMethod_Step_2 (){
 	{
 		Time3(STOP); //1?±??¨ê±?÷
 		gl_time = 0;
-		glHello_control.linkInform.findLineWays = FL_UpPlatform;
+		glHello_control.linkInform.findLineWays = FL_DownPlatform;
 		findLineFlag = 0;
 		Time3(START);
 		gl_time = 0;
@@ -1760,8 +1794,6 @@ u8 BlockHandleMethod_S_BOARD_2()
 	}
 	if(3==flag&&gl_time>200)
 	{
-		speedAdjustment(0,0);
-		delay_ms(500);
 		glHello_control.linkInform.findLineWays =FL_default;
 		findLineFlag = 0;
 		Time3(STOP);

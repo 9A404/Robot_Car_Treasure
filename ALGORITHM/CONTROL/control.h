@@ -14,7 +14,7 @@ typedef enum {FL_default,FL_circular,FL_node,FL_43_44,FL_16_44,FL_angle,FL_slow_
 /*路障类型*/
 typedef enum {FREE,BRIGE,DOOR,S_BOARD_1,S_BOARD_2,S_BOARD_26_27,SEESAW,GO_TILT_R,GO_TILT_L,
 			BACK_TILT_R,BACK_TILT_L,SLOPE,SLOPE_46_43,PLATFORM,PLATFORM_1,Peak,TRAPEZOID_1,TRAPEZOID_2,TRAPEZOID_3,
-			DOWNPLATFORM,ALL_TILT,DOWN27_26,ANGLE,STEP,HEIGHTLITM,STEP2}typeRoadblock;	//无障碍、桥、门、减速带、跷跷板、倾斜路面、斜坡、平台景点、梯形景点、复杂节点定时                                                                                                                                  
+			DOWNPLATFORM,ALL_TILT,DOWN27_26,ANGLE,ANGLE_BACK,STEP,HEIGHTLITM,STEP2}typeRoadblock;	//无障碍、桥、门、减速带、跷跷板、倾斜路面、斜坡、平台景点、梯形景点、复杂节点定时                                                                                                                                  
 
 	
 /*加速类型*/

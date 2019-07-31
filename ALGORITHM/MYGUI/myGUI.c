@@ -1184,7 +1184,7 @@ void Fun_scanQRcode()
 		else if(keyFlag == KEY4_ESC) break;
 		if(USART3_RX_STA&0x8000)
 		{
-			Lcd_Clear(WHITE);
+			//Lcd_Clear(WHITE);
 			len=USART3_RX_STA&0x3fff;
 			for(t=0;t<len;t++)	buff[t]=USART3_RX_BUF[t];
 			USART3_RX_STA=0;

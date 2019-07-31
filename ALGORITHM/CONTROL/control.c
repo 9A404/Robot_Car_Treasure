@@ -441,7 +441,14 @@ void roadBlocksHandle_Task(const controlCenterTypeDef *controlp,runStateTypeDef 
 										#ifdef BlueTooth_Debug
 											u3_printf("Bright_EIC\r\n");
 										#endif
-									}break; 
+									}break;
+			case ANGLE_BACK:if(1 == Angle_read_back())
+									{
+										runState->F_RoadBlockState = EIC;
+										#ifdef BlueTooth_Debug
+											u3_printf("Bright_EIC\r\n");
+										#endif
+									}break; 									
 			case BRIGE:if(1 == BlockHandleMethod_Brige())
 									{
 										runState->F_RoadBlockState = EIC;

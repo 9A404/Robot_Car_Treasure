@@ -14,7 +14,7 @@
 
 u8 parkMethod_default()
 {
-	delay_ms(700);
+	delay_ms(600);
 	return 1;
 }
 
@@ -45,7 +45,7 @@ u8 parkMethod_pesR()
 //			flag = 0;
 //			return 1 ;
 //		}
-	if(FL_slow == glHello_control.linkInform.findLineWays)
+	if(FL_slow == glHello_control.linkInform.findLineWays || FL_default == glHello_control.linkInform.findLineWays)
 	{
 		if(flag ==0)
 		{	
@@ -98,23 +98,43 @@ u8 parkMethod_pesR()
 u8 parkMethod_pesL()
 {
 	static u8 flag=0;
-	if(flag ==0)
+	if(FL_slow == glHello_control.linkInform.findLineWays || FL_default == glHello_control.linkInform.findLineWays)
 	{
-		speedAdjustment(0,0);
-		delay_ms(10);
-		glHello_control.linkInform.findLineWays = FL_stop;
-		findLineFlag = 0;
-		flag = 1;
+		if(flag ==0)
+		{	
+			glHello_control.linkInform.findLineWays = FL_stop;
+			findLineFlag = 0;
+			flag = 1;
+		}
+		if(0==PES_L && 1==flag)
+		{
+			speedAdjustment(0,0);
+			delay_ms(10);
+			led_flash();
+			flag = 0;
+			return 1 ;
+		}
 	}
-	if(0==PES_L && 1==flag)
-	{	
-		speedAdjustment(0,0);
-		delay_ms(10);
-		flag=0;
-		return 1;
+	else 
+	{
+		if(flag ==0)
+		{	
+			speedAdjustment(-2000,-2000);
+			delay_ms(20);
+			glHello_control.linkInform.findLineWays = FL_stop;
+			findLineFlag = 0;
+			flag = 1;
+		}
+		if(0==PES_L && 1==flag)
+		{
+			speedAdjustment(0,0);
+			delay_ms(10);		
+			flag = 0;
+			return 1 ;
+		}
 	}
 	
-	return 0;	
+	return 0;
 }
 
 
@@ -134,29 +154,29 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 {
 	#ifdef PHONE
 		static u8 flag=0,flag1=0;
+		char buff[2];
 		if(0==flag)
 		{
 			glHello_control.linkInform.findLineWays = NFL;
-			if(Treasure_code[0]==0&&Treasure_code[1]==0&&Treasure_code[2]==0){
+			if(Treasure_code[0]==0||Treasure_code[1]==0||Treasure_code[2]==0){
 				if(QR_code_flag==0&&controlp->curNode==4)  
 				{
-					//get_from_phone();
 					u3_printf("1");              //在2号平台发送1扫描二维码
 					flag1=1;
 				}
 				else if(controlp->curNode==QR_code_u3_printf(&glHello_control))        
 				{
-					//get_from_phone();
-					flag1=1;
+					//Lcd_Clear(RED);
 					/*  在2号平台扫码后QR_code_flag置为1*/
-					if(1==QR_code_flag && 1==RunMethod_Check) u3_printf("1");  
-					if(1==QR_code_flag && 2==RunMethod_Check) u3_printf("1"); 
+					if(1==QR_code_flag && 1==RunMethod_Check) {u3_printf("1");flag1=1;}  
+					if(1==QR_code_flag && 2==RunMethod_Check) {u3_printf("1");flag1=1;} 
 					
 					/*  在3或4号平台扫码后QR_code_flag置为2*/
-					if(2==QR_code_flag && 2==RunMethod_Check) u3_printf("1");
+					if(2==QR_code_flag && 2==RunMethod_Check) {u3_printf("1");flag1=1;} 
 					treasure_flag=1;
 				}
 			}else if(controlp->curNode==Treasure_code[0]||controlp->curNode==Treasure_code[1]||controlp->curNode==Treasure_code[2]){
+				//Lcd_Clear(WHITE);
 				treasure_flag=1;
 			}	
 			flag=1;
@@ -192,14 +212,14 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 				while(!(USART3_RX_STA&0x8000)){
 					if(gl_time==200) 
 					{
-						flag1=2;
+						//flag1=2;
 						//u3_printf("2");
 						break;
 					}
 				}
-				if(flag1==2){
-					u3_printf("2");
-				}
+//				if(flag1==2){
+//					u3_printf("2");
+//				}
 				Time3(STOP);
 				gl_time = 0;
 				flag1=0;
@@ -225,7 +245,7 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 				delay_ms(200);	
 			#ifdef AUTO_Treasure        //如果定义了根据宝物改变路线
 				if(Treasure_all_Flag != 1)
-				 CheckTreasureNode(&glHello_control);
+					CheckTreasureNode(&glHello_control);
 			#endif
 				treasure_flag=0;
 				flag=0;
