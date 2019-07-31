@@ -137,7 +137,7 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 		if(0==flag)
 		{
 			glHello_control.linkInform.findLineWays = NFL;
-			if(Treasure_code[0]==0){
+			if(Treasure_code[0]==0&&Treasure_code[1]==0&&Treasure_code[2]==0){
 				if(QR_code_flag==0&&controlp->curNode==4)  
 				{
 					//get_from_phone();
@@ -192,9 +192,13 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 				while(!(USART3_RX_STA&0x8000)){
 					if(gl_time==200) 
 					{
+						flag1=2;
 						//u3_printf("2");
 						break;
 					}
+				}
+				if(flag1==2){
+					u3_printf("2");
 				}
 				Time3(STOP);
 				gl_time = 0;

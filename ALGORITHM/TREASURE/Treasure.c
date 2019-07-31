@@ -69,7 +69,8 @@ void CheckTreasureNode(controlCenterTypeDef *controlp)
 		{
 			/*如果车在当前节点等于扫码结构体的扫码所在节点数
 			并且(利用蓝牙在平台上扫到的二维码数值等于扫码结构体的下一宝物所在节点数或者利用OTG在平台上扫到的二维码数值等于扫码结构体的下一宝物所在节点数)为真*/
-			if(controlp->curNode==TreasureTab[i].Scan_Code_node && (QR_code_u3_printf(&glHello_control)==TreasureTab[i].Next_Code_node))
+			if(controlp->curNode==TreasureTab[i].Scan_Code_node && ((QR_code_u3_printf(&glHello_control)==TreasureTab[i].Next_Code_node)||
+				(Treasure_code[0]==TreasureTab[i].Next_Code_node)||(Treasure_code[1]==TreasureTab[i].Next_Code_node)||(Treasure_code[2]==TreasureTab[i].Next_Code_node)))
 			{
 				RunMethodTreasure = TreasureTab[i].AutoTreasure;      //把对应的函数赋给RunMethodTreasure
 				(*RunMethodTreasure)(TreasureTab[i].RunMethodChoose);  //执行当前函数                   

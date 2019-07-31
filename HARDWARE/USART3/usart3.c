@@ -308,8 +308,9 @@ u8 QR_code_u3_printf(controlCenterTypeDef *controlp)
 		/*第一个宝物*/
 		
 		/*  判断在平台1(节点4)扫描到的二维码，返回下一个应该同时举起双手的平台(3或4平台)(节点为7或12)*/
-		case 1:if(QR_code[0]=='7'&&QR_code[1]=='0') 	{temp=7;break;}
-			   else if(QR_code[0]=='1'&&QR_code[1]=='2') {temp=12;break;}
+		case 1:if(QR_code[0]=='7'&&QR_code[1]=='0') 	temp=7;
+			   else if(QR_code[0]=='1'&&QR_code[1]=='2') temp=12;
+			   Treasure_code[0]=temp;
 			   break;
 					 
 					 
@@ -317,8 +318,9 @@ u8 QR_code_u3_printf(controlCenterTypeDef *controlp)
 					 
 					 
 		/*  判断在平台2或3(节点1或12)扫描到的二维码，返回下一个应该同时举起双手的平台(5或6平台)(节点为37或47)*/
-		case 2:if(QR_code[0]=='3'&&QR_code[1]=='7') {temp= 37;break;}
-			   else if(QR_code[0]=='4'&&QR_code[1]=='7') {temp=47;break;}
+		case 2:if(QR_code[0]=='3'&&QR_code[1]=='7') temp= 37;
+			   else if(QR_code[0]=='4'&&QR_code[1]=='7') temp=47;
+			   Treasure_code[1]=temp;
 			   break;
 						
 						
@@ -326,8 +328,10 @@ u8 QR_code_u3_printf(controlCenterTypeDef *controlp)
 					 
 					 
 		/*  判断在平台2或3(节点1或12)扫描到的二维码，返回下一个应该同时举起双手的平台(5或6平台)(节点为37或47)*/
-		case 3:if(QR_code[0]=='2'&&QR_code[1]=='7') {temp=27;break;}
-			   else if(QR_code[0]=='2'&&QR_code[1]=='4') {temp=24;break;}break;
+		case 3:if(QR_code[0]=='2'&&QR_code[1]=='7') temp=27;
+			   else if(QR_code[0]=='2'&&QR_code[1]=='4') temp=24;
+			   Treasure_code[2]=temp;
+			   break;
 	}
 	return temp;
 }
@@ -354,7 +358,7 @@ void get_from_phone()
 		for(t=0;t<len;t++)	temp[t]=USART3_RX_BUF[t];	
 	}
 	if(t==3){
-		Lcd_Clear(WHITE);
+//		Lcd_Clear(WHITE);
 		USART3_RX_STA=0;
 		memset(USART3_RX_BUF,'0',sizeof(USART3_RX_BUF));
 		for(i=0;i<3;i++){
@@ -369,7 +373,7 @@ void get_from_phone()
 			}
 		}
 	}
-//	//Lcd_Clear(WHITE);
+//	Lcd_Clear(WHITE);
 //	sprintf(buff,"%d",Treasure_code[0]);
 //	//USART3_RX_STA=0;
 //	Gui_DrawFont_GBK16(50,50,BLUE,WHITE,buff);
