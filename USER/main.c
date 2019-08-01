@@ -100,6 +100,7 @@ u8 QR_code_flag=0;                         //记录收到多少次串口数据
 u8 treasure_flag=0;                        //宝物摆手标志位
 u8 RunMethod_Check=0;
 u8 QR_code[2];
+u8 Treasure_code[3]={0,0,0};				//记录宝物
 float angle_read;
 float angle_read_back;
 u8 Treasure_all_Flag = 0;
@@ -184,7 +185,7 @@ void Fun_game(void)
 				#endif
 				Gui_DrawFont_GBK16(0,40,BLUE,WHITE,"First round...");
 				runTimes=3;																		//保证跑一次只初始化
-				/*****软件逻辑层初始化部分*****/
+				/*****软件逻辑``````````````````````````````````````````````````````层初始化部分*****/
 				Control_Init(&glHello_control,runMethod);     //初始化控制台
 				runStateInit(&glrunState,&glHello_control);		//根据控制台起始路段初始化运行状态
 			}
@@ -258,10 +259,10 @@ int main(void)
 	runMethodNum=sizeof(runMethodTable)/sizeof(runMethodTable[0]); //计算runMethodTable中共有几条线路
 	while(1)
 	{	
-//		speedAdjustment(2200,1600);
+//		speedAdjustment(1100,1085);
 	  displayOperation();
 //		rotAngle_Left(180);
-//		rotAngle_Right(178);
+//		rotAngle_Right(180);
 //		  delay_ms(1000);
 //			delay_ms(1000);
 
@@ -274,7 +275,8 @@ int main(void)
 //		delay_ms(1000);
 //		delay_ms(1000);
 //		sgAngleControl(BODY,B_UP);
-//	  Gui_DrawFont_GBK16(0,40,BLUE,WHITE,"Second");
+//	  Gui_DrawFont_GBK1 6(0,40,BLUE,WHITE,"Second");
+
 	}       
 }
 		

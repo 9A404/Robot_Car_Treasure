@@ -17,8 +17,8 @@ const map_linkInforTypeDef mapInformation[][NODEFORKNUM]={
 
 /*3节点*/	{	{2,1,FL_brige,FREE,NOSPEED,0,SEEK_default,PARK_default,HN_Rotate},
 				{4,3,FL_slow,FREE,NOSPEED,0,SEEK_PesPlatform,PARK_PesPlatform,HN_Rotate},
-				{5,9,FL_slow,SLOPE,NOSPEED,0,SEEK_default,PARK_pesL_200,HL_35},
-				{5,6,FL_slow,SLOPE,NOSPEED,0,SEEK_default,PARK_pesR,HR_135},
+				{5,9,FL_slow,STEP,NOSPEED,0,SEEK_default,PARK_pesL_200,HL_35},
+				{5,6,FL_slow,STEP,NOSPEED,0,SEEK_default,PARK_pesR,HR_135},
 				{5,12,FL_slow,STEP,NOSPEED,0,SEEK_default,PARK_pesR_250,HL_45},
 				{5,10,FL_slow,STEP,NOSPEED,0,SEEK_default,PARK_pesR_250,HL_45},			},//3节点		
 	
@@ -28,8 +28,8 @@ const map_linkInforTypeDef mapInformation[][NODEFORKNUM]={
 				{6,7,FL_quick,FREE,NOSPEED,0,SEEK_PESR,NOTPARK,HN_Rotate},
 				{6,8,FL_default,FREE,NOSPEED,0,SEEK_PESL,NOTPARK,rot_RFL},
 				{9,10,FL_default,FREE,NOSPEED,0,SEEK4,NOTPARK,HN_Rotate},
-				{12,7,FL_default,FREE,COMMON_SPEED,83,SEEK_PesPlatform,PARK_PesPlatform,HN_Rotate},
-				{12,10,FL_default,FREE,COMMON_SPEED,83,SEEK_PesPlatform,PARK_PesPlatform,HN_Rotate},
+				{12,7,FL_default,FREE,COMMON_SPEED,85,SEEK_PesPlatform,PARK_PesPlatform,HN_Rotate},
+				{12,10,FL_default,FREE,COMMON_SPEED,85,SEEK_PesPlatform,PARK_PesPlatform,HN_Rotate},
 				{10,11,FL_default,FREE,COMMON_SPEED,37,SEEK_default,NOTPARK,rot_LFL},	},      
 
 /*6节点*/	{	{7,6,FL_default,FREE,COMMON_SPEED,50,SEEK_PesPlatform,PARK_PesPlatform,HN_Rotate},
@@ -170,7 +170,7 @@ const map_linkInforTypeDef mapInformation[][NODEFORKNUM]={
 				{28,50,FL_default,HEIGHTLITM,NOSPEED,0,SEEK_default,PARK_pesL_No,HL_90},
 				{23,24,FL_slow,FREE,NOSPEED,0,SEEK_default,NOTPARK,HN_Rotate}},
 
-/*26节点*/{		{27,26,FL_slow,S_BOARD_26_27,NOSPEED,0,NOTSEEK,PARK_PesPlatform,HN_Rotate},
+/*26节点*/{		{27,26,FL_default,S_BOARD_26_27,NOSPEED,0,NOTSEEK,PARK_PesPlatform,HN_Rotate},
 				{25,23,FL_default,FREE,NOSPEED,0,SEEK4,PARK_pesL_No,HL_90},
 				{25,28,FL_slow,FREE,NOSPEED,0,SEEK4,PARK_pesR_No,HR_90},},
 
@@ -209,8 +209,7 @@ const map_linkInforTypeDef mapInformation[][NODEFORKNUM]={
 				{34,35,FL_default,FREE,NOSPEED,0,SEEK_default,PARK_pesR,HR_90},
 				{38,37,FL_default,FREE,NOSPEED,0,SEEK4,PARK_pesR,HR_90},
 				{31,32,FL_default,FREE,NOSPEED,0,SEEK4,PARK_pesL,HL_90},
-				{31,30,FL_middle,FREE,NOSPEED,0,SEEK_PESL,NOTPARK,HN_Rotate},},
-
+				{31,30,FL_middle,FREE,NOSPEED,0,SEEK_PESL,NOTPARK,HN_Rotate},}, 
 						
 						
 /*34节点*/{		{35,36,FL_default,FREE,NOSPEED,0,SEEK_default,PARK_pesL,HL_90},

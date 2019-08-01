@@ -14,7 +14,7 @@
 
 u8 parkMethod_default()
 {
-	delay_ms(300);
+	delay_ms(550);
 	return 1;
 }
 
@@ -132,34 +132,31 @@ u8 parkMethod_pesL()
 
 u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 {
-//	char buff[2];
-//	u8 i=0,j=0,k=0;
-	static u8 flag=0,flag1=0;
-	#ifdef BlueTooth
+	#ifdef PHONE
+		static u8 flag=0,flag1=0;
 		if(0==flag)
 		{
-//		speedAdjustment(0,0);
-//		delay_ms(500);
 			glHello_control.linkInform.findLineWays = NFL;
-			if(QR_code_flag==0&&controlp->curNode==4)  
-			{
-			//	Lcd_Clear(WHITE);
-				u3_printf("1");              //在2号平台发送1扫描二维码
-				flag1=1;
-			}
-			else if(controlp->curNode==QR_code_u3_printf(&glHello_control))        
-			{
-				flag1=1;
-				/*  在2号平台扫码后QR_code_flag置为1*/
-				if(1==QR_code_flag && 1==RunMethod_Check)u3_printf("1");  
-				if(1==QR_code_flag && 2==RunMethod_Check) u3_printf("1"); 
-				
-				/*  在3或4号平台扫码后QR_code_flag置为2*/
-				if(2==QR_code_flag && 2==RunMethod_Check) u3_printf("1");
+			if(Treasure_code[0]==0||Treasure_code[1]==0||Treasure_code[2]==0){
+				if(QR_code_flag==0&&controlp->curNode==4)  
+				{
+					//get_from_phone();
+					u3_printf("1");              //在2号平台发送1扫描二维码
+					flag1=1;
+				}
+				else if(controlp->curNode==QR_code_u3_printf(&glHello_control))        
+				{
+					//get_from_phone();
+					/*  在2号平台扫码后QR_code_flag置为1*/
+					if(1==QR_code_flag && 1==RunMethod_Check) {u3_printf("1");flag1=1;}  
+					if(1==QR_code_flag && 2==RunMethod_Check) {u3_printf("1");flag1=1;}  
+					
+					/*  在3或4号平台扫码后QR_code_flag置为2*/
+					if(2==QR_code_flag && 2==RunMethod_Check) {u3_printf("1");flag1=1;} 					treasure_flag=1;
+				}
+			}else if(controlp->curNode==Treasure_code[0]||controlp->curNode==Treasure_code[1]||controlp->curNode==Treasure_code[2]){
 				treasure_flag=1;
-			}
-			
-			
+			}	
 			flag=1;
 		}
 		if(1==flag&&0==PES_H)
@@ -176,7 +173,7 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 		}
 		else if(3==flag)
 		{	
-			speedAdjustment(-1300,-1315);
+			speedAdjustment(-1100,-1100);
 			delay_ms(270);	
 			speedAdjustment(0,0);
 			sgAngleControl(L_ARM,L_UP);
@@ -186,14 +183,24 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 			delay_ms(200);
 			sgAngleControl(R_ARM,R_DOWN);
 			delay_ms(200);
-//			if(flag1)       //用于扫不到码不走
-//			{
-//				while(!(USART3_RX_STA&0x8000));
-//				flag1=0;
-//			}
+			if(flag1)       //用于扫不到码不走
+			{
+				Time3(START);
+				gl_time = 0;
+				while(!(USART3_RX_STA&0x8000)){
+					if(gl_time==200) 
+					{
+						//u3_printf("2");
+						break;
+					}
+				}
+				Time3(STOP);
+				gl_time = 0;
+				flag1=0;
+			}
 			#ifdef _NEW_MPU6050_
-			rotAngle_Left(180);
-//			rotAngle_Right(180);
+//			rotAngle_Left(180);
+			rotAngle_Right(180);
 			#else
 			rotAngle_Left(180);
 			#endif
@@ -224,34 +231,32 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 				return 1;
 			}
 		}
-		#endif
-	#ifdef OTG
+	#endif
+	
+	#ifdef MODULAR
+		static u8 flag=0,flag1=0,next_treasure=0;
 		if(0==flag)
 		{
-//		speedAdjustment(0,0);
-//		delay_ms(500);
 			glHello_control.linkInform.findLineWays = NFL;
 			if(QR_code_flag==0&&controlp->curNode==4)  
 			{
-			//	Lcd_Clear(WHITE);
-				printf("1");              //在2号平台发送1扫描二维码
+				next_treasure=QR_code_u3_print(); 
+				flag1=1;
 			}
-			else if(controlp->curNode==QR_code_printf(&glHello_control))        
-			{
+			else if(controlp->curNode==next_treasure){
+				flag1=1;
 				/*  在2号平台扫码后QR_code_flag置为1*/
-				if(1==QR_code_flag && 1==RunMethod_Check)printf("1");  
-				if(1==QR_code_flag && 2==RunMethod_Check) printf("1"); 
+				if(1==QR_code_flag && 1==RunMethod_Check) next_treasure=QR_code_u3_print();
+				if(1==QR_code_flag && 2==RunMethod_Check) next_treasure=QR_code_u3_print();
 				
 				/*  在3或4号平台扫码后QR_code_flag置为2*/
-				if(2==QR_code_flag && 2==RunMethod_Check) printf("1");
+				if(2==QR_code_flag && 2==RunMethod_Check) next_treasure=QR_code_u3_print();
 				treasure_flag=1;
 			}
 			flag=1;
 		}
 		if(1==flag&&0==PES_H)
 		{
-//		speedAdjustment(0,0);
-//		delay_ms(500);
 			glHello_control.linkInform.findLineWays = NFL_slow;
 			flag=2;
 		}
@@ -260,19 +265,29 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 			delay_ms(100);
 			flag=3;
 		}
-			else if(3==flag)
-		{
+		else if(3==flag)
+		{	
 			speedAdjustment(-1300,-1300);
 			delay_ms(270);	
 			speedAdjustment(0,0);
 			sgAngleControl(L_ARM,L_UP);
-			delay_ms(400);
+			delay_ms(200);
 			sgAngleControl(L_ARM,L_DOWN);
 			sgAngleControl(R_ARM,R_UP);
-			delay_ms(400);
+			delay_ms(200);
 			sgAngleControl(R_ARM,R_DOWN);
-			delay_ms(400);
+			delay_ms(200);
+//			if(flag1)       //用于扫不到码不走
+//			{
+//				while(!(USART3_RX_STA&0x8000));
+//				flag1=0;
+//			}
+			#ifdef _NEW_MPU6050_
+			//rotAngle_Left(180);
 			rotAngle_Right(180);
+			#else
+			rotAngle_Left(180);
+			#endif
 			flag=4;
 		}
 		else if(4==flag)
@@ -282,21 +297,20 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 				speedAdjustment(0,0);
 				sgAngleControl(L_ARM,L_UP);
 				sgAngleControl(R_ARM,R_UP);
-				delay_ms(400);
+				delay_ms(200);
 				sgAngleControl(L_ARM,L_DOWN);
 				sgAngleControl(R_ARM,R_DOWN);
-				delay_ms(400);	
-//				speedAdjustment(-1300,-1300);
-//				delay_ms(270);
+				delay_ms(200);	
 			#ifdef AUTO_Treasure        //如果定义了根据宝物改变路线
-				CheckTreasureNode(&glHello_control);
+				if(Treasure_all_Flag != 1)
+				 CheckTreasureNode(&glHello_control);
 			#endif
 				treasure_flag=0;
 				flag=0;
 				return 1;
 			}
 			else         //如果在宝物不在这个平台倒车转弯
-			{
+			{	
 				flag=0;
 				return 1;
 			}
@@ -305,6 +319,7 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 	return 0;
 
 }
+
 /*
 
 * 函数介绍：右边光电传感器前面没有线停车方法

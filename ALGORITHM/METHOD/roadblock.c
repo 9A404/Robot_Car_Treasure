@@ -603,12 +603,12 @@ u8 BlockHandleMethod_Step (){
 		gl_time=0;
 		flag=3;
 	}
-	else if(gl_time>260 && 3==flag)
+	else if(gl_time>240 && 3==flag)
 	{
 		Time3(STOP); //1?¡À??¡§¨º¡À?¡Â
 		gl_time = 0;
-	//  speedAdjustment(0,0);
-	//  delay_ms(1000);
+//	  speedAdjustment(0,0);
+//	  delay_ms(1000);
 		glHello_control.linkInform.findLineWays = save;   
 		findLineFlag = 0;
 		flag = 0;

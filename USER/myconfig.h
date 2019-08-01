@@ -40,6 +40,9 @@
 /*快速巡线*/
 #define Fast_FL
 
+/*手机扫码*/
+#define PHONE
+
 #define BlueTooth
 
 #define AUTO_Treasure
@@ -77,6 +80,7 @@ extern u8 QR_code_flag;
 extern u8 treasure_flag;
 extern float glPitchbuff[2];
 extern u8 QR_code[2];
+extern u8 Treasure_code[3];
 extern float gldif_Pitch;
 extern u8 mpu6050_flag;
 extern u8 U_Dswitch;                                //上下台控制开关 1代表上台，2代表下台

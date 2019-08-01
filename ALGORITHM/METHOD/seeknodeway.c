@@ -36,16 +36,6 @@
 
 u8 seekNodeMethod_default()
 {
-//	static u8 flag=0;
-//	if(4 == calculateNum(glsensor_dig_value) && (flag==0))
-//		flag = 1;
-//	else if((1 == flag) && (3 < calculateNum(glsensor_dig_value)))
-//	{
-//		flag = 0;
-//		return 1;
-//	}
-//	return 0;
-
 	 if(3 < calculateNum(glsensor_dig_value))
 	 {
 		return 1;
