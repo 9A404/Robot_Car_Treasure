@@ -602,6 +602,12 @@ void roadBlocksHandle_Task(const controlCenterTypeDef *controlp,runStateTypeDef 
 										u3_printf("HEIGHT_EIC_3\r\n");
 									#endif
 								}break;
+			case STEP2:			if(1==BlockHandleMethod_Step_2()){
+									runState->F_RoadBlockState = EIC;
+									#ifdef BlueTooth_Debug
+										u3_printf("TIME_EIC_3\r\n");
+									#endif
+								}break;				
 			default:  			break;
 		}
 	}

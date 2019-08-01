@@ -618,6 +618,76 @@ u8 BlockHandleMethod_Step (){
 }
 /*
 
+* 函数介绍：过两个台阶方法
+* 输入参数：无
+* 输出参数：无
+* 返回值  ：1(路障解决)0（路障未解决）
+* 其他		：无
+* 作者    ：@袁梓聪
+
+*/
+u8 BlockHandleMethod_Step_2 (){
+	static u8 flag=0;
+	static findLine save;
+	if(flag == 0)
+	{
+		save=glHello_control.linkInform.findLineWays;
+		flag=1;
+	}
+	else if(1 == flag&&1 == PES_Platform) 
+	{
+		glHello_control.linkInform.findLineWays = FL_UpPlatform;   
+		findLineFlag = 0;
+		Time3(START);
+		gl_time=0;
+		flag=2; 
+	}
+	else if(2==flag&&gl_time>60){
+		Time3(STOP);
+		gl_time=0;
+		flag=3;
+	}
+	else if(3==flag) 
+	{
+		glHello_control.linkInform.findLineWays = FL_DownPlatform;   
+		findLineFlag = 0;
+		Time3(START); //′ò?a?¨ê±?÷
+		gl_time=0;
+		flag=4;
+	}
+	else if(gl_time>100 && 4==flag)
+	{
+		Time3(STOP); //1?±??¨ê±?÷
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_UpPlatform;
+		findLineFlag = 0;
+		Time3(START);
+		gl_time = 0;
+		flag = 5;
+	}
+	else if(flag==5 && gl_time>60)
+	{
+		Time3(STOP);
+		gl_time=0;
+		glHello_control.linkInform.findLineWays = FL_DownPlatform;
+		findLineFlag = 0;
+		Time3(START);
+		gl_time=0;
+		flag = 6;
+	}
+	else if(flag==6 && gl_time>60)
+	{
+		Time3(STOP);
+		gl_time=0;
+		glHello_control.linkInform.findLineWays = save;
+		findLineFlag=0;
+		flag=0;
+		return 1;
+	}
+	return 0;
+}
+/*
+
 * 函数介绍：过山丘方法
 * 输入参数：无
 * 输出参数：无

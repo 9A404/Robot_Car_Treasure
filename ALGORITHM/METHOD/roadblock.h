@@ -18,6 +18,7 @@ u8 BlockHandleMethod_down_27_26(void);
 u8 BlockHandleMethod_Seesaw(void);      //跷跷板
 u8 BlockHandleMethod_Slope(void);      //山丘
 u8 BlockHandleMethod_Step(void);      //台阶
+u8 BlockHandleMethod_Step_2(void);  //台阶2
 
 u8 BlockHandleMethod_Trapezoid_1(void);
 u8 BlockHandleMethod_Trapezoid_2(void);	 //梯形景点

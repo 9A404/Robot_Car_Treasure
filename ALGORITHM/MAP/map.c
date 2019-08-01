@@ -148,10 +148,11 @@ const map_linkInforTypeDef mapInformation[][NODEFORKNUM]={
 
 /*23节点*/{		{33,38,FL_slow,BACK_TILT_L,NOSPEED,0,SEEK4,NOTPARK,HN_Rotate},
 				{24,23,FL_default,Peak,NOSPEED,0,NOTSEEK,PARK_PesPlatform,HN_Rotate},
-				{25,26,FL_slow,FREE,NOSPEED,0,SEEK_default,PARK_pesR,HR_90},
+				{25,26,FL_default,STEP2,NOSPEED,0,SEEK_default,PARK_pesR,HR_90},
 				{22,21,FL_default,FREE,NOSPEED,0,SEEK_default,PARK_pesL_150,HL_145},
 				{33,31,FL_slow,BACK_TILT_L,NOSPEED,0,SEEK4,PARK_pesL,HR_90},
-				{33,34,FL_slow,BACK_TILT_L,NOSPEED,0,SEEK4,PARK_pesL,HL_90},},
+				{33,34,FL_slow,BACK_TILT_L,NOSPEED,0,SEEK4,PARK_pesL,HL_90},
+        {25,28,FL_default,STEP2,NOSPEED,0,SEEK_default,NOTPARK,HN_Rotate},},
 	
 /*24节点*/{		{36,37,FL_default,FREE,NOSPEED,0,SEEK4,PARK_pesL,HL_60},
 				{10,9,FL_slow,BACK_TILT_R,NOSPEED,0,SEEK4,PARK_pesL,HL_90},
