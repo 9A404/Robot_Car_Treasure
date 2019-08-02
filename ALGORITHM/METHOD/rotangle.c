@@ -72,9 +72,9 @@ u8 rotAngle_Right(float angle)
 	speedAdjustment(0,0);
 	#ifdef _NEW_MPU6050_
 	MPU6050_Pose_usart();
-	#else
-	for(i=0;i<50;i++)	
-		MPU6050_Pose();
+//	#else
+//	for(i=0;i<50;i++)	
+//		MPU6050_Pose();
 	#endif
 	set = setYaw(glYaw,angle);
 

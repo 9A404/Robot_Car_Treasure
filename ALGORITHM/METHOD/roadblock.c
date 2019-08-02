@@ -450,7 +450,7 @@ static float Monitor_ROLL()
 	else if(2 == flag)                //车子在跷跷板的另外一端则先检测传感器有没有在白线上
 	{
 		glsensor_dig_value = sensorAD(glsensor_ad_value,basic_sensorThreshold);  				//与阈值比较后将模拟量转化成数字量	
-			if(calculateNum(glsensor_dig_value)<=1 && Turn_Flag<3) 
+			if(calculateNum(glsensor_dig_value)<=1 && Turn_Flag<4) 
 		{
 			rotAngle_Left(20);             //如果不在白线则左转20度，大多数情况下是车子偏右，故左转
 			Turn_Flag++;
@@ -603,7 +603,7 @@ u8 BlockHandleMethod_Step (){
 		gl_time=0;
 		flag=3;
 	}
-	else if(gl_time>240 && 3==flag)
+	else if(gl_time>250 && 3==flag)
 	{
 		Time3(STOP); //1?±??¨ê±?÷
 		gl_time = 0;
@@ -1728,7 +1728,7 @@ u8 BlockHandleMethod_S_BOARD_1()
 		gl_time=0;
 		flag=2;
 	}
-	else if(2==flag&&gl_time>90)
+	else if(2==flag&&gl_time>87)
 	{
 //		speedAdjustment(0,0);
 //		delay_ms(500);

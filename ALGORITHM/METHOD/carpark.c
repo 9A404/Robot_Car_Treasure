@@ -14,7 +14,7 @@
 
 u8 parkMethod_default()
 {
-	delay_ms(550);
+	delay_ms(470);
 	return 1;
 }
 
@@ -199,10 +199,10 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 				flag1=0;
 			}
 			#ifdef _NEW_MPU6050_
+			rotAngle_Left(180);
+//			rotAngle_Right(180);
+//			#else
 //			rotAngle_Left(180);
-			rotAngle_Right(180);
-			#else
-			rotAngle_Left(180);
 			#endif
 			flag=4;
 		}
@@ -232,90 +232,90 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 			}
 		}
 	#endif
-	
-	#ifdef MODULAR
-		static u8 flag=0,flag1=0,next_treasure=0;
-		if(0==flag)
-		{
-			glHello_control.linkInform.findLineWays = NFL;
-			if(QR_code_flag==0&&controlp->curNode==4)  
-			{
-				next_treasure=QR_code_u3_print(); 
-				flag1=1;
-			}
-			else if(controlp->curNode==next_treasure){
-				flag1=1;
-				/*  在2号平台扫码后QR_code_flag置为1*/
-				if(1==QR_code_flag && 1==RunMethod_Check) next_treasure=QR_code_u3_print();
-				if(1==QR_code_flag && 2==RunMethod_Check) next_treasure=QR_code_u3_print();
-				
-				/*  在3或4号平台扫码后QR_code_flag置为2*/
-				if(2==QR_code_flag && 2==RunMethod_Check) next_treasure=QR_code_u3_print();
-				treasure_flag=1;
-			}
-			flag=1;
-		}
-		if(1==flag&&0==PES_H)
-		{
-			glHello_control.linkInform.findLineWays = NFL_slow;
-			flag=2;
-		}
-		if(2==flag&&1==Collision)
-		{
-			delay_ms(100);
-			flag=3;
-		}
-		else if(3==flag)
-		{	
-			speedAdjustment(-1300,-1300);
-			delay_ms(270);	
-			speedAdjustment(0,0);
-			sgAngleControl(L_ARM,L_UP);
-			delay_ms(200);
-			sgAngleControl(L_ARM,L_DOWN);
-			sgAngleControl(R_ARM,R_UP);
-			delay_ms(200);
-			sgAngleControl(R_ARM,R_DOWN);
-			delay_ms(200);
-//			if(flag1)       //用于扫不到码不走
+//	
+//	#ifdef MODULAR
+//		static u8 flag=0,flag1=0,next_treasure=0;
+//		if(0==flag)
+//		{
+//			glHello_control.linkInform.findLineWays = NFL;
+//			if(QR_code_flag==0&&controlp->curNode==4)  
 //			{
-//				while(!(USART3_RX_STA&0x8000));
-//				flag1=0;
+//				next_treasure=QR_code_u3_print(); 
+//				flag1=1;
 //			}
-			#ifdef _NEW_MPU6050_
-			//rotAngle_Left(180);
-			rotAngle_Right(180);
-			#else
-			rotAngle_Left(180);
-			#endif
-			flag=4;
-		}
-		else if(4==flag)
-		{
-			if(treasure_flag)       //如果宝物在这个平台抬手
-			{
-				speedAdjustment(0,0);
-				sgAngleControl(L_ARM,L_UP);
-				sgAngleControl(R_ARM,R_UP);
-				delay_ms(200);
-				sgAngleControl(L_ARM,L_DOWN);
-				sgAngleControl(R_ARM,R_DOWN);
-				delay_ms(200);	
-			#ifdef AUTO_Treasure        //如果定义了根据宝物改变路线
-				if(Treasure_all_Flag != 1)
-				 CheckTreasureNode(&glHello_control);
-			#endif
-				treasure_flag=0;
-				flag=0;
-				return 1;
-			}
-			else         //如果在宝物不在这个平台倒车转弯
-			{	
-				flag=0;
-				return 1;
-			}
-		}
-	#endif
+//			else if(controlp->curNode==next_treasure){
+//				flag1=1;
+//				/*  在2号平台扫码后QR_code_flag置为1*/
+//				if(1==QR_code_flag && 1==RunMethod_Check) next_treasure=QR_code_u3_print();
+//				if(1==QR_code_flag && 2==RunMethod_Check) next_treasure=QR_code_u3_print();
+//				
+//				/*  在3或4号平台扫码后QR_code_flag置为2*/
+//				if(2==QR_code_flag && 2==RunMethod_Check) next_treasure=QR_code_u3_print();
+//				treasure_flag=1;
+//			}
+//			flag=1;
+//		}
+//		if(1==flag&&0==PES_H)
+//		{
+//			glHello_control.linkInform.findLineWays = NFL_slow;
+//			flag=2;
+//		}
+//		if(2==flag&&1==Collision)
+//		{
+//			delay_ms(100);
+//			flag=3;
+//		}
+//		else if(3==flag)
+//		{	
+//			speedAdjustment(-1300,-1300);
+//			delay_ms(270);	
+//			speedAdjustment(0,0);
+//			sgAngleControl(L_ARM,L_UP);
+//			delay_ms(200);
+//			sgAngleControl(L_ARM,L_DOWN);
+//			sgAngleControl(R_ARM,R_UP);
+//			delay_ms(200);
+//			sgAngleControl(R_ARM,R_DOWN);
+//			delay_ms(200);
+////			if(flag1)       //用于扫不到码不走
+////			{
+////				while(!(USART3_RX_STA&0x8000));
+////				flag1=0;
+////			}
+//			#ifdef _NEW_MPU6050_
+//			//rotAngle_Left(180);
+//			rotAngle_Right(180);
+//			#else
+//			rotAngle_Left(180);
+//			#endif
+//			flag=4;
+//		}
+//		else if(4==flag)
+//		{
+//			if(treasure_flag)       //如果宝物在这个平台抬手
+//			{
+//				speedAdjustment(0,0);
+//				sgAngleControl(L_ARM,L_UP);
+//				sgAngleControl(R_ARM,R_UP);
+//				delay_ms(200);
+//				sgAngleControl(L_ARM,L_DOWN);
+//				sgAngleControl(R_ARM,R_DOWN);
+//				delay_ms(200);	
+//			#ifdef AUTO_Treasure        //如果定义了根据宝物改变路线
+//				if(Treasure_all_Flag != 1)
+//				 CheckTreasureNode(&glHello_control);
+//			#endif
+//				treasure_flag=0;
+//				flag=0;
+//				return 1;
+//			}
+//			else         //如果在宝物不在这个平台倒车转弯
+//			{	
+//				flag=0;
+//				return 1;
+//			}
+//		}
+//	#endif
 	return 0;
 
 }
@@ -444,6 +444,8 @@ u8 parkMethod_pesR_Delay(int time)
 	}
 	if(0==PES_R && 1==flag)
 	{
+//	  speedAdjustment(0,0);
+//	  delay_ms(1000);
 		glHello_control.linkInform.findLineWays = NFL;
 		findLineFlag = 0; 
 		delay_ms(time);
