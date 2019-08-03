@@ -17,6 +17,7 @@ u8 seekNodeMethod_7_6_15(void);
 u8 seekNodeMethod_6_15_37(void);
 u8 seekNodeMethod_digL(void);
 u8 seekNodeMethod_digR(void);
+u8 seekNodeMethod_delay(void);
 #endif
 
 

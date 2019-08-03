@@ -26,6 +26,7 @@ void flMethod_NFL(void);
 void flMethod_NFL_slow(void);
 u8 flMethod_upRise();		//慢慢加速
 u8 flMethod_downRise();	//慢慢减速
+void flMethod_step();  //过阶梯的巡线
 #endif
 
 

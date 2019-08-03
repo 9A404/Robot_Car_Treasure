@@ -49,7 +49,7 @@ void bootDisplay(void)
 	Lcd_Clear(WHITE);
 	showImage(13,0,99,100,bootLogo);
 	Gui_DrawFont_GBK16(17,110,BLUE,WHITE,"机器人实验室");
-	Gui_DrawFont_GBK16(40,130,RED,WHITE,"Y Z C"); 
+	Gui_DrawFont_GBK16(40,130,RED,WHITE,"Carrie"); 
 //DisplayButtonUp(27,128,95,145);
 	
 }

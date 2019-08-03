@@ -2,7 +2,7 @@
 
 
 /*全局变量*/
-const u16  basic_sensorThreshold[NUM_OF_SENSOR] = {4000,4000,4000,4000,4000,4000,4000,4000,4000,4000,4000,4000};
+const u16  basic_sensorThreshold[NUM_OF_SENSOR] = {3800,3800,3800,3800,3800,3800,3800,3800,3800,3800,3800,3800};
 const u16  brige_sensorThreshold[NUM_OF_SENSOR] = {800,800,800,800,800,800,800,800,800,800,800,800};
 
                          
@@ -11,7 +11,7 @@ const u16  brige_sensorThreshold[NUM_OF_SENSOR] = {800,800,800,800,800,800,800,8
 /*奔跑路线表格*/
 const u8 runMethodTable[][100]={
 	/* 调试路线 */
-/*0*/{20,17,49,16,44,45,46,47,46,48,43,16,44,14,35,36,35,34,30,31,32,31,9,5,2,1,2},
+/*0*/{37,14,16,44,45,46,47,46,48,43,16,44,14,6,5,},
 	
 	/* 保守路线一,只拿一个宝物 */
 /*1*/{1,2,3,4,3,5,12,7,6,5,2,1,2},
@@ -252,8 +252,45 @@ int main(void)
 	runMethodNum=sizeof(runMethodTable)/sizeof(runMethodTable[0]); //计算runMethodTable中共有几条线路
 	while(1)
 	{	
+		
+//		delay_ms(1000);
 		displayOperation();
-		//get_from_phone();
+//  get_from_phone();
+		
+//	flMethod_slow();
+//	flMethod_stop();
+
+
+//    rotAngle_Right(180);
+//		rotAngle_Left(180);
+//		delay_ms(3000);
+
+
+		
+		//xin che
+//		speedAdjustment(2600,2500);//	FL_slow
+//		speedAdjustment(1600,1500); //step
+//		speedAdjustment(3600,3500); //default		
+//		speedAdjustment(1940,1800);//NFL
+//		speedAdjustment(1080,900);//NFL——slow
+//		speedAdjustment(-1050,-1100);//NFL——back
+//		 speedAdjustment(4600,4500); //middle
+//		speedAdjustment(2400,2300); //brige
+//		speedAdjustment(2100,2000); //upbrige
+//		speedAdjustment(1500,1400); //downbrige
+//		speedAdjustment(2100,2000); //UpPlatform
+//		speedAdjustment(1400,1200); //downPlatform
+
+//		speedAdjustment(5000,4900); //quick
+//     speedAdjustment(6600,6400); //quickest
+
+
+		 
+//		 delay_ms(3000);
+//		 delay_ms(1000);
+//		 speedAdjustment(0,0);
+//		 while(1);	
+		
 	}
 }
 		

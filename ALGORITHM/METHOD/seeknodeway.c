@@ -316,7 +316,7 @@ u8 seekNodeMethod_pesPlatform()
 	{
 		Time3(START);
 		gl_time=0;
-		while(gl_time<10);
+		while(gl_time<5);
 		if(PES_Platform==1) 
 		{
 			Time3(STOP);
@@ -371,6 +371,40 @@ u8 seekNodeMethod_10()
 			return 1;
 	}
 		
+	return 0;
+	
+}
+
+
+/*
+
+* 函数介绍：传感器找点方法的延时
+* 输入参数：
+* 输出参数：
+* 返回值  ：1(找到节点)0（没有找到节点）
+* 其他		：找点方法思路：检测上到平台认为到达节点
+* 作者    ：@断忆
+
+*/
+
+u8 seekNodeMethod_delay()
+{
+	
+	if(calculateNum(glsensor_dig_value) > 4)
+	{	
+//			speedAdjustment(0,0);
+//		  delay_ms(20);
+//			glHello_control.linkInform.findLineWays = FL_stop;
+//		  findLineFlag=0;
+	  	delay_ms(150);
+//		  speedAdjustment(0,0);
+//			delay_ms(20);
+		
+			return 1 ;
+		
+	}
+	
+
 	return 0;
 	
 }
