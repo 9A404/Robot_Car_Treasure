@@ -336,8 +336,8 @@ void findLine_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runStat
 				case NFL: 			 speedAdjustment(1940,1800);break;
 				case FL_angle:   flMethod_NFL();break;
 				case FL_slow_angle :flMethod_NFL_slow();break;
-				case NFL_slow:   speedAdjustment(1080,900);break;
-				case BACK_NFL:   speedAdjustment(-1050,-1100);break;
+				case NFL_slow:   speedAdjustment(900,900);break;
+				case BACK_NFL:   speedAdjustment(-1000,-1000);break;
 				case FL_UPRISE:	 flMethod_upRise();break;
 				case FL_DOWNRISE:flMethod_downRise();break;
 				case FL_Step:   flMethod_step();break;
