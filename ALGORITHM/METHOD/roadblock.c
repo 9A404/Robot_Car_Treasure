@@ -406,7 +406,7 @@ static float Monitor_ROLL()
 		//led_flash();
 		flag=1;
 	}
-	else if(1==flag&&gl_time>80)         
+	else if(1==flag&&gl_time>87)         
 	{
 //		temp = Monitor_ROLL();
 //		if( temp > -10)               //如果车在跷跷板的另外一端则继续盲走后置flag=2
@@ -1599,6 +1599,7 @@ u8 BlockHandleMethod_downPlatform()
 		gl_time=0;
 		save = glHello_control.linkInform.findLineWays;
 		glHello_control.linkInform.findLineWays =NFL_slow;
+		findLineFlag = 0;
 		flag = 1;
 	}
 	else if(1==flag && 1==PES_Platform)

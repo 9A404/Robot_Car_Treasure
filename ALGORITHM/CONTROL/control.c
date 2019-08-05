@@ -1339,6 +1339,15 @@ void rotAngle_Task(controlCenterTypeDef *controlp,runStateTypeDef *runState)
 															u3_printf("Sensor_R90_EIC\n\n");
 														#endif
 													}break;
+		  case rot_RLF_35:if(1==rotAngleMethod_R35())
+											 {
+													runState->RotangleState=EIC;
+													runState->F_LineState=EIC;
+													updataState_Reset(controlp,EIC);
+													#ifdef BlueTooth_Debug
+														u3_printf("rot_RLF_35_EIC\n\n");
+													#endif
+											 }
 			default    :break;	
 		}
 	}

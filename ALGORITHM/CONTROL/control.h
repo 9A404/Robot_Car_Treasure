@@ -33,7 +33,7 @@ typedef enum {NOTPARK,PARK1,PARK_pesR,PARK_pesR_150,PARK_pesR_200,PARK_pesR_250,
 /*车头旋转角度*/
 typedef enum {HL_180,HL_145,HL_135,HL_105,HL_120,HL_90,HL_60,HL_45,HL_35,HL_30,
 						HN_Rotate,HR_35,HR_45,HR_60,HR_90,HR_110,HR_130,HR_135,HR_145,HR_180,
-						rot_LFL, rot_LFL_45,rot_RFL,rot_UL,rot_UR,Sensor_L90,Sensor_R90}carRotAngle;
+						rot_LFL, rot_LFL_45,rot_RFL,rot_UL,rot_UR,Sensor_L90,Sensor_R90,rot_RLF_35}carRotAngle;
 
 /*状态信号*/
 typedef enum {NTBE,EIC,STANDBY}updataState;		//需要执行 执行完成 待命

@@ -372,10 +372,10 @@ void get_from_phone()
 			}
 		}
 	}
-	//Lcd_Clear(WHITE);
-//	sprintf(buff,"%d",Treasure_code[0]);
-//	USART3_RX_STA=0;
-//	Gui_DrawFont_GBK16(50,50,BLUE,WHITE,buff);
+  Lcd_Clear(WHITE);
+	sprintf(buff,"%d",Treasure_code[0]);
+	USART3_RX_STA=0;
+	Gui_DrawFont_GBK16(50,50,BLUE,WHITE,buff);
 }
 
 

@@ -303,40 +303,27 @@ u8 seekNodeMethod_4()
 u8 seekNodeMethod_pesPlatform()
 {
   static u8 flag=0;	
-	if(flag==0&&PES_Platform==1)
+	if(flag==0)
 	{
 		Time3(START);
 		gl_time=0;
-		while(gl_time<10);
-
-		if(PES_Platform==1) 
-		{
-			Time3(STOP);
-//		speedAdjustment(0,0);
-//		delay_ms(1000);
-			gl_time=0;
-			flag=1;
-		}
-		else 
-		{
-			Time3(STOP);
-			gl_time=0;
-			flag=0;
-		}
+		flag=1;
 	}	
-	//if (1==flag&&PES_Platform==0) flag = 2;
-	else if (1==flag) 
+	if (1==flag&&PES_Platform==0) flag = 2;
+	else if (2==flag&&1==PES_Platform&&gl_time>10) 
 	{
+		Time3(STOP);
+		gl_time=0;
 		glHello_control.linkInform.findLineWays = FL_UpPlatform;
-		findLineFlag = 0;
-		flag=2;
-	}
-	else if(2==flag&&0==PES_Platform) 
-	{
+	  findLineFlag = 0;
 		flag=3;
+	}
+	else if(3==flag&&0==PES_Platform) 
+	{
+		flag=4;
 
 	}
-	else if(3==flag&&1==PES_Platform)
+	else if(4==flag&&1==PES_Platform)
 	{
 		glHello_control.linkInform.findLineWays = NFL;
 		flag=0;
@@ -345,7 +332,6 @@ u8 seekNodeMethod_pesPlatform()
 	return 0;
 	
 }
-
 
 /*
 
@@ -422,10 +408,24 @@ u8 seekNodeMethod_Collision_1()
 //		flag=0;
 //		return 1;
 //	}
-	if(1==Collision) return 1;
-		
-	return 0;
+//	if(1==Collision) return 1;
+//		
+//	return 0;
+  static u8 flag=0;
+	if(0==flag && 0==PES_H)
+	{
+    glHello_control.linkInform.findLineWays = FL_stop;
+	  findLineFlag = 0;
+		flag = 1;
+	}
 	
+	if(1==flag && 1==Collision)
+	{
+    flag=0;
+		return 1;	
+	}
+
+	return 0;	
 }
 
 /*

@@ -188,7 +188,7 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 				Time3(START);
 				gl_time = 0;
 				while(!(USART3_RX_STA&0x8000)){
-					if(gl_time==200) 
+					if(gl_time==100) 
 					{
 						//u3_printf("2");
 						break;
