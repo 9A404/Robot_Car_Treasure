@@ -83,7 +83,6 @@ void EXTI3_IRQHandler(void)
 		if(EXTI_GetITStatus(EXTI_Line3) != RESET)         //这里为判断相应的中断号是否进入中断
 	{
 		pes_R = 1;
-
 		EXTI_ClearITPendingBit(EXTI_Line3);       			//清中断  
 	}
 	
@@ -96,7 +95,7 @@ void EXTI2_IRQHandler(void)
 		if(EXTI_GetITStatus(EXTI_Line2) != RESET)         //这里为判断相应的中断号是否进入中断
 	{
 		pes_L = 1;
-		EXTI_ClearITPendingBit(EXTI_Line2);       			//清中断  
+		EXTI_ClearITPendingBit(EXTI_Line2);       			//清中断 
 	}
 	
 }

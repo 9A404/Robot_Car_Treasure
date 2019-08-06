@@ -325,7 +325,7 @@ void findLine_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runStat
 				case FL_brigedown: flMethod_brige_down();break;
 				case FL_slow:			 flMethod_slow();break;
 				case FL_UpPlatform:	flMethod_UpPlatform();break;
-				case FL_DownPlatform:	flMethod_DownPlatform();break;
+				case FL_DownPlatform:	flMethod_DownPlatform();break;                                       
 				case FL_quick:		 flMethod_quick();break;
 				case FL_stop:		 flMethod_stop();break;
 				case FL_quickest	:flMethod_quickest();	break;
@@ -333,11 +333,11 @@ void findLine_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runStat
 				case FL_downPeak	:flMethod_downPeak();break;
 				case FL_left		:flMethod_left();break;
 				case FL_Right		:flMethod_right();break;
-				case NFL: 			 speedAdjustment(1940,1800);break;
+				case NFL: 			 speedAdjustment(1650,1800);break;
 				case FL_angle:   flMethod_NFL();break;
 				case FL_slow_angle :flMethod_NFL_slow();break;
-				case NFL_slow:   speedAdjustment(900,900);break;
-				case BACK_NFL:   speedAdjustment(-1000,-1000);break;
+				case NFL_slow:   speedAdjustment(950,1000);break;
+				case BACK_NFL:   speedAdjustment(-970,-1100);break;
 				case FL_UPRISE:	 flMethod_upRise();break;
 				case FL_DOWNRISE:flMethod_downRise();break;
 				case FL_Step:   flMethod_step();break;
@@ -370,7 +370,7 @@ void findLine_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runStat
 				case FL_downPeak	:flMethod_downPeak();break;
 				case FL_left			:flMethod_left();break;
 				case FL_Right			:flMethod_right();break;
-				case NFL: 			 speedAdjustment(2090,2000);break;
+				case NFL: 			 speedAdjustment(200,2000);break;
 				case NFL_slow:   speedAdjustment(1100,1100);break;
 				case BACK_NFL:   speedAdjustment(-1300,-1315);break;
 				default:  break;

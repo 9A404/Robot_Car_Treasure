@@ -373,7 +373,7 @@ static float Monitor_ROLL()
 		gl_time = 0;
 		MPU6050_Pose_usart();
 		angle_read = setYaw(glYaw,88);
-		angle_read_back = setYaw(glYaw,-85);
+		angle_read_back = setYaw(glYaw,-86);
 		flag = 0; 
 		   
 		return 1;
@@ -626,24 +626,27 @@ u8 BlockHandleMethod_Step (){
 	}
 	else if(1 == flag&&1 == PES_Platform)          //?°??1aμ??a1?2?áá′ú±íμ?′?é??eμ×2?
 	{
-		glHello_control.linkInform.findLineWays = FL_UpPlatform;   
+		glHello_control.linkInform.findLineWays = FL_Step;   
 		findLineFlag = 0;
+		Time3(START); //打开定时器
+		gl_time=0;
 		flag=2; 
 	}
-	else if(2==flag&&0==PES_Platform)         //?°??1aμ??a1?áá′ú±íμ?′?é??e?￥2?
-	{
-		glHello_control.linkInform.findLineWays = FL_DownPlatform;   
-		findLineFlag = 0;
-		Time3(START); //′ò?a?¨ê±?÷
-		gl_time=0;
-		flag=3;
-	}
-	else if(gl_time>260 && 3==flag)
+//	else if(2==flag&&0==PES_Platform)         //?°??1aμ??a1?áá′ú±íμ?′?é??e?￥2?
+//	{
+//		glHello_control.linkInform.findLineWays = FL_DownPlatform;   
+//		findLineFlag = 0;
+//		Time3(START); //′ò?a?¨ê±?÷
+//		gl_time=0;
+//		flag=3;
+//	}
+	else if(gl_time>220 && 2==flag)
 	{
 		Time3(STOP); //1?±??¨ê±?÷
 		gl_time = 0;
-	//  speedAdjustment(0,0);
-	//  delay_ms(1000);
+//	  speedAdjustment(0,0);
+//	  delay_ms(1000);
+//		while(1);
 		glHello_control.linkInform.findLineWays = save;   
 		findLineFlag = 0;
 		flag = 0;

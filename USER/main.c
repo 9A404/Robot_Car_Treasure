@@ -11,10 +11,10 @@ const u16  brige_sensorThreshold[NUM_OF_SENSOR] = {800,800,800,800,800,800,800,8
 /*奔跑路线表格*/
 const u8 runMethodTable[][100]={
 	/* 调试路线 */
-/*0*/{37,14,16,44,45,46,47,46,48,43,16,44,14,6},
+/*0*/{3,4,3,5},
 	
 	/* 保守路线一,只拿一个宝物 */
-/*1*/{1,2,3,4,3,5,12,7,6,5,2,1,2},
+/*1*/{1,2,3,4,3,5,12,7,6,5,2,1,2},//
 	
 	/*保守路线二  拿一个宝物加两个梯形 */
 /*2*/{1,2,3,4,3,5,9,10,11,10,12,10,9,5,6,8,6,7,6,5,2,1,2},
@@ -23,7 +23,7 @@ const u8 runMethodTable[][100]={
 /*3*/{1,2,3,4,3,5,12,7,6,15,37,14,16,44,45,46,47,46,48,43,16,44,14,6},  //,5,2,1,2
 		
 	/*拿3个宝物加一个梯形 已修改*/
-/*4*/{1,2,3,4,3,5,12,7,6,15,37,14,16,44,45,46,47,46,48,43,17,18,19,18,20,21,22,23,24,23,25,26,27,26,25,23,22,21,20,17,14,35,36,35,34,30,31,32,31,9,5,2,1,2},
+/*4*/{1,2,3,4,3,5,12,7,6,15,37,14,16,44,45,46,47,46,48,43,16,17,18,19,18,20,21,22,23,24,23,25,26,27,26,25,23,22,21,20,17,14,35,36,35,34,30,31,32,31,9,5,2,1,2},
 	
 	/*过全部景点(少8号)，不切路线 没更新路线*/
 /*5*/{1,2,3,4,3,5,10,11,10,12,7,6,42,14,44,43,17,18,19,18,17,43,16,44,45,46,47,46,43,44,37,36,15,30,31,32,31,33,23,24,23,25,26,27,26,25,33,34,35,36,35,14,42,6,5,2,1,2},	
@@ -252,9 +252,28 @@ int main(void)
 	runMethodNum=sizeof(runMethodTable)/sizeof(runMethodTable[0]); //计算runMethodTable中共有几条线路
 	while(1)
 	{	
+
+//		static u8 flag=0;
+//	if(0 == flag)
+//	{
+//		pes_L=0;
+//		//pesLSwitch(STOP);//开中断
+//		speedAdjustment(1500,1500);
+//		flag = 1;
+//	}
+//	if(1==pes_L && 1==flag)
+//	{	
+//		//pesLSwitch(STOP);//关中断
+//		pes_L=0;
+//		flag = 0;	
 //		
+//		speedAdjustment(0,0);
+//		 delay_ms(5000);
+//	}
 //		delay_ms(1000);
-		displayOperation();
+		
+//		displayOperation();
+
 //  get_from_phone();
 		
 //	flMethod_slow();
@@ -267,30 +286,31 @@ int main(void)
 
 
 		
-		//xin che
-//		speedAdjustment(2600,2500);//	FL_slow
-//		speedAdjustment(1600,1500); //step
-//		speedAdjustment(3600,3500); //default		
-//		speedAdjustment(1940,1800);//NFL
-//		speedAdjustment(1080,900);//NFL——slow
-//		speedAdjustment(-1050,-1100);//NFL——back
-//		 speedAdjustment(4600,4500); //middle
+		//xin che		
+//		speedAdjustment(3250,3350); //default		
+//		speedAdjustment(2200,2300);//	FL_slow
+//		speedAdjustment(1400,1500); //step
 //		speedAdjustment(2400,2300); //brige
 //		speedAdjustment(2100,2000); //upbrige
 //		speedAdjustment(1500,1400); //downbrige
+//		speedAdjustment(860,1000);//NFL
+//		speedAdjustment(950,1000);//NFL——slow
+		speedAdjustment(-1050,-1100);//NFL——back
+//		 speedAdjustment(4600,4500); //middle
+
 //		speedAdjustment(2100,2000); //UpPlatform
 //		speedAdjustment(1400,1200); //downPlatform
 
 //		speedAdjustment(5000,4900); //quick
-//     speedAdjustment(6600,6400); //quickest
+//     speedAdjustment(6550,6400); //quickest
 
-
+//speedAdjustment(2520,2600);
 		 
 //		 delay_ms(3000);
 //		 delay_ms(1000);
 //		 speedAdjustment(0,0);
 //		 while(1);	
-		
+//		
 	}
 }
 		
@@ -302,21 +322,3 @@ int main(void)
 		
 
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-

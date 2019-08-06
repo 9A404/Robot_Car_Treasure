@@ -47,7 +47,10 @@ u8 seekNodeMethod_default()
 //	return 0;
 	 if(3 < calculateNum(glsensor_dig_value))
 	 {
-		return 1;
+//		 speedAdjustment(0,0);
+//		 delay_ms(2000);
+		 
+		 return 1;
 	 }
 	 return 0;
 			
@@ -213,6 +216,10 @@ u8 seekNodeMethod_pesL()
 		//pesLSwitch(STOP);//¹ØÖÐ¶Ï
 		pes_L=0;
 		flag = 0;	
+		
+//		speedAdjustment(0,0);
+//		 while(1);
+		
 		return 1;
 	}
 		
@@ -312,37 +319,47 @@ u8 seekNodeMethod_pesPlatform()
 {
   static u8 flag=0;	
 	
-	if(flag==0&&PES_Platform==1)
+//	if(flag==0&&PES_Platform==1)
+//	{
+//		Time3(START);
+//		gl_time=0;
+//		while(gl_time<8);
+//		if(PES_Platform==1) 
+//		{
+//			Time3(STOP);
+//			gl_time=0;
+//			flag=1;
+////			speedAdjustment(0,0);
+////		 while(1);	
+//		}
+//		else 
+//		{
+//			Time3(STOP);
+//			gl_time=0;
+//			flag=0;
+//		}
+//	}	
+  if(flag==0)
 	{
 		Time3(START);
 		gl_time=0;
-		while(gl_time<5);
-		if(PES_Platform==1) 
-		{
-			Time3(STOP);
-			gl_time=0;
-			flag=1;
-		}
-		else 
-		{
-			Time3(STOP);
-			gl_time=0;
-			flag=0;
-		}
-	}	
-	//if (1==flag&&PES_Platform==0) flag = 2;
-	else if (1==flag) 
+		flag=1;
+	}
+	if (1==flag&&PES_Platform==0) flag = 2;
+	else if (2==flag&&PES_Platform==1&&gl_time>10) 
 	{
 		glHello_control.linkInform.findLineWays = FL_UpPlatform;
 		findLineFlag = 0;
-		flag=2;
-	}
-	else if(2==flag&&0==PES_Platform) 
-	{
+		Time3(STOP);
+		gl_time=0;
 		flag=3;
+	}
+	else if(3==flag&&0==PES_Platform) 
+	{
+		flag=4;
 
 	}
-	else if(3==flag&&1==PES_Platform)
+	else if(4==flag&&1==PES_Platform)
 	{
 		glHello_control.linkInform.findLineWays = NFL;
 		flag=0;

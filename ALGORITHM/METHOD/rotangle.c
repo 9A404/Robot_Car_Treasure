@@ -143,7 +143,7 @@ u8 rotAngle_Left(float angle)
 	if(err<0)err=-err;
 	
     #ifdef _NEW_MPU6050_
-PID_Init(&glrotAnglePID,0,4200,60,0,160);	
+PID_Init(&glrotAnglePID,0,4500,55,0,160);	
 	//PID_Init(&glrotAnglePID,0,5000,50,0,160);		
 //	PID_Init(&glrotAnglePID,0,4500,55,0,160);								//2000									//对转弯PID的参数进行初始化设置，旋转PID直接传误差值
 
