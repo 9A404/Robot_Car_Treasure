@@ -387,7 +387,42 @@ u8 rotAngleMethod_RFL()
 	return 0;
 }
 
+/*
 
+* 函数介绍：右拐巡线
+* 输出参数：无
+* 返回值  ：无
+* 其他    ：
+* 作者    ：@断忆
+
+*/
+u8 rotAngleMethod_RFL_35()
+{
+	static u8 flag=0;
+	if((glsensor_dig_value&0x002) && (0==flag))
+		flag=1;
+	if(flag==1)
+	{
+		glHello_control.linkInform.findLineWays =FL_Right_35; 
+		findLineFlag = 0;
+		flag=0;
+		return 1;
+	}
+	if((2==flag) && (glsensor_dig_value&0xf00))
+	{
+		flag = 3;
+		
+	}
+	if(3==flag && 0==(glsensor_dig_value&0xf00))
+	{
+		flag = 0;
+		return 1;
+		speedAdjustment(0,0);
+		delay_ms(1000);
+	}
+	
+	return 0;
+}
 
 /*
 

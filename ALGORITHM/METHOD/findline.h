@@ -27,6 +27,7 @@ void flMethod_NFL_slow(void);
 u8 flMethod_upRise(void);		//慢慢加速
 u8 flMethod_downRise(void);	//慢慢减速
 void flMethod_left_45(void);//偏左45度巡线
+void flMethod_right_35(void);
 #endif
 
 

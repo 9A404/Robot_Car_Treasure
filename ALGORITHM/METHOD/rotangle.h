@@ -19,6 +19,7 @@ u8 rotAngleMethod_L35(void);
 u8 rotAngleMethod_LFL(void);
 u8 rotAngleMethod_LFL_45(void);
 u8 rotAngleMethod_RFL(void);
+u8 rotAngleMethod_RFL_35(void);
 
 u8 rotAngle_UR(float angle);
 u8 rotAngle_UL(float angle);

@@ -334,11 +334,12 @@ void findLine_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runStat
 				case FL_left			:flMethod_left();break;
 				case FL_left_45			:flMethod_left_45();break;
 				case FL_Right			:flMethod_right();break;
-				case NFL: 			 speedAdjustment(2120,2200);	break;
+				case FL_Right_35   :flMethod_right_35();break;
+				case NFL: 			 speedAdjustment(2150,2200);	break;
 				case FL_angle:   flMethod_NFL();break;
 				case FL_slow_angle :flMethod_NFL_slow();break;
 				case NFL_slow:   speedAdjustment(1100,1083);break;
-				case BACK_NFL:   speedAdjustment(-1250,-1300);break;
+				case BACK_NFL:   speedAdjustment(-1000,-1000);break;
 				case FL_UPRISE:	 flMethod_upRise();break;
 				case FL_DOWNRISE:flMethod_downRise();break;
 				default:  break;
@@ -1339,7 +1340,7 @@ void rotAngle_Task(controlCenterTypeDef *controlp,runStateTypeDef *runState)
 															u3_printf("Sensor_R90_EIC\n\n");
 														#endif
 													}break;
-		  case rot_RLF_35:if(1==rotAngleMethod_R35())
+		  case rot_RLF_35:if(1==rotAngleMethod_RFL_35())
 											 {
 													runState->RotangleState=EIC;
 													runState->F_LineState=EIC;
@@ -1347,7 +1348,7 @@ void rotAngle_Task(controlCenterTypeDef *controlp,runStateTypeDef *runState)
 													#ifdef BlueTooth_Debug
 														u3_printf("rot_RLF_35_EIC\n\n");
 													#endif
-											 }
+											 } break;
 			default    :break;	
 		}
 	}

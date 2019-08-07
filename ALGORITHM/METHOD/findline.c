@@ -325,7 +325,7 @@ void flMethod_circular()
 	int rank;
 	if(findLineFlag == 0)//保证每个路段初始化一次
 	{
-		PID_Init(&glsensorPID,20,3000,500,0,400);																					//对速度PID的参数进行初始化设置
+		PID_Init(&glsensorPID,20,3300,550,0,400);																					//对速度PID的参数进行初始化设置
 		speedRec_Init(&glmotorSpeed,1800,1900); 																				//对初始速度进行设定
 		findLineFlag=1;
 	}
@@ -550,7 +550,31 @@ void flMethod_right()
 	positionSpeedOut(glmotorSpeed.leftSpeed,glmotorSpeed.rightSpeed,gldSpeed);			//位置式改变电机速度
 
 }
+/*
 
+* 函数介绍：偏右巡线方法35°
+* 输入参数：无
+* 输出参数：无
+* 返回值  ：
+* 其他    ：每个方法最主要的区别：1、glmotorSpeed初始速度 2、glsensorPID的P I D三个参数
+* 作者    ：@断忆
+
+*/
+void flMethod_right_35()
+{
+	int rank;
+	if(findLineFlag == 0)//保证每个路段初始化一次
+	{
+		PID_Init(&glsensorPID,20,2900,200,0,0);																					//对速度PID的参数进行初始化设置
+		speedRec_Init(&glmotorSpeed,2600,950); 																				//对初始速度进行设定2200+200
+		findLineFlag=1;
+	}
+	glsensor_dig_value = sensorAD(glsensor_ad_value,basic_sensorThreshold);  				//与阈值比较后将模拟量转化成数字量
+	rank=sensorDigitalRank(glsensor_dig_value & 0x00F);                                    //分级
+	gldSpeed=positionPIDCalc(&glsensorPID,rank);   //速度位置式PID输出
+	positionSpeedOut(glmotorSpeed.leftSpeed,glmotorSpeed.rightSpeed,gldSpeed);			//位置式改变电机速度
+
+}	
 /*
 
 * 函数介绍：循角度跑法

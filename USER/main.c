@@ -260,8 +260,8 @@ int main(void)
 	runMethodNum=sizeof(runMethodTable)/sizeof(runMethodTable[0]); //计算runMethodTable中共有几条线路
 	while(1)
 	{	
-//		speedAdjustment(-1250,-1300);
-//		  speedAdjustment(2120,2200);
+//		speedAdjustment(-1000,-1000);
+//		  speedAdjustment(2150,2200);
 	  displayOperation();
 //		rotAngle_Left(180);
 //		rotAngle_Right(180);
