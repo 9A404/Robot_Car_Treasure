@@ -9,11 +9,11 @@
 
 /*巡线方法*/
 typedef enum {FL_default,FL_circular,FL_node,FL_43_44,FL_16_44,FL_angle,FL_slow_angle,FL_middle,FL_brige,FL_brigeup,FL_brigedown,
-	FL_slow,FL_quick,FL_stop,FL_quickest,FL_upPeak,FL_downPeak,FL_UpPlatform,FL_DownPlatform,
+	FL_slow,FL_slowest,FL_quick,FL_stop,FL_quickest,FL_upPeak,FL_downPeak,FL_UpPlatform,FL_DownPlatform,
 	FL_left,FL_left_45,FL_Right,FL_Right_35,NFL,NFL_slow,BACK_NFL,FL_UPRISE,FL_DOWNRISE}findLine;
 		
 /*路障类型*/
-typedef enum {FREE,BRIGE,DOOR,S_BOARD_1,S_BOARD_2,S_BOARD_26_27,SEESAW,GO_TILT_R,GO_TILT_L,
+typedef enum {FREE,BRIGE,DOOR,S_BOARD_1,S_BOARD_2,S_BOARD_26_27,S_BOARD_27_26,SEESAW,GO_TILT_R,GO_TILT_L,
 							BACK_TILT_R,BACK_TILT_L,SLOPE,SLOPE_46_43,PLATFORM,PLATFORM_1,Peak,TRAPEZOID_1,TRAPEZOID_2,TRAPEZOID_3,
 							DOWNPLATFORM,ALL_TILT,DOWN27_26,ANGLE,STEP,HEIGHTLITM,STEP2}typeRoadblock;	//无障碍、桥、门、减速带、跷跷板、倾斜路面、斜坡、平台景点、梯形景点、复杂节点定时                                                                                                                                  
 

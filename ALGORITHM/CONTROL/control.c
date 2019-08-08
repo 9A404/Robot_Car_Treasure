@@ -324,6 +324,7 @@ void findLine_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runStat
 				case FL_brigeup:   flMethod_brige_up();break;
 				case FL_brigedown: flMethod_brige_down();break;
 				case FL_slow:			 flMethod_slow();break;
+				case FL_slowest:			 flMethod_slowest();break;
 				case FL_UpPlatform:	flMethod_UpPlatform();break;
 				case FL_DownPlatform:	flMethod_DownPlatform();break;
 				case FL_quick:		 flMethod_quick();break;
@@ -479,6 +480,13 @@ void roadBlocksHandle_Task(const controlCenterTypeDef *controlp,runStateTypeDef 
 															u3_printf("S_BOARD_EIC\r\n");
 														#endif
 													}break;
+      case S_BOARD_27_26:	if(1==BlockHandleMethod_down_27_26())
+													{
+														runState->F_RoadBlockState = EIC;
+														#ifdef BlueTooth_Debug
+															u3_printf("S_BOARD_EIC\r\n");
+														#endif
+													}break;							
 			case SEESAW:	if(1==BlockHandleMethod_Seesaw())
 										{
 											runState->F_RoadBlockState = EIC;

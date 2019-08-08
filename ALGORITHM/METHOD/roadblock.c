@@ -1811,7 +1811,7 @@ u8 BlockHandleMethod_26_27()
 	{
 //		speedAdjustment(0,0);
 //		delay_ms(500);
-		glHello_control.linkInform.findLineWays =FL_slow;
+		glHello_control.linkInform.findLineWays =FL_slowest;
 		findLineFlag = 0;
 		led_flash();
 		Time3(START);
@@ -1851,6 +1851,7 @@ u8 BlockHandleMethod_26_27()
 	return 0;
 }
 
+
 /*
 
 * 函数介绍：过限高障碍
@@ -1871,7 +1872,7 @@ u8 LimtdeHeight_Method()
 		sgAngleControl(BODY,B_DOWN);
 		flag = 1;
 	}
-	else if(flag == 1&&gl_time>190)
+	else if(flag == 1&&gl_time>200)
 	{
 		Time3(STOP);
 		sgAngleControl(BODY,B_UP);

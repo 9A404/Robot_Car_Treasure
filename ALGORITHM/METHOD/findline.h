@@ -9,6 +9,7 @@ void flMethod_brige(void);			//过桥巡线
 void flMethod_brige_up(void);   //上桥斜坡时的巡线方法
 void flMethod_brige_down(void); //上桥斜坡时的巡线方法
 void flMethod_slow(void);				//慢速巡线
+void flMethod_slowest(void);    //最慢速巡线
 void flMethod_UpPlatform(void);//上平台巡线
 void flMethod_DownPlatform(void);//下平台巡线
 void flMethod_quick(void);      //快速巡线        5500

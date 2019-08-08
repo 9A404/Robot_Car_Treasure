@@ -368,24 +368,27 @@ u8 seekNodeMethod_10()
 */
 
 u8 seekNodeMethod_Collision()
-{
-//	static u8 flag=0;
-//	if(0==flag&&0==Collision) flag=1;
-//	else if(1==flag&&1==Collision)
-//	{
-//		flag=0;
-//		return 1;
-//	}
-	if(1==Collision) 
+{  
+  static u8 flag=0;
+	if(0==flag && 0==PES_H)
 	{
-		delay_ms(100);
-		speedAdjustment(-2000,-2000);	
-		delay_ms(200);
-		return 1;
+    glHello_control.linkInform.findLineWays = FL_stop;
+	  findLineFlag = 0;
+    
+		flag = 1;
 	}
-		
-	return 0;
 	
+	if(1==flag && 1==Collision)
+	{
+		
+		speedAdjustment(-1500,-1500);
+		delay_ms(200);
+    flag=0;
+		return 1;	
+	}
+
+	return 0;
+
 }
 
 /*
