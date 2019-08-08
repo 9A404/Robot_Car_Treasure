@@ -218,6 +218,7 @@ u8 seekNodeMethod_pesL()
 		flag = 0;	
 		
 //		speedAdjustment(0,0);
+//		delay_ms(1000);
 //		 while(1);
 		
 		return 1;

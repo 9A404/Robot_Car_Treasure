@@ -163,6 +163,8 @@ u8 PES_platform_Shake(void)
 		{
 			Time3(STOP);
 			gl_time=0;
+//			speedAdjustment(0,0);
+//      delay_ms(1000);			
 			return 1;
 		}
 		else

@@ -166,7 +166,7 @@ u8 parkMethod_pesR_noline()
 	{
 		/*Í£³µ*/
 		speedAdjustment(-3500,-3500); 
-		delay_ms(25);
+		delay_ms(30);
 //		speedAdjustment(0,0);
 		flag = 0;
 		return 1 ;
@@ -201,7 +201,7 @@ u8 parkMethod_pesL_noline()
 	{
 		/*Í£³µ*/
 		speedAdjustment(-3500,-3500); 
-		delay_ms(25);
+		delay_ms(30);
 //		speedAdjustment(0,0);
 //		delay_ms(500);
 		flag = 0;
@@ -331,7 +331,7 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 		else if(3==flag)
 		{	
 			speedAdjustment(-1100,-1100);
-			delay_ms(270);	
+			delay_ms(350);	
 			speedAdjustment(0,0);
 			sgAngleControl(L_ARM,L_UP);
 			delay_ms(200);

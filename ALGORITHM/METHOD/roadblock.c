@@ -295,7 +295,7 @@ u8 BlockHandleMethod_DOOR(void)
 	{
 //		speedAdjustment(0,0);
 //		delay_ms(500);
-		glHello_control.linkInform.findLineWays = FL_slow; 
+		glHello_control.linkInform.findLineWays = FL_Step; 
 		findLineFlag = 0;
 		#ifdef LED_Debug
 		led_flash();
@@ -307,7 +307,7 @@ u8 BlockHandleMethod_DOOR(void)
 	else if(6==flag && gl_time>150)
 	{
 //		speedAdjustment(0,0);
-//		delay_ms(500);
+//		delay_ms(2000);
 		glHello_control.linkInform.findLineWays = save; 
 		findLineFlag = 0;
 		#ifdef LED_Debug
@@ -373,7 +373,7 @@ static float Monitor_ROLL()
 		gl_time = 0;
 		MPU6050_Pose_usart();
 		angle_read = setYaw(glYaw,88);
-		angle_read_back = setYaw(glYaw,-86);
+		angle_read_back = setYaw(glYaw,-87);
 		flag = 0; 
 		   
 		return 1;
@@ -485,7 +485,7 @@ static float Monitor_ROLL()
 	else if(2 == flag)                //车子在跷跷板的另外一端则先检测传感器有没有在白线上
 	{
 		glsensor_dig_value = sensorAD(glsensor_ad_value,basic_sensorThreshold);  				//与阈值比较后将模拟量转化成数字量	
-	  if(calculateNum(glsensor_dig_value)<=1 && Turn_Flag<3 )   
+	  if(calculateNum(glsensor_dig_value)<=1 && Turn_Flag<4 )   
 		{
 			rotAngle_Left(20);             //如果不在白线则左转20度，大多数情况下是车子偏右，故左转
 			Turn_Flag++;
@@ -675,7 +675,7 @@ u8 BlockHandleMethod_Step_2 (){
 	}
 	else if(1 == flag&&1 == PES_Platform) 
 	{
-		glHello_control.linkInform.findLineWays = FL_UpPlatform;   
+		glHello_control.linkInform.findLineWays = FL_Step;   
 		findLineFlag = 0;
 		Time3(START);
 		gl_time=0;
@@ -698,13 +698,13 @@ u8 BlockHandleMethod_Step_2 (){
 	{
 		Time3(STOP); //1?±??¨ê±?÷
 		gl_time = 0;
-		glHello_control.linkInform.findLineWays = FL_DownPlatform;
+		glHello_control.linkInform.findLineWays = FL_Step;
 		findLineFlag = 0;
 		Time3(START);
 		gl_time = 0;
 		flag = 5;
 	}
-	else if(flag==5 && gl_time>100)
+	else if(flag==5 && gl_time>150)
 	{
 		Time3(STOP);
 		gl_time=0;
@@ -718,6 +718,8 @@ u8 BlockHandleMethod_Step_2 (){
 	{
 		Time3(STOP);
 		gl_time=0;
+//		speedAdjustment(0,0);
+//		delay_ms(2000);
 		glHello_control.linkInform.findLineWays = save;
 		findLineFlag=0;
 		flag=0;
@@ -1617,12 +1619,67 @@ u8 BlockHandleMethod_Peak()
 */
 u8 BlockHandleMethod_downPlatform()
 {
-//	static findLine save;
+	static findLine save;
+	static u8 flag=0;
+	
+	if(flag == 0)
+	{
+	//	DangerFlag=1;            //将危险信号标志位置为1
+		Time3(START);
+		gl_time=0;
+		save = glHello_control.linkInform.findLineWays;
+		glHello_control.linkInform.findLineWays =NFL_slow;
+		flag = 1;
+	}
+	else if(1==flag && 1==PES_Platform)
+	{
+//		speedAdjustment(0,0);
+//		delay_ms(500);
+		glHello_control.linkInform.findLineWays = FL_downPeak; 
+		findLineFlag = 0;
+		flag=2;
+	}
+	else if(2==flag&&0==PES_Platform)  flag=3;
+	else if(1==PES_Platform && 3==flag)
+	{
+
+		glHello_control.linkInform.findLineWays = NFL_slow; 
+		findLineFlag = 0;
+		flag = 4;
+
+	}
+	else if(4==flag && 0==PES_Platform) flag=5;
+	else if(5==flag && 1==PES_Platform)
+	{
+//		speedAdjustment(0,0);
+//		delay_ms(500);
+		glHello_control.linkInform.findLineWays = FL_downPeak; 
+		findLineFlag = 0;
+		flag=6;
+	}
+	else if(6==flag && 0==PES_Platform)	flag=7;
+	else if(7==flag && 1==PES_Platform)
+	{
+		glHello_control.linkInform.findLineWays=save;
+		findLineFlag = 0;
+		flag=0;
+		return 1;
+	}
+	else if(gl_time>600)
+	{
+		if(1==danger24_23())
+		{
+			Time3(STOP); //关闭定时器
+			gl_time = 0;
+		}
+	}
+		return 0;
+//static findLine save;
 //	static u8 flag=0;
 //	
 //	if(flag == 0)
 //	{
-//	//	DangerFlag=1;            //将危险信号标志位置为1
+//	//	DangerFlag=1;            //???￡??D?o?±ê???????a1
 //		Time3(START);
 //		gl_time=0;
 //		save = glHello_control.linkInform.findLineWays;
@@ -1637,95 +1694,40 @@ u8 BlockHandleMethod_downPlatform()
 //		findLineFlag = 0;
 //		flag=2;
 //	}
-//	else if(2==flag&&0==PES_Platform)  flag=3;
-//	else if(1==PES_Platform && 3==flag)
+//	else if(2==flag &&gl_time>150)
 //	{
-
-//		glHello_control.linkInform.findLineWays = NFL; 
+//       glHello_control.linkInform.findLineWays = FL_slow_angle; 
 //		findLineFlag = 0;
-//		flag = 4;
-
+//		angle_flag = 0;
+//		flag = 3;
 //	}
-//	else if(4==flag && 0==PES_Platform) flag=5;
-//	else if(5==flag && 1==PES_Platform)
-//	{
-////		speedAdjustment(0,0);
-////		delay_ms(500);
+//	else if(3==flag&&gl_time>325)
+//		{
+////      speedAdjustment(0,0);
+////	   while(1);
 //		glHello_control.linkInform.findLineWays = FL_downPeak; 
 //		findLineFlag = 0;
-//		flag=6;
-//	}
-//	else if(6==flag && 0==PES_Platform)	flag=7;
-//	else if(7==flag && 1==PES_Platform)
+//	    flag=4;
+//	   }
+
+////	else if(4 == flag && 1==PES_Platform)  flag = 5;	
+//	else if(4 == flag && 0==PES_Platform)  flag = 5;
+//	else if(5 == flag && 1==PES_Platform)
 //	{
 //		glHello_control.linkInform.findLineWays=save;
 //		findLineFlag = 0;
-//		flag=0;
+//		flag = 0;
 //		return 1;
-//	}
-//	else if(gl_time>600)
+//	}	
+//	else if(gl_time>650)
 //	{
 //		if(1==danger24_23())
 //		{
-//			Time3(STOP); //关闭定时器
+//			Time3(STOP); 
 //			gl_time = 0;
 //		}
 //	}
 //		return 0;
-static findLine save;
-	static u8 flag=0;
-	
-	if(flag == 0)
-	{
-	//	DangerFlag=1;            //???￡??D?o?±ê???????a1
-		Time3(START);
-		gl_time=0;
-		save = glHello_control.linkInform.findLineWays;
-		glHello_control.linkInform.findLineWays =NFL;
-		flag = 1;
-	}
-	else if(1==flag && 1==PES_Platform)
-	{
-//		speedAdjustment(0,0);
-//		delay_ms(500);
-		glHello_control.linkInform.findLineWays = FL_downPeak; 
-		findLineFlag = 0;
-		flag=2;
-	}
-	else if(2==flag &&gl_time>150)
-	{
-       glHello_control.linkInform.findLineWays = FL_slow_angle; 
-		findLineFlag = 0;
-		angle_flag = 0;
-		flag = 3;
-	}
-	else if(3==flag&&gl_time>325)
-		{
-//      speedAdjustment(0,0);
-//	   while(1);
-		glHello_control.linkInform.findLineWays = FL_downPeak; 
-		findLineFlag = 0;
-	    flag=4;
-	   }
-
-//	else if(4 == flag && 1==PES_Platform)  flag = 5;	
-	else if(4 == flag && 0==PES_Platform)  flag = 5;
-	else if(5 == flag && 1==PES_Platform)
-	{
-		glHello_control.linkInform.findLineWays=save;
-		findLineFlag = 0;
-		flag = 0;
-		return 1;
-	}	
-	else if(gl_time>650)
-	{
-		if(1==danger24_23())
-		{
-			Time3(STOP); 
-			gl_time = 0;
-		}
-	}
-		return 0;
 
 }
 
@@ -1751,7 +1753,7 @@ u8 BlockHandleMethod_S_BOARD_1()
 	}
 	else if(1==flag&&1==PES_Platform) 
 	{
-		glHello_control.linkInform.findLineWays =FL_slow;
+		glHello_control.linkInform.findLineWays =FL_Step;
 		findLineFlag = 0;
 //		speedAdjustment(0,0);
 //		delay_ms(500);
@@ -1837,20 +1839,18 @@ u8 BlockHandleMethod_26_27()
 	{
 //		speedAdjustment(0,0);
 //		delay_ms(500);
-		glHello_control.linkInform.findLineWays =FL_slow;
+		glHello_control.linkInform.findLineWays =FL_Step;
 		findLineFlag = 0;
-		led_flash();
 		Time3(START);
 		gl_time=0;
 		flag = 3;
 	}
-	if(3==flag&&gl_time>200)
+	if(3==flag&&gl_time>150)
 	{
 //		speedAdjustment(0,0);
-//		delay_ms(500);
+//		delay_ms(2000);
 		glHello_control.linkInform.findLineWays =save;
 		findLineFlag = 0;
-		led_flash();
 		Time3(STOP);
 		gl_time=0;
 		flag=4;
