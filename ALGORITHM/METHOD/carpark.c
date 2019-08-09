@@ -330,8 +330,8 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 		}
 		else if(3==flag)
 		{	
-			speedAdjustment(-1100,-1100);
-			delay_ms(350);	
+			speedAdjustment(-1050,-1100);
+			delay_ms(300);	
 			speedAdjustment(0,0);
 			sgAngleControl(L_ARM,L_UP);
 			delay_ms(200);
@@ -429,8 +429,10 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 		}
 		else if(3==flag)
 		{	
-			speedAdjustment(-1300,-1300);
-			delay_ms(270);	
+			speedAdjustment(0,0);
+			while(1);
+			//speedAdjustment(-1250,-1300);
+			delay_ms(400);	
 			speedAdjustment(0,0);
 			sgAngleControl(L_ARM,L_UP);
 			delay_ms(200);

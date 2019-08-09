@@ -10,7 +10,7 @@
 #define KEY4  GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_10)	//读取按键4
 
 #define KEY0_UP		1			//加 
-#define KEY1_DOWN	2		  //减 
+#define KEY1_DOWN	2		  //减 	
 #define KEY2_ENTER	3		  //确认  
 #define KEY3_MENU	4		  //菜单  
 #define KEY4_ESC	5		  //返回 
