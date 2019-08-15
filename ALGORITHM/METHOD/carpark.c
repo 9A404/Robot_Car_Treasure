@@ -14,7 +14,7 @@
 
 u8 parkMethod_default()
 {
-	delay_ms(450);
+	delay_ms(500);
 	return 1;
 }
 
@@ -331,7 +331,7 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 		else if(3==flag)
 		{	
 			speedAdjustment(-1050,-1100);
-			delay_ms(300);	
+			delay_ms(270);	
 			speedAdjustment(0,0);
 			sgAngleControl(L_ARM,L_UP);
 			delay_ms(200);
@@ -340,26 +340,30 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 			delay_ms(200);
 			sgAngleControl(R_ARM,R_DOWN);
 			delay_ms(200);
-//			if(flag1)       //用于扫不到码不走
-//			{
-//				Time3(START);
-//				gl_time = 0;
-//				while(!(USART3_RX_STA&0x8000)){
-//					if(gl_time==200) 
-//					{
-//						//flag1=2;
-//						//u3_printf("2");
-//						break;
-//					}
+			
+			
+			if(flag1)       //用于扫不到码不走
+			{
+				Time3(START);
+				gl_time = 0;
+				while(!(USART3_RX_STA&0x8000)){
+					if(gl_time==150) 
+					{
+						//flag1=2;
+						//u3_printf("2");
+						break;
+					}
+				}
+				
+//				if(flag1==2){
+//					u3_printf("2");
 //				}
-//				
-////				if(flag1==2){
-////					u3_printf("2");
-////				}
-//				Time3(STOP);
-//				gl_time = 0;
-//				flag1=0;
-//			}
+				Time3(STOP);
+				gl_time = 0;
+				flag1=0;
+			}
+			
+			
 			#ifdef _NEW_MPU6050_
 			rotAngle_Left(180);
 			//rotAngle_Right(180);

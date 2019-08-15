@@ -22,6 +22,35 @@ static u8 identifyALL_Zero()
 		return 0;
 }
 
+
+///*
+
+//* 函数介绍：
+//* 输入参数：无
+//* 输出参数：无
+//* 返回值  ：1（到达路障）0（未到达路障）
+//* 其他		：传感器全为0的时候
+//* 作者    ：@断忆
+
+//*/
+u8 Time_delay()
+{
+	
+	Time3(START);
+	gl_time=0;
+//	glHello_control.linkInform.findLineWays = FL_slow;			                  
+	if( gl_time>10)
+	{
+		Time3(STOP);
+		glHello_control.linkInform.findLineWays = FL_slow;
+		gl_time=0;
+		findLineFlag = 0;
+		return 1;
+	}
+	else
+		return 0;
+	
+}
 ///*
 
 //* 函数介绍：桥路障处理方法
@@ -266,7 +295,9 @@ u8 BlockHandleMethod_DOOR(void)
 	{
 		glHello_control.linkInform.findLineWays =NFL;
 		flag = 1;
+		
 	}
+
 	else if(1==flag && 1==PES_Platform)
 	{
 //		speedAdjustment(0,0);
@@ -1887,32 +1918,51 @@ u8 BlockHandleMethod_26_27()
 * 作者    ：@BEE LIU
 
 */
+//u8 LimtdeHeight_Method()
+//{
+//	static u8 flag=0;
+//	if(flag == 0&&0 == PES_R)
+//	{
+//		flag=1;
+//	}
+//	if(flag==1)
+//	{ 
+//		//speedAdjustment(0,0);	
+//	  sgAngleControl(BODY,B_UP);
+////	  delay_ms(400);
+//		flag=2;	
+//	}
+//  if(flag==2&&0 == PES_R)
+//	{
+//		//speedAdjustment(0,0);	
+//	  sgAngleControl(BODY,B_DOWN);
+////	  delay_ms(400);
+//		flag=0;	
+//		return 1;
+//	}
+//  return 0;
+//}
+
+
 u8 LimtdeHeight_Method()
 {
 	static u8 flag=0;
-	if(flag == 0&&0 == PES_R)
+	if(flag == 0)
 	{
-		flag=1;
+	  Time3(START);
+		gl_time = 0;
+		sgAngleControl(BODY,B_DOWN);
+		flag = 1;
 	}
-	if(flag==1)
-	{ 
-		//speedAdjustment(0,0);	
-	  sgAngleControl(BODY,B_UP);
-//	  delay_ms(400);
-		flag=2;	
-	}
-  if(flag==2&&0 == PES_R)
+	else if(flag == 1&&gl_time>150)
 	{
-		//speedAdjustment(0,0);	
-	  sgAngleControl(BODY,B_DOWN);
-//	  delay_ms(400);
-		flag=0;	
+		Time3(STOP);
+		sgAngleControl(BODY,B_UP);
+		flag = 0; 
 		return 1;
 	}
   return 0;
 }
-
-
 
 
 

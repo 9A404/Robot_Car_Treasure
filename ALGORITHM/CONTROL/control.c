@@ -436,6 +436,13 @@ void roadBlocksHandle_Task(const controlCenterTypeDef *controlp,runStateTypeDef 
 										u3_printf("FREE_EIC\r\n ");
 									#endif
 									}break;
+			case FREE_1 :if(1 == Time_delay())
+									{
+									runState->F_RoadBlockState = EIC;
+									#ifdef BlueTooth_Debug
+										u3_printf("FREE_EIC\r\n ");
+									#endif
+									}break;
 			case ANGLE:if(1 == Angle_read())
 									{
 										runState->F_RoadBlockState = EIC;
@@ -971,6 +978,13 @@ void carPark_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runState
 										#endif
 									}break;			
         case PARK_pesR_150:		if(1 == parkMethod_pesR_Delay(150))
+									{
+										runState->carParkState = EIC;
+										#ifdef BlueTooth_Debug
+											u3_printf("PARK_pesR_EIC\r\n");
+										#endif
+									}break;	
+				case PARK_pesR_200:		if(1 == parkMethod_pesR_Delay(200))
 									{
 										runState->carParkState = EIC;
 										#ifdef BlueTooth_Debug

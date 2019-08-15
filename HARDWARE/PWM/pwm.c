@@ -144,6 +144,9 @@ void sg_PWM_Init(void)
 	sgAngleControl(HEAD,H_MID);
 	sgAngleControl(L_ARM,L_DOWN );
 	sgAngleControl(R_ARM,R_DOWN);
+//	sgAngleControl(BODY,B_DOWN);//B_UP
+//	delay_ms(3000);
+	sgAngleControl(BODY,B_UP);
 }
 
 

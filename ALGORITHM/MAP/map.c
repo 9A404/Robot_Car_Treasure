@@ -19,7 +19,7 @@ const map_linkInforTypeDef mapInformation[][NODEFORKNUM]={
 						{4,3,FL_slow,FREE,NOSPEED,0,SEEK_PesPlatform,PARK_PesPlatform,HN_Rotate},
 						{5,9,FL_slow,SLOPE,NOSPEED,0,SEEK_default,PARK_pesL,HL_35},
 						{5,6,FL_slow,SLOPE,NOSPEED,0,SEEK_default,PARK_pesR,HR_135},
-						{5,12,FL_slow,STEP,NOSPEED,0,SEEK_default,PARK_pesR_150,HL_45},//
+						{5,12,FL_slow,STEP,NOSPEED,0,SEEK_default,PARK_pesR_200,HL_45},//
 						{5,10,FL_slow,SLOPE,NOSPEED,0,SEEK_default,PARK_pesL,HL_35},			},//3节点		
 	
 /*4节点*/	{	{3,5,FL_slow,PLATFORM,NOSPEED,0,SEEK_default,NOTPARK,rot_RFL},	},//4节点	
@@ -29,8 +29,9 @@ const map_linkInforTypeDef mapInformation[][NODEFORKNUM]={
 						{6,8,FL_default,FREE,NOSPEED,0,SEEK_PESL,NOTPARK,rot_RFL},
 						{9,10,FL_default,FREE,NOSPEED,0,SEEK4,NOTPARK,HN_Rotate},
 						{12,7,FL_slow,FREE,COMMON_SPEED,87,SEEK_PesPlatform,PARK_PesPlatform,HN_Rotate},//130
-						{10,11,FL_slow,FREE,COMMON_SPEED,40,SEEK4,NOTPARK,rot_LFL},	},    
-
+						{10,11,FL_slow,FREE,COMMON_SPEED,45,SEEK_default,NOTPARK,HL_30},	    
+						{12,10,FL_slow,FREE,COMMON_SPEED,87,SEEK_PesPlatform,PARK_PesPlatform,HN_Rotate},},
+						
 /*6节点*/	{	{7,6,FL_slow,FREE,COMMON_SPEED,20,SEEK_PesPlatform,PARK_PesPlatform,HN_Rotate},
 				{8,6,FL_slow,FREE,COMMON_SPEED,25,SEEK_Collision,NOTPARK,HL_180},
 				{14,15,FL_default,FREE,NOSPEED,0,SEEK4,PARK_pesR,HL_90},
@@ -39,11 +40,11 @@ const map_linkInforTypeDef mapInformation[][NODEFORKNUM]={
 				{41,13,FL_slow,DOOR,NOSPEED,0,NOTSEEK,NOTPARK,HN_Rotate},
 				{42,14,FL_default,DOOR,NOSPEED,0,NOTSEEK,NOTPARK,HN_Rotate},
 				{14,37,FL_default,FREE,NOSPEED,0,SEEK_PESL,PARK_pesR,HL_90},
-				{15,37,FL_default,FREE,COMMON_SPEED,77,SEEK_digR,PARK_pesR_100,HL_30},	},
+				{15,37,FL_slow,FREE,COMMON_SPEED,70,SEEK_6_15_37,NOTPARK,HN_Rotate},	},  //rot_LFL SEEK_6_15_37
 						
-/*7节点*/	{	{6,5,FL_default,PLATFORM,COMMON_SPEED,25,SEEK_PESR, NOTPARK,HN_Rotate},
+/*7节点*/	{	{6,5,FL_default,PLATFORM,COMMON_SPEED,28,SEEK_PESR, NOTPARK,HN_Rotate},
 				{6,14,FL_default,PLATFORM,NOSPEED,0,SEEK_default,PARK_pesR,HR_90},
-				{12,10,FL_default,PLATFORM,COMMON_SPEED,80,SEEK_PesPlatform,PARK_PesPlatform,HN_Rotate},
+				{12,10,FL_default,PLATFORM,COMMON_SPEED,88,SEEK_PesPlatform,PARK_PesPlatform,HN_Rotate},
 				{6,42,FL_default,PLATFORM,COMMON_SPEED,50,SEEK_default,PARK_pesR,HR_90},
 				{6,8,FL_slow,PLATFORM,COMMON_SPEED,50,SEEK_default,PARK_pesL,HL_135},
 				{6,15,FL_slow,PLATFORM,COMMON_SPEED,20,SEEK_digR,NOTPARK,rot_RFL},},
@@ -69,17 +70,19 @@ const map_linkInforTypeDef mapInformation[][NODEFORKNUM]={
 				{9,40,FL_default,FREE,NOSPEED,0,SEEK4,PARK_pesL,HL_45,},
 				{12,7,FL_default,FREE,NOSPEED,0,SEEK_PesPlatform,PARK_PesPlatform,HN_Rotate},
 				{12,6,FL_slow,FREE,NOSPEED,20,SEEK_PesPlatform,PARK_PesPlatform,HN_Rotate},
-				{5,2,FL_default,FREE,COMMON_SPEED,40,SEEK_default,PARK_pesR,HR_130},},         
-
+				{5,2,FL_default,FREE,COMMON_SPEED,40,SEEK_default,PARK_pesR,HR_130},         
+				{6,8,FL_slow,FREE,COMMON_SPEED,84,SEEK_PESL,NOTPARK,rot_RFL},},
+	
 /*11节点*/{		{10,9,FL_default,FREE,NOSPEED,0,SEEK_default,NOTPARK,HR_35},
 				{10,12,FL_slow,FREE,COMMON_SPEED,25,SEEK_default,PARK_pesL,HL_120},
 				{10,24,FL_quick,FREE,COMMON_SPEED, 0,SEEK_default,PARK_pesL,HL_35},
-				{10,5,FL_slow,FREE,COMMON_SPEED,25,SEEK_PESR,NOTPARK,rot_RFL},},
+				{10,5,FL_slow,FREE,COMMON_SPEED,25,SEEK_PESR,NOTPARK,rot_RFL},
+				{10,6,FL_slow,FREE,COMMON_SPEED,25,SEEK_default,PARK_pesL,HR_35},},
 
 /*12节点*/{		{10,9,FL_quick,PLATFORM,NOSPEED,0,SEEK_PESL,NOTPARK,HN_Rotate},
 				{10,24,FL_default,PLATFORM,NOSPEED,0,SEEK4,PARK_pesL,HL_90},
-				{10,11,FL_default,PLATFORM,NOSPEED,0,SEEK_default,PARK_pesR,HR_135},
-				{7,6,FL_slow,PLATFORM,COMMON_SPEED,215,SEEK_PesPlatform,PARK_PesPlatform,HN_Rotate},
+				{10,11,FL_slow,PLATFORM,COMMON_SPEED,10,SEEK_default,PARK_pesR,HR_130},
+				{7,6,FL_slow,PLATFORM,COMMON_SPEED,216,SEEK_PesPlatform,PARK_PesPlatform,HN_Rotate},
 				{6,8,FL_slow,FREE,COMMON_SPEED,100,SEEK_PESL,NOTPARK,rot_RFL},
 				{10,5,FL_default,FREE,COMMON_SPEED,60,SEEK_default,PARK_pesR,HR_130},},
 
@@ -111,9 +114,9 @@ const map_linkInforTypeDef mapInformation[][NODEFORKNUM]={
 				{37,14,FL_slow,FREE,COMMON_SPEED,40,SEEK_PesPlatform,PARK_PesPlatform,HN_Rotate},
 				{37,15,FL_default,FREE,COMMON_SPEED,20,SEEK_PesPlatform,PARK_PesPlatform,HN_Rotate},
 				{14,16,FL_default,HEIGHTLITM,NOSPEED,0,SEEK_PESL,NOTPARK,HN_Rotate},
-        {31,32,FL_slow,FREE,NOSPEED,0,SEEK4,PARK_pesR,HR_90},},
+        {31,32,FL_slow,FREE,NOSPEED,0,SEEK4,PARK_pesR_No,HR_90},},
 
-/*16节点*/{		{17,18,FL_slow,FREE,NOSPEED,0,SEEK_default,PARK_pesL_No,HL_90},
+/*16节点*/{		{17,18,FL_slow,FREE,TME,10,SEEK_default,PARK_pesL_No,HL_90},
 				{14,38,FL_default,FREE,NOSPEED,0,SEEK_PESR,NOTPARK,HN_Rotate},
 				{44,45,FL_16_44,FREE,TME,20,SEEK_SeeSaw,NOTPARK,HN_Rotate},
 				{44,14,FL_slow,FREE,NOSPEED,0,SEEK4,NOTPARK,HN_Rotate},
@@ -175,7 +178,7 @@ const map_linkInforTypeDef mapInformation[][NODEFORKNUM]={
 				{23,22,FL_slow,STEP2,NOSPEED,0,SEEK_default,NOTPARK,HR_35},	
 				{23,24,FL_slow,STEP2,NOSPEED,0,SEEK_default,NOTPARK,HN_Rotate},
 				
-/*需要过限高，记得加函数*/			{28,50,FL_default,FREE,NOSPEED,0,SEEK_default,PARK_pesL_No,HL_90},},
+/*需要过限高，记得加函数*/			{28,50,FL_default,HEIGHTLITM,NOSPEED,0,SEEK_default,PARK_pesL_No,HL_90},},
 				
 
 /*26节点*/{		{27,26,FL_slow,S_BOARD_26_27,NOSPEED,0,NOTSEEK,PARK_PesPlatform,HN_Rotate},
@@ -202,7 +205,7 @@ const map_linkInforTypeDef mapInformation[][NODEFORKNUM]={
 				{30,15,FL_default,FREE,NOSPEED,0,SEEK_default,PARK_pesL,HL_90},
 				{30,39,FL_default,FREE,NOSPEED,0,SEEK_default,PARK_pesL,HL_90},
 				{33,25,FL_default,FREE,NOSPEED,0,SEEK4,PARK_pesL,HL_90},
-				{9,5,FL_slow,FREE,COMMON_SPEED,60,SEEK4,PARK_pesR,HL_90},
+				{9,5,FL_slow,FREE,COMMON_SPEED,53,SEEK4,PARK_pesR,HL_90},
 				{9,10,FL_default,FREE,COMMON_SPEED,80,SEEK4,PARK_pesR,HR_90},},
 							
 /*32节点*/{		{31,33,BACK_NFL,FREE,NOSPEED,0,SEEK_PESL,NOTPARK,HL_90},
@@ -225,7 +228,7 @@ const map_linkInforTypeDef mapInformation[][NODEFORKNUM]={
 
 /*35节点*/{		{36,35,FL_slow,FREE,NOSPEED,0,SEEK_Collision_1,NOTPARK,HN_Rotate},
 				{14,37,FL_default,FREE,NOSPEED,0,SEEK4,PARK_pesL,HR_90},
-				{14,16,FL_default,FREE,NOSPEED,0,SEEK4,PARK_pesL,HL_90},
+				{14,16,FL_slow,FREE,NOSPEED,0,SEEK4,PARK_pesL,HL_90},
 				{34,33,FL_default,FREE,NOSPEED,0,SEEK_default,PARK_pesL,HL_90},
 				{14,42,FL_default,FREE,NOSPEED,0,SEEK_default,NOTPARK,HN_Rotate},
 				{34,30,FL_default,FREE,NOSPEED,0,SEEK_default,PARK_pesL,HL_90},
@@ -248,7 +251,7 @@ const map_linkInforTypeDef mapInformation[][NODEFORKNUM]={
 				{14,16,FL_default,PLATFORM,COMMON_SPEED,120,SEEK4,NOTPARK,HN_Rotate},
 				{15,14,FL_default,PLATFORM,COMMON_SPEED,40,SEEK_PESL,NOTPARK,HN_Rotate},
 				{15,9,FL_default,PLATFORM,COMMON_SPEED,50,SEEK_default,PARK_pesL,HR_90},
-				{17,18,FL_default,PLATFORM,COMMON_SPEED,325,SEEK_default,PARK_pesL,HL_90},
+				{17,18,FL_default,PLATFORM,COMMON_SPEED,250,SEEK_default,PARK_pesL,HL_90},
 				{14,35,FL_slow,PLATFORM,COMMON_SPEED,115,SEEK_default,PARK_pesL_No,HL_90},},
 
 /*38节点*/{		{33,23,FL_default,FREE,NOSPEED,0,SEEK4,NOTPARK,HN_Rotate},
