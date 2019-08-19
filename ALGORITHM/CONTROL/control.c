@@ -937,6 +937,13 @@ void carPark_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runState
 											u3_printf("PARK_pesR_EIC\r\n");
 										#endif
 									}break;
+				case PARK_pesR_delay:		if(1 == parkMethod_pesR_Delay(150))
+									{
+										runState->carParkState = EIC;
+										#ifdef BlueTooth_Debug
+											u3_printf("PARK_pesR_EIC\r\n");
+										#endif
+									}break;
 				case PARK_default:if(1 == parkMethod_default())
 									{
 										runState->carParkState = EIC;
@@ -949,6 +956,13 @@ void carPark_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runState
 										runState->carParkState = EIC;
 										#ifdef BlueTooth_Debug
 											u3_printf("PARK_pesL_EIC\r\n");
+										#endif
+									}break;
+				case PARK_pesL_delay:		if(1 == parkMethod_pesL_Delay(150))
+									{
+										runState->carParkState = EIC;
+										#ifdef BlueTooth_Debug
+											u3_printf("PARK_pesR_EIC\r\n");
 										#endif
 									}break;
 				case PARK_PesPlatform:	if(1==parkMethod_pesPlatform(&glHello_control))

@@ -396,13 +396,17 @@ u8 seekNodeMethod_Collision()
 //		flag=0;
 //		return 1;
 //	}
-	if(1==Collision) 
-	{
-		delay_ms(100);
-		speedAdjustment(-2000,-2000);	
-		delay_ms(200);
+	static u8 flag=0;
+	if(0==PES_H && 0==flag){
+		glHello_control.linkInform.findLineWays = FL_stop;
+		findLineFlag=0;
+		flag=1;
+	}
+	if(1==Collision && 1==flag) {
+		flag=0;
 		return 1;
 	}
+	return 0;
 		
 	return 0;
 	
@@ -410,7 +414,7 @@ u8 seekNodeMethod_Collision()
 
 /*
 
-* 函数介绍：	梯形景点找点方法（利用碰撞开光）
+* 函数介绍：	梯形景点找点方法（利用碰撞开光）,会后退
 * 输入参数：
 * 输出参数：
 * 返回值  ：1(找到节点)0（没有找到节点）

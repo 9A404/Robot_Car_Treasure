@@ -75,7 +75,7 @@ u8 parkMethod_pesR()
 		if(0==PES_R && 1==flag)
 		{
 			speedAdjustment(0,0);
-			delay_ms(10);		
+			delay_ms(20);		
 			flag = 0;
 			return 1 ;
 		}
@@ -128,7 +128,7 @@ u8 parkMethod_pesL()
 		if(0==PES_L && 1==flag)
 		{
 			speedAdjustment(0,0);
-			delay_ms(10);		
+			delay_ms(20);		
 			flag = 0;
 			return 1 ;
 		}
@@ -137,7 +137,63 @@ u8 parkMethod_pesL()
 	return 0;
 }
 
+/*
+* 函数介绍：左边光电传感器延时停车方法
+* 输入参数：无
+* 输出参数：无
+* 返回值  ：1(完成)0（未完成）
+* 其他		：
+* 作者    ：@断忆
+*/
+u8 parkMethod_pesL_Delay(int time)
+{
+	static u8 flag=0;
+	if(flag ==0)
+	{
+		glHello_control.linkInform.findLineWays = FL_stop;
+		findLineFlag = 0;
+		flag = 1;
+	}
+	if(0==PES_L && 1==flag)
+	{	
+		glHello_control.linkInform.findLineWays = NFL;
+		findLineFlag = 0; 
+		delay_ms(time);
+		flag = 0;
+		return 1 ;
+	}
+	
+	return 0;	
+}
 
+/*
+* 函数介绍：右边光电传器延时停车方法
+* 输入参数：
+* 输出参数：
+* 返回值  ：1(完成)0（未完成）
+* 其他		：
+* 作者    ：@断忆
+*/
+u8 parkMethod_pesR_Delay(int time)
+{
+	static u8 flag=0;
+	if(flag ==0)
+	{	
+		glHello_control.linkInform.findLineWays = FL_stop;
+		findLineFlag = 0;
+		flag = 1;
+	}
+	if(0==PES_R && 1==flag)
+	{
+		glHello_control.linkInform.findLineWays = NFL;
+		findLineFlag = 0; 
+		delay_ms(time);
+		flag = 0;
+		return 1 ;
+	}
+	
+	return 0;	
+}
 
 /*
 

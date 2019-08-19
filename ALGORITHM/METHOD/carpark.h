@@ -6,6 +6,8 @@
 u8 parkMethod_default(void);
 u8 parkMethod_pesR(void);
 u8 parkMethod_pesL(void);
+u8 parkMethod_pesL_Delay(int time);
+u8 parkMethod_pesR_Delay(int time);
 u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp);
 
 #endif
