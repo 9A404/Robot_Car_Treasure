@@ -436,6 +436,9 @@ u8 seekNodeMethod_Collision_1()
 	}
 	if(1==Collision && 1==flag) {
 		flag=0;
+		delay_ms(100);
+		speedAdjustment(-2000,-2000);	
+		delay_ms(200);
 		return 1;
 	}
 	return 0;
