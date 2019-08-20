@@ -11,7 +11,7 @@ const u16  brige_sensorThreshold[NUM_OF_SENSOR] = {800,800,800,800,800,800,800,8
 /*奔跑路线表格*/
 const u8 runMethodTable[][100]={
 	/* 调试路线 */
-/*0*/{14,16,44,45,46,47,46,48,43,16,17,18,19,18},
+/*0*/{12,7,6,8,6,15,37},
  
 	/* 保守路线一,只拿一个宝物 */ 
 /*1*/{1,2,3,4,3,5,12,7,6,5,2,1,2},
@@ -177,13 +177,13 @@ void Fun_game(void)
 		if(0 == runTimes)
 			{
 				CheckrunMethod(runMethod);
-				#ifdef BlueTooth
+//				#ifdef BlueTooth
 				Treasure_Reset_Usart3();
-				#endif
-				
-				#ifdef OTG
-				Treasure_Reset_Usart1();
-				#endif
+//				#endif
+//				
+//				#ifdef OTG
+//				Treasure_Reset_Usart1();
+//				#endif
 				Gui_DrawFont_GBK16(0,40,BLUE,WHITE,"First round...");
 				runTimes=3;																		//保证跑一次只初始化
 				/*****软件逻辑``````````````````````````````````````````````````````层初始化部分*****/
@@ -192,13 +192,13 @@ void Fun_game(void)
 			}
 		if(1 == runTimes)
 			{
-				#ifdef BlueTooth
+//				#ifdef BlueTooth
 				Treasure_Reset_Usart3();
-				#endif
-				
-				#ifdef OTG
-				Treasure_Reset_Usart1();
-				#endif
+//				#endif
+//				
+//				#ifdef OTG
+//				Treasure_Reset_Usart1();
+//				#endif
 				Gui_DrawFont_GBK16(0,60,BLUE,WHITE,"Second round...");
 				runTimes=4;																		//保证跑一次只初始化
 				runMethodReset(runMethod,runMethod_2);				//更新路线

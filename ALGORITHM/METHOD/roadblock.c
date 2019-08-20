@@ -1872,7 +1872,7 @@ u8 LimtdeHeight_Method()
 		sgAngleControl(BODY,B_DOWN);
 		flag = 1;
 	}
-	else if(flag == 1&&gl_time>200)
+	else if(flag == 1&&gl_time>210)
 	{
 		Time3(STOP);
 		sgAngleControl(BODY,B_UP);

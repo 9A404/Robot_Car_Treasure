@@ -58,7 +58,10 @@ u8 seekNodeMethod_digL()
 {
 
 	if(glsensor_dig_value&0xC00)
-		return 1;
+		{	
+			delay_ms(85);
+			return 1;
+		}
 	return 0;	
 }
 
