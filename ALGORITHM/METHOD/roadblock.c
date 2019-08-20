@@ -293,6 +293,7 @@ u8 BlockHandleMethod_DOOR(void)
 	
 	if(flag == 0)
 	{
+		save = glHello_control.linkInform.findLineWays;
 		glHello_control.linkInform.findLineWays =NFL;
 		flag = 1;
 		
@@ -335,7 +336,7 @@ u8 BlockHandleMethod_DOOR(void)
 		gl_time=0;
 		flag=6;
 	}
-	else if(6==flag && gl_time>150)
+	else if(6==flag && gl_time>170)
 	{
 //		speedAdjustment(0,0);
 //		delay_ms(2000);
@@ -404,7 +405,7 @@ static float Monitor_ROLL()
 		gl_time = 0;
 		MPU6050_Pose_usart();
 		angle_read = setYaw(glYaw,88);
-		angle_read_back = setYaw(glYaw,-87);
+		angle_read_back = setYaw(glYaw,-87.5);
 		flag = 0; 
 		   
 		return 1;
@@ -1954,7 +1955,7 @@ u8 LimtdeHeight_Method()
 		sgAngleControl(BODY,B_DOWN);
 		flag = 1;
 	}
-	else if(flag == 1&&gl_time>150)
+	else if(flag == 1&&gl_time>130)
 	{
 		Time3(STOP);
 		sgAngleControl(BODY,B_UP);

@@ -310,7 +310,7 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 					if(2==QR_code_flag && 2==RunMethod_Check) {u3_printf("1");flag1=1;} 
 					treasure_flag=1;
 				}
-			}else if(controlp->curNode==Treasure_code[0]||controlp->curNode==Treasure_code[1]||controlp->curNode==Treasure_code[2]){
+			} else if(controlp->curNode==Treasure_code[0]||controlp->curNode==Treasure_code[1]||controlp->curNode==Treasure_code[2]){
 				//Lcd_Clear(WHITE);
 				treasure_flag=1;
 			}	

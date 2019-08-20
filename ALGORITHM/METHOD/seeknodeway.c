@@ -136,7 +136,7 @@ u8 seekNodeMethod_6_15_37()
 		Time3(START);
 		gl_time=0;
 	}
-	else if(1==flag && gl_time>13){
+	else if(1==flag && gl_time>12){
 //		speedAdjustment(0,0);
 //		 while(1);
 		//rotAngle_Left(45);
