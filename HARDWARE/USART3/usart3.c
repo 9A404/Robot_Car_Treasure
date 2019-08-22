@@ -299,7 +299,7 @@ u8 QR_code_u3_printf(controlCenterTypeDef *controlp)
 		QR_code_flag++;                  //每收到一次从手机发过来二维码数据QR_code_flag++
 		len=USART3_RX_STA&0x3fff;
 		for(t=0;t<len;t++)	QR_code[t]=USART3_RX_BUF[t];
-		Gui_DrawFont_Num32(0,0,BLUE,WHITE,QR_code_flag);
+		//Gui_DrawFont_Num32(0,0,BLUE,WHITE,QR_code_flag);
 		USART3_RX_STA=0;
 		memset(USART3_RX_BUF,'0',sizeof(USART3_RX_BUF));
 	}
@@ -374,9 +374,9 @@ void get_from_phone()
 		}
 	}
 //	Lcd_Clear(WHITE);
-	//sprintf(buff,"%d %d %d",Treasure_code[0],Treasure_code[1],Treasure_code[2]);
-//	//USART3_RX_STA=0;
-	//Gui_DrawFont_GBK16(50,80,BLUE,WHITE,buff);
+//	sprintf(buff,"%d %d %d",Treasure_code[0],Treasure_code[1],Treasure_code[2]);
+
+//	Gui_DrawFont_GBK16(50,80,BLUE,WHITE,buff);
 }
 
 

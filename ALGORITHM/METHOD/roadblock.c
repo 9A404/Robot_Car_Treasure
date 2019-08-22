@@ -295,7 +295,7 @@ u8 BlockHandleMethod_DOOR(void)
 	{
 //		speedAdjustment(0,0);
 //		delay_ms(500);
-		glHello_control.linkInform.findLineWays = FL_slow; 
+		glHello_control.linkInform.findLineWays = FL_slowest; 
 		findLineFlag = 0;
 		#ifdef LED_Debug
 		led_flash();
@@ -1742,7 +1742,7 @@ u8 BlockHandleMethod_S_BOARD_1()
 	}
 	else if(1==flag&&1==PES_Platform) 
 	{
-		glHello_control.linkInform.findLineWays =FL_slow;
+		glHello_control.linkInform.findLineWays =FL_slowest;
 		findLineFlag = 0;
 //		speedAdjustment(0,0);
 //		delay_ms(500);
@@ -1786,7 +1786,7 @@ u8 BlockHandleMethod_S_BOARD_2()
 	{
 //		speedAdjustment(0,0);
 //		delay_ms(500);
-		glHello_control.linkInform.findLineWays =FL_slow;
+		glHello_control.linkInform.findLineWays =FL_slowest;
 		findLineFlag = 0;
 		Time3(START);
 		gl_time=0;
@@ -1828,7 +1828,7 @@ u8 BlockHandleMethod_26_27()
 	{
 //		speedAdjustment(0,0);
 //		delay_ms(500);
-		glHello_control.linkInform.findLineWays =FL_slow;
+		glHello_control.linkInform.findLineWays =FL_slowest;
 		findLineFlag = 0;
 		led_flash();
 		Time3(START);

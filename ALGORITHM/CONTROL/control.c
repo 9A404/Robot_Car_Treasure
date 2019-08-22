@@ -324,6 +324,7 @@ void findLine_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runStat
 				case FL_brigeup:   flMethod_brige_up();break;
 				case FL_brigedown: flMethod_brige_down();break;
 				case FL_slow:			 flMethod_slow();break;
+				case FL_slowest:	flMethod_slowest();break;
 				case FL_UpPlatform:	flMethod_UpPlatform();break;
 				case FL_DownPlatform:	flMethod_DownPlatform();break;
 				case FL_quick:		 flMethod_quick();break;
@@ -937,7 +938,14 @@ void carPark_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runState
 											u3_printf("PARK_pesR_EIC\r\n");
 										#endif
 									}break;
-				case PARK_pesR_delay:		if(1 == parkMethod_pesR_Delay(150))
+				case PARK_pesR_150:		if(1 == parkMethod_pesR_Delay(150))
+									{
+										runState->carParkState = EIC;
+										#ifdef BlueTooth_Debug
+											u3_printf("PARK_pesR_EIC\r\n");
+										#endif
+									}break;
+				case PARK_pesR_200:		if(1 == parkMethod_pesR_Delay(200))
 									{
 										runState->carParkState = EIC;
 										#ifdef BlueTooth_Debug
@@ -958,7 +966,14 @@ void carPark_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runState
 											u3_printf("PARK_pesL_EIC\r\n");
 										#endif
 									}break;
-				case PARK_pesL_delay:		if(1 == parkMethod_pesL_Delay(150))
+				case PARK_pesL_150:		if(1 == parkMethod_pesL_Delay(150))
+									{
+										runState->carParkState = EIC;
+										#ifdef BlueTooth_Debug
+											u3_printf("PARK_pesR_EIC\r\n");
+										#endif
+									}break;
+				case PARK_pesL_200:		if(1 == parkMethod_pesL_Delay(200))
 									{
 										runState->carParkState = EIC;
 										#ifdef BlueTooth_Debug

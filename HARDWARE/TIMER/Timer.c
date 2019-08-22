@@ -280,6 +280,7 @@ void Time3(SWITCHState newState)
 			TIM_Cmd(TIM3, ENABLE);  	//使能TIMx外设
 	else if(newState == STOP)
 			TIM_Cmd(TIM3, DISABLE);  //不使能TIMx外设
+	gl_time =0;
 }
 
 

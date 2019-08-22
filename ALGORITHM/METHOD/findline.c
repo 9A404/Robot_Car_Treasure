@@ -42,7 +42,7 @@ void flMethod_brige()
 	if(findLineFlag == 0)   //保证每个路段初始化一次
 	{
 		PID_Init(&glsensorPID,14,2500,200,0,0);																					//对速度PID的参数进行初始化设置
-		speedRec_Init(&glmotorSpeed,2200,2200); 																				//对初始速度进行设定
+		speedRec_Init(&glmotorSpeed,2400,2400); 																				//对初始速度进行设定
 		findLineFlag=1;
 	}
 	glsensor_dig_value = sensorAD(glsensor_ad_value,brige_sensorThreshold);  				//与阈值比较后将模拟量转化成数字量
@@ -121,6 +121,32 @@ void flMethod_slow()
 	{
 		PID_Init(&glsensorPID,20,2500,200,0,100);																					//对速度PID的参数进行初始化设置
 		speedRec_Init(&glmotorSpeed,2200,2200); 																				//对初始速度进行设定
+		findLineFlag=1;
+	}
+	glsensor_dig_value = sensorAD(glsensor_ad_value,basic_sensorThreshold);  				//与阈值比较后将模拟量转化成数字量
+	rank=sensorDigitalRank(glsensor_dig_value);                                    //分级
+	gldSpeed=positionPIDCalc(&glsensorPID,rank);   //速度位置式PID输出
+	positionSpeedOut(glmotorSpeed.leftSpeed,glmotorSpeed.rightSpeed,gldSpeed);			//位置式改变电机速度
+
+}
+
+/*
+
+* 函数介绍：超慢速度巡线方法
+* 输入参数：无
+* 输出参数：无
+* 返回值  ：
+* 其他    ：每个方法最主要的区别：1、glmotorSpeed初始速度 2、glsensorPID的P I D三个参数
+* 作者    ：@断忆
+
+*/
+void flMethod_slowest()
+{
+	int rank;
+	if(findLineFlag == 0)//保证每个路段初始化一次
+	{
+		PID_Init(&glsensorPID,20,2000,200,0,200);																					//对速度PID的参数进行初始化设置
+		speedRec_Init(&glmotorSpeed,1800,1800); 																				//对初始速度进行设定
 		findLineFlag=1;
 	}
 	glsensor_dig_value = sensorAD(glsensor_ad_value,basic_sensorThreshold);  				//与阈值比较后将模拟量转化成数字量
