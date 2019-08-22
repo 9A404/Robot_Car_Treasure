@@ -442,6 +442,7 @@ u8 seekNodeMethod_Collision_1()
 		delay_ms(100);
 		speedAdjustment(-2000,-2000);	
 		delay_ms(200);
+		speedAdjustment(0,0);
 		return 1;
 	}
 	return 0;

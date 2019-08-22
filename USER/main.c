@@ -253,6 +253,7 @@ int main(void)
 	while(1)
 	{	
 		displayOperation();
+		//speedAdjustment(0,0);
 		//get_from_phone();
 	}
 }
