@@ -30,7 +30,7 @@ typedef enum { SEEK_PESL,SEEK_PESR,SEEK3,SEEK4,SEEK_default,NOTSEEK,SEEK_SeeSaw,
 
 /*停车方法*/
 typedef enum { NOTPARK,PARK1,PARK_pesR,PARK_pesR_time,PARK_pesR_50,PARK_pesR_100,PARK_pesR_150,PARK_pesR_200,PARK_pesR_230,PARK_pesR_270,
-           PARK_default,PARK_pesL,PARK_pesL_time,PARK_pesL_100,PARK_PesPlatform,PARK_Door, 
+           PARK_default,PARK_pesL,PARK_pesL_time,PARK_pesL_100,PARK_pesL_200,PARK_PesPlatform,PARK_Door, 
             PARK_pesR_No,PARK_pesL_No,PARK_pesL_back,PARK_pesR_back}carPark;
 
 /*车头旋转角度*/

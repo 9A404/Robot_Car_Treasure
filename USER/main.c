@@ -3,7 +3,7 @@
 
 /*全局变量*/
 const u16  basic_sensorThreshold[NUM_OF_SENSOR] = {3800,3800,3800,3800,3800,3800,3800,3800,3800,3800,3800,3800};
-const u16  brige_sensorThreshold[NUM_OF_SENSOR] = {800,800,800,800,800,800,800,800,800,800,800,800};
+const u16  brige_sensorThreshold[NUM_OF_SENSOR] = {800,800,900,1000,800,800,700,700,600,800,800,800};
 
                          
 
@@ -11,7 +11,7 @@ const u16  brige_sensorThreshold[NUM_OF_SENSOR] = {800,800,800,800,800,800,800,8
 /*奔跑路线表格*/
 const u8 runMethodTable[][100]={
 	/* 调试路线 */
-/*0*/{26,27,26,25,28,50},
+/*0*/{5,12,10,11,10,6,8,6,7,6,5/*5,12,7,6,5*/}, 
 	
 	/* 保守路线一,只拿一个宝物 */
 /*1*/{1,2,3,4,3,5,12,7,6,5,2,1,2},//
@@ -282,7 +282,7 @@ int main(void)
 	
 	
 //		delay_ms(2000);
-//		sgAngleControl(BODY,B_DOWN);while(1);
+//		sgAngleControl(BODY,B_DOWN);
 //		delay_ms(2000);
 //		sgAngleControl(BODY,B_UP);
 //		delay_ms(2000);	

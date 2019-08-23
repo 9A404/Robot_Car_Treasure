@@ -1033,6 +1033,13 @@ void carPark_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runState
 											u3_printf("PARK_pesL_EIC\r\n");
 										#endif
 									}break;
+			case PARK_pesL_200:		if(1 == parkMethod_pesL_Delay(200))
+									{
+										runState->carParkState = EIC;
+										#ifdef BlueTooth_Debug
+											u3_printf("PARK_pesL_EIC\r\n");
+										#endif
+									}break;
 				case PARK_PesPlatform:	if(1==parkMethod_pesPlatform(&glHello_control))
 										{
 											runState->carParkState = EIC;

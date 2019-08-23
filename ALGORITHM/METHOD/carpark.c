@@ -14,7 +14,7 @@
 
 u8 parkMethod_default()
 {
-	delay_ms(500);
+	delay_ms(550);
 	return 1;
 }
 
