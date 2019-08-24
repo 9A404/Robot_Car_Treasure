@@ -1675,7 +1675,7 @@ u8 BlockHandleMethod_downPlatform()
 	else if(1==PES_Platform && 3==flag)
 	{
 
-		glHello_control.linkInform.findLineWays = NFL_slow; 
+		glHello_control.linkInform.findLineWays = NFL; 
 		findLineFlag = 0;
 		flag = 4;
 
@@ -1829,14 +1829,16 @@ u8 BlockHandleMethod_S_BOARD_2()
 	{
 //		speedAdjustment(0,0);
 //		delay_ms(500);
-		glHello_control.linkInform.findLineWays =FL_slow;
+		glHello_control.linkInform.findLineWays =FL_Step;
 		findLineFlag = 0;
 		Time3(START);
 		gl_time=0;
 		flag = 3;
 	}
-	if(3==flag&&gl_time>200)
+	if(3==flag&&gl_time>250)
 	{
+		speedAdjustment(0,0);
+		delay_ms(500);
 		glHello_control.linkInform.findLineWays =FL_default;
 		findLineFlag = 0;
 		Time3(STOP);
