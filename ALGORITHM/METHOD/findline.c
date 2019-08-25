@@ -513,7 +513,7 @@ void flMethod_right()
 	if(findLineFlag == 0)//保证每个路段初始化一次
 	{
 		PID_Init(&glsensorPID,20,3500,200,0,0);																					//对速度PID的参数进行初始化设置
-		speedRec_Init(&glmotorSpeed,3100,1000); 																				//对初始速度进行设定2200+200
+		speedRec_Init(&glmotorSpeed,3050,1000); 																				//对初始速度进行设定2200+200
 		findLineFlag=1;
 	}
 	glsensor_dig_value = sensorAD(glsensor_ad_value,basic_sensorThreshold);  				//与阈值比较后将模拟量转化成数字量

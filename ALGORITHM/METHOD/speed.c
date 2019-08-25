@@ -83,7 +83,7 @@ u8 Speed_commonMethod(u16 time){
 		gl_time=0;
 		flag=1;
 	}
-	else if(gl_time > 30 && 1==flag)
+	else if(gl_time > 35 && 1==flag)
 	{
 		gl_time = 0;
 		glHello_control.linkInform.findLineWays = FL_quickest;

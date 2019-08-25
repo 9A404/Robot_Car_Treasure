@@ -1054,7 +1054,14 @@ void carPark_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runState
 											u3_printf("PARK_pesL_EIC\r\n");
 										#endif
 									}break;
-			case PARK_pesL_200:		if(1 == parkMethod_pesL_Delay(200))
+				case PARK_pesL_80:		if(1 == parkMethod_pesL_Delay(50))
+									{
+										runState->carParkState = EIC;
+										#ifdef BlueTooth_Debug
+											u3_printf("PARK_pesL_EIC\r\n");
+										#endif
+									}break;					
+			 case PARK_pesL_200:		if(1 == parkMethod_pesL_Delay(200))
 									{
 										runState->carParkState = EIC;
 										#ifdef BlueTooth_Debug
@@ -1224,7 +1231,7 @@ void rotAngle_Task(controlCenterTypeDef *controlp,runStateTypeDef *runState)
 															u3_printf("HR_145_EIC\n\n");
 														#endif
 													}break;
-			case HR_143:if(1 == rotAngle_Right(143))
+			case HR_140:if(1 == rotAngle_Right(140))
 									{
 														runState->RotangleState=EIC;
 														runState->F_LineState=EIC;
@@ -1307,6 +1314,15 @@ void rotAngle_Task(controlCenterTypeDef *controlp,runStateTypeDef *runState)
 														#endif
 													}break;
 			case HL_120 :if(1 == rotAngle_Left(120))
+										{
+														runState->RotangleState=EIC;
+														runState->F_LineState=EIC;
+														updataState_Reset(controlp,EIC);
+														#ifdef BlueTooth_Debug
+															u3_printf("HL_120_EIC\n\n");
+														#endif
+													}break;
+			case HL_125 :if(1 == rotAngle_Left(125))
 										{
 														runState->RotangleState=EIC;
 														runState->F_LineState=EIC;

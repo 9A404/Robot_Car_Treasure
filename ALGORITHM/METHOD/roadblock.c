@@ -405,7 +405,7 @@ static float Monitor_ROLL()
 		gl_time = 0;
 		MPU6050_Pose_usart();
 		angle_read = setYaw(glYaw,88);
-		angle_read_back = setYaw(glYaw,-87.5);
+		angle_read_back = setYaw(glYaw,-87.7);
 		flag = 0; 
 		   
 		return 1;
@@ -1835,7 +1835,7 @@ u8 BlockHandleMethod_S_BOARD_2()
 		gl_time=0;
 		flag = 3;
 	}
-	if(3==flag&&gl_time>250)
+	if(3==flag&&gl_time>285)
 	{
 		speedAdjustment(0,0);
 		delay_ms(500);
