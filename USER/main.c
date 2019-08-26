@@ -233,8 +233,8 @@ int main(void)
 	bootDisplay();					//开机界面
 	ADC_DMA_Init();        	//ADC&DMA初始化
 	sampingTime_Init(150);	//采样周期为15ms对应的值为150 
-	//mpu6050_sampingTime_Init(80);//mpu6050采样周期8ms
 	TIM3_Config(100-1,7200-1); // 定时器3定时周期为10ms
+	//TIM5_Config(100-1,7200-1);
 	motor_PWM_Init();       //PWM初始化
 	uart_init(115200);			//串口1初始化
 	#ifdef PHONE
@@ -244,6 +244,7 @@ int main(void)
 	#ifdef MODULAR
 		usart3_init(9600);			//串口DMA初始化函数	模块9600 手机115200	
 	#endif
+	//mpu6050_sampingTime_Init(80);//mpu6050采样周期8ms
 	sg_PWM_Init();					//舵机初始化
 	keyInit();							//按键初始化
 	pesInit();							//光电传感器初始化
@@ -252,6 +253,7 @@ int main(void)
 	runMethodNum=sizeof(runMethodTable)/sizeof(runMethodTable[0]); //计算runMethodTable中共有几条线路
 	while(1)
 	{	
+		//seekNodeMethod_4();
 		displayOperation();
 		//speedAdjustment(0,0);
 		//get_from_phone();

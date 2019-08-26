@@ -96,9 +96,9 @@ void TIM2_IRQHandler(void)
 * 返回值  ：无
 
 */
-static void TIM5_Config(u16 arr,u16 psc)
+void TIM5_Config(u16 arr,u16 psc)
 {
-  TIM_TimeBaseInitTypeDef  	TIM_TimeBaseStructure;
+	TIM_TimeBaseInitTypeDef  	TIM_TimeBaseStructure;
 	NVIC_InitTypeDef 					NVIC_InitStructure;
 
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM5, ENABLE); 							//时钟使能
@@ -110,11 +110,11 @@ static void TIM5_Config(u16 arr,u16 psc)
 	
 	TIM_TimeBaseInit(TIM5, &TIM_TimeBaseStructure); 						//根据TIM_TimeBaseInitStruct中指定的参数初始化TIMx的时间基数单位
  
-	TIM_ITConfig(TIM5 , TIM_IT_Update , ENABLE);							//使能TIM5的更新中断
+	TIM_ITConfig(TIM5 , TIM_IT_Update , ENABLE);							//使能TIM2的更新中断
 	
-	NVIC_InitStructure.NVIC_IRQChannel = TIM5_IRQn;  							//TIM5中断
+	NVIC_InitStructure.NVIC_IRQChannel = TIM5_IRQn;  							//TIM2中断
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1; 	 //抢占优先级1级
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;  				//响应优先级1级
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;  				//响应优先级2级
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;							//IRQ通道被使能
 	
 	NVIC_Init(&NVIC_InitStructure);  												//根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器
@@ -135,15 +135,12 @@ void TIM5_IRQHandler(void)
 	u8 i;
 	if (TIM_GetITStatus(TIM5, TIM_IT_Update) != RESET)  //检查TIM5更新中断发生与否
     {
-			for(i=0;i<30;i++)
-				MPU6050_Pose();	
-//		  glPitchbuff[0] = glPitchbuff[1] ;
-//			glPitchbuff[1] = glPitch;
-//			gldif_Pitch = glPitchbuff[1]-glPitchbuff[0];
+			MPU6050_Pose_usart();
+			Lcd_Clear(RED);
 			/*上台检测*/
 			if(U_Dswitch == 1)
 			{
-				if((mpu6050_flag == 0) && glPitch < -13)
+				if((mpu6050_flag == 0) && glRoll < -13)
 				{
 					times++;
 					if(times > 0)
@@ -151,9 +148,8 @@ void TIM5_IRQHandler(void)
 						mpu6050_flag = 1;
 						times=0;
 					}
-				
 				}
-				else if((mpu6050_flag == 1)&&(glPitch>-10))
+				else if((mpu6050_flag == 1)&&(glRoll>-10))
 				{
 					times++;
 					if(times>2)
@@ -162,21 +158,17 @@ void TIM5_IRQHandler(void)
 						times = 0;
 					}
 				}
-//				if((mpu6050_flag == 0)&&(gldif_Pitch < -5.0))
-//					mpu6050_flag = 1;
-//				else if((mpu6050_flag == 1)&&(gldif_Pitch > 4))
-//					mpu6050_flag = 2;
 			}
 			
 			/*下台检测*/
 			else if(U_Dswitch == 2)
 			{
-				if(mpu6050_flag==0 && glPitch>10)
+				if(mpu6050_flag==0 && glRoll>10)
 					mpu6050_flag = 1;
-				else if(mpu6050_flag==1 && glPitch <8)
+				else if(mpu6050_flag==1 && glRoll <8)
 					mpu6050_flag = 2;
 			}
-//			
+			
 			
       TIM_ClearITPendingBit(TIM5, TIM_IT_Update);  //清除TIMx更新中断标志 
     }
@@ -211,7 +203,6 @@ void mpu6050_sampingTime_Init(u16 time)
 {
 	TIM5_Config(time-1,7200-1);
 	mpu6050_samping(STOP);
-
 }
 
 
@@ -225,7 +216,7 @@ void mpu6050_sampingTime_Init(u16 time)
 */
 void TIM3_Config(u16 arr,u16 psc)
 {
-  TIM_TimeBaseInitTypeDef  	TIM_TimeBaseStructure;
+    TIM_TimeBaseInitTypeDef  	TIM_TimeBaseStructure;
 	NVIC_InitTypeDef 					NVIC_InitStructure;
 
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE); 							//时钟使能

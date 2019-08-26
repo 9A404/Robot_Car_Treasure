@@ -14,6 +14,6 @@ void mpu6050_samping(SWITCHState newState); // mpu6050采样开关
 void TIM3_Config(u16 arr,u16 psc);   //定时器3初始化
 void Time3(SWITCHState newState);    //定时器3开关
 
-
+void TIM6_Config(u16 arr,u16 psc);   //定时器5初始化
 
 #endif

@@ -615,6 +615,12 @@ void roadBlocksHandle_Task(const controlCenterTypeDef *controlp,runStateTypeDef 
 										u3_printf("TIME_EIC_3\r\n");
 									#endif
 								}
+			case TUNNEL:			if(1==BlockHandleMethod_tunnel()){
+									runState->F_RoadBlockState = EIC;
+									#ifdef BlueTooth_Debug
+										u3_printf("TIME_EIC_3\r\n");
+									#endif
+								}
 			default:  			break;
 		}
 	}
@@ -693,6 +699,16 @@ void speed_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runState){
 									led_flash();
 								#endif
 							}break;
+			case TUNNEL_SPEED:if(1 == Speed_tunnelMethod(controlp->linkInform.speedTime)){
+								runState->speedState=EIC;
+								#ifdef BlueTooth_Debug
+									u3_printf("SEEK_PESL_EIC\r\n");
+								#endif
+								
+								#ifdef LED_Debug
+									led_flash();
+								#endif
+							}
 		}
 			
 	}

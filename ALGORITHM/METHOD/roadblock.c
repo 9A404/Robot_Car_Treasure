@@ -648,6 +648,51 @@ u8 BlockHandleMethod_Step (){
 
 /*
 
+* 函数介绍：过隧道方法
+* 输入参数：无
+* 输出参数：无
+* 返回值  ：1(路障解决)0（路障未解决）
+* 其他		：无
+* 作者    ：@袁梓聪
+
+*/
+u8 BlockHandleMethod_tunnel (){
+	static u8 flag=0;
+	static findLine save;
+	if(flag == 0)
+	{
+		save=glHello_control.linkInform.findLineWays;
+		flag=1;
+	}
+	else if(1 == flag&&0 == PES_Platform)
+	{
+		glHello_control.linkInform.findLineWays = FL_slowest;   
+		findLineFlag = 0;
+		flag=2; 
+	}
+	else if(2==flag&&1==PES_Platform)        
+	{
+		flag=3;
+	}
+	else if(3==flag&&0==PES_Platform)
+	{
+		glHello_control.linkInform.findLineWays = save;   
+		findLineFlag = 0;
+		flag = 4;
+	}
+	else if(4==flag&&1==PES_Platform){
+		flag=5;
+	}
+	else if(5==flag&&0==PES_Platform){
+		flag=0;
+		return 1;
+	}
+	return 0;
+}
+
+
+/*
+
 * 函数介绍：过两个台阶方法
 * 输入参数：无
 * 输出参数：无
@@ -821,7 +866,7 @@ u8 BlockHandleMethod_Platform_1 ()
 		glHello_control.linkInform.findLineWays =NFL;
 		flag = 1;
 	}
-else if(1==flag&&1==PES_Platform)
+	else if(1==flag&&1==PES_Platform)
 	{
 		//u3_printf("slow");
 		glHello_control.linkInform.findLineWays = FL_DownPlatform; 

@@ -270,14 +270,12 @@ u8 seekNodeMethod_4()
 		U_Dswitch = 1;//标志中断运行上台程序
 		mpu6050_samping(START);
 		flag=1;
-		u3_printf("1\n");
+		Lcd_Clear_partial(0,105,128,160,WHITE);
 	}
-	
 	if(mpu6050_flag == 1&&1==flag)
 	{
 		flag=2;
-		u3_printf("2\n");
-		//sgAngleControl(R_ARM,DOWM);//放下舵机	
+		Lcd_Clear_partial(0,105,128,160,RED);
 		glHello_control.linkInform.findLineWays = NFL;
 	}
 	if(mpu6050_flag == 2&&flag==2)
@@ -287,9 +285,7 @@ u8 seekNodeMethod_4()
 		mpu6050_flag = 0;
 		U_Dswitch = 0;//让上台程序不运行
 		mpu6050_samping(STOP);
-		//u3_printf ("\na %0.2f\n",glPitch-glPitchbuff[0]);
-		
-		//delay_ms(10);  //保证车子在台中
+		Lcd_Clear_partial(0,105,128,160,GREEN);
 		return 1;
 	}
 	return 0;

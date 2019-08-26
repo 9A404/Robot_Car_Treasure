@@ -109,9 +109,9 @@ void MPU6050_Pose_usart(void)
 		 }
 		 temp  =  i;
 		 i = 0;
-                  angle[0] = ((short)(USART1_RX_BUF[temp+25]<<8| USART1_RX_BUF[temp+24]))/32768.0*180;   //XÖá¹ö×ª½Ç£¨x Öá£©
-                  angle[1] = ((short)(USART1_RX_BUF[temp+27]<<8| USART1_RX_BUF[temp+26]))/32768.0*180;   //YÖá¸©Ñö½Ç£¨y Öá£©
-                  angle[2] = ((short)(USART1_RX_BUF[temp+29]<<8| USART1_RX_BUF[temp+28]))/32768.0*180;   //ZÖáÆ«º½½Ç£¨z Öá£©  
+		  angle[0] = ((short)(USART1_RX_BUF[temp+25]<<8| USART1_RX_BUF[temp+24]))/32768.0*180;   //XÖá¹ö×ª½Ç£¨x Öá£©
+		  angle[1] = ((short)(USART1_RX_BUF[temp+27]<<8| USART1_RX_BUF[temp+26]))/32768.0*180;   //YÖá¸©Ñö½Ç£¨y Öá£©
+		  angle[2] = ((short)(USART1_RX_BUF[temp+29]<<8| USART1_RX_BUF[temp+28]))/32768.0*180;   //ZÖáÆ«º½½Ç£¨z Öá£©  
            
 		glPitch=angle[0];
 		glRoll=angle[1];

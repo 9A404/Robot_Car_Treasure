@@ -104,6 +104,56 @@ u8 Speed_commonMethod(u16 time){
 
 /*
 
+* 函数介绍：隧道加速方法，先加速后过隧道
+* 输入参数：加速时间time
+* 输出参数：
+* 返回值  ：1(加速完成)0（加速还没完成）
+* 其他	：
+* 作者    ：@袁梓聪
+
+*/
+u8 Speed_tunnelMethod(u16 time){
+	static u8 flag=0;
+	static findLine save;
+	if(flag==0)
+	{
+		save = glHello_control.linkInform.findLineWays;
+		Time3(START);
+		gl_time=0;
+		flag=1;
+	}
+	else if(gl_time > 30 && 1==flag)
+	{
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_quickest;
+		findLineFlag = 0;
+		flag=2;
+	}
+	else if(2==flag &&gl_time > time)
+	{
+		Time3(STOP);
+		gl_time = 0;
+		glHello_control.linkInform.findLineWays = FL_slowest;
+		findLineFlag = 0;
+		flag=3;
+	}
+	else if(3 == flag&&0==PES_Platform){
+		flag=4;
+	}
+	else if(4 == flag&&1==PES_Platform){
+		flag=5;
+	}
+	else if(5==flag&&0==PES_Platform){
+		glHello_control.linkInform.findLineWays = save;
+		findLineFlag=0;
+		flag=0;
+		return 1;
+	}
+	return 0;
+}
+
+/*
+
 * 函数介绍：用于占用时间，处理复杂节点
 * 输入参数：占用时间time
 * 输出参数：
