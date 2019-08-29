@@ -341,11 +341,11 @@ int sensorDigitalRank(u16 digitalValue)
 int sensorDigitalRank_Brige(u16 digitalValue)
 {
 	int temp;
-	//static int save=16;//保存当前值，以便下次使用
+	static int save=16;//保存当前值，以便下次使用
 	switch(digitalValue)
 	{
 		case 0xff:  temp=0;break;			// 0000 1111 1111
-	  case 0x8ff: temp=2;break;			// 1000 1111 1111
+		case 0x8ff: temp=2;break;			// 1000 1111 1111
 		case 0x87F: temp=4;break;			// 1000 0111 1111
 		case 0xc7f: temp=6;break;			// 1100 0111 1111
 		case 0xc3F: temp=8;break;    //  1100 0011 1111
@@ -361,10 +361,10 @@ int sensorDigitalRank_Brige(u16 digitalValue)
 		case 0xFe1: temp=28;break;    // 1111 1110 0001
 		case 0xff1: temp=30;break;    // 1111 1111 0001
 		case 0xFF0: temp=32;break;    // 1111 1111 0000
-		default   : temp = 16; break;//读到其他值的时候采用上次的值
+		default   : temp = save; break;//读到其他值的时候采用上次的值
 	}
 	
-	//save = temp;
+	save = temp;
 	return temp;
 }
 
@@ -379,12 +379,37 @@ int sensorDigitalRank_Brige(u16 digitalValue)
 */
 int sensorDigitalRank_Brige_Up(u16 digitalValue)
 {
+//	int temp;
+//	static int save=16;//保存当前值，以便下次使用
+//	switch(digitalValue)
+//	{
+//		case 0xff:  temp=0;break;			//0000 1111 1111 
+//	    case 0x8ff: temp=4;break;			//1000 1111 1111
+//		case 0x87F: temp=6;break;			//1000 0111 1111
+//		case 0xc7f: temp=8;break;			//1100 0111 1111
+//		case 0xc3F: temp=10;break;    //1100 0011 1111
+//		case 0xe3F: temp=12;break;    //1110 0011 1111
+//		case 0xe1F: temp=12;break;    //1110 0001 1111
+//		case 0xf1f: temp=14;break;    //1111 0001 1111
+//		case 0xf0f: temp=16;break;    //1111 0000 1111
+//		case 0xf8f: temp=18;break;    //1111 1000 1111
+//		case 0xf87: temp=20;break;    //1111 1000 0111
+//		case 0xFc7: temp=22;break;    //1111 1100 0111
+//		case 0xFc3: temp=24;break;    //1111 1100 0011
+//		case 0xFe3: temp=26;break;    //1111 1110 0011
+//		case 0xFe1: temp=30;break;    //1111 1100 0001
+//		case 0xff1: temp=34;break;    //1111 1111 0001
+//		default   : temp = save; break;//读到其他值的时候采用上次的值
+//	}
+//	
+//	save = temp;
+//	return temp;
 	int temp;
 	static int save=16;//保存当前值，以便下次使用
-	switch(digitalValue)
+	switch(~digitalValue)
 	{
-		case 0xff:  temp=0;break;			//0000 1111 1111 
-	  case 0x8ff: temp=4;break;			//1000 1111 1111
+		case 0x0ff:  temp=0;break;			//0000 1111 1111 
+	    case 0x8ff: temp=4;break;			//1000 1111 1111
 		case 0x87F: temp=6;break;			//1000 0111 1111
 		case 0xc7f: temp=8;break;			//1100 0111 1111
 		case 0xc3F: temp=10;break;    //1100 0011 1111
@@ -417,12 +442,37 @@ int sensorDigitalRank_Brige_Up(u16 digitalValue)
 */
 int sensorDigitalRank_Brige_Down(u16 digitalValue)
 {
+//	int temp;
+//	static int save=14;//保存当前值，以便下次使用
+//	switch(digitalValue)
+//	{
+//		case 0xff:  temp=0;break;			//  
+//		case 0x8ff: temp=4;break;			// 
+//		case 0x87F: temp=6;break;			// 
+//		case 0xc7f: temp=8;break;			// 
+//		case 0xc3F: temp=10;break;     // 
+//		case 0xe3F: temp=12;break;     // 
+//		case 0xe1F: temp=12;break;    // 
+//		case 0xf1f: temp=14;break;    // 中间
+//		case 0xf0f: temp=16;break;
+//		case 0xf8f: temp=18;break;    // 
+//		case 0xf87: temp=20;break;    //  
+//		case 0xFc7: temp=22;break;    // 
+//		case 0xFc3: temp=24;break;    // 
+//		case 0xFe3: temp=26;break;
+//		case 0xFe1: temp=30;break;
+//		case 0xff1: temp=34;break;
+//		default   : temp = save; break;//读到其他值的时候采用上次的值
+//	}
+//	
+//	save = temp;
+//	return temp;
 	int temp;
-	static int save=14;//保存当前值，以便下次使用
-	switch(digitalValue)
+	static int save=16;//保存当前值，以便下次使用
+	switch(~digitalValue)
 	{
 		case 0xff:  temp=0;break;			//  
-	  case 0x8ff: temp=4;break;			// 
+		case 0x8ff: temp=4;break;			// 
 		case 0x87F: temp=6;break;			// 
 		case 0xc7f: temp=8;break;			// 
 		case 0xc3F: temp=10;break;     // 

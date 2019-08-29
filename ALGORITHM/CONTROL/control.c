@@ -337,7 +337,8 @@ void findLine_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runStat
 				case NFL: 			 speedAdjustment(1800,1800);break;
 				case FL_angle:   flMethod_NFL();break;
 				case FL_slow_angle :flMethod_NFL_slow();break;
-				case NFL_slow:   speedAdjustment(1200,1200);break;
+				case NFL_slow:   speedAdjustment(1100,1100);break;
+				case NFL_slowest:   speedAdjustment(800,800);break;
 				case BACK_NFL:   speedAdjustment(-1100,-1100);break;
 				case FL_UPRISE:	 flMethod_upRise();break;
 				case FL_DOWNRISE:flMethod_downRise();break;
@@ -615,6 +616,12 @@ void roadBlocksHandle_Task(const controlCenterTypeDef *controlp,runStateTypeDef 
 										u3_printf("TIME_EIC_3\r\n");
 									#endif
 								}
+			case STEP_2:			if(1==BlockHandleMethod_Step_2()){
+									runState->F_RoadBlockState = EIC;
+									#ifdef BlueTooth_Debug
+										u3_printf("TIME_EIC_3\r\n");
+									#endif
+								}
 			case TUNNEL:			if(1==BlockHandleMethod_tunnel()){
 									runState->F_RoadBlockState = EIC;
 									#ifdef BlueTooth_Debug
@@ -667,6 +674,17 @@ void speed_Task(const controlCenterTypeDef *controlp,runStateTypeDef *runState){
 								#endif
 							}break;
 			case COMMON_SPEED:if(1 == Speed_commonMethod(controlp->linkInform.speedTime))
+							{
+								runState->speedState=EIC;
+								#ifdef BlueTooth_Debug
+									u3_printf("SEEK_PESL_EIC\r\n");
+								#endif
+								
+								#ifdef LED_Debug
+									led_flash();
+								#endif
+							}break;
+			case DOOR_SPEED:if(1 == Speed_doorMethod(controlp->linkInform.speedTime))
 							{
 								runState->speedState=EIC;
 								#ifdef BlueTooth_Debug

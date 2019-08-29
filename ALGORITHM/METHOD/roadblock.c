@@ -84,36 +84,38 @@ u8 BlockHandleMethod_Brige()
 		//angle_flag = 0;
 		flag = 1;
 	}
-	if(1==flag && 0==PES_Platform)          //在桥头坡上
+	else if(1==flag && 0==PES_Platform)          //在桥头坡上
 	{
-		glHello_control.linkInform.findLineWays = FL_brigeup; 
+		glHello_control.linkInform.findLineWays = NFL; 
 		findLineFlag = 0;
 		flag=2;
 	}
-	if(2==flag && 1==PES_Platform)          //在桥头顶部
+	else if(2==flag && 1==PES_Platform)          //在桥头顶部
 	{
 		glHello_control.linkInform.findLineWays = FL_brige;
 	    findLineFlag = 0;
 		flag=3;
 	}
-	if(3==flag && 0==PES_Platform)  flag=4;    //在桥上
-	if(4==flag && 1==PES_Platform)             //在桥尾顶部
+	else if(3==flag && 0==PES_Platform)  flag=4;    //在桥上
+	else if(4==flag && 1==PES_Platform)             //在桥尾顶部
 	{
-		glHello_control.linkInform.findLineWays = FL_brigedown;
-	  findLineFlag = 0;
+		glHello_control.linkInform.findLineWays = NFL_slowest;
+		findLineFlag = 0;
 		flag=5;
 	}
-	if(5==flag && 0==PES_Platform)  flag=6;
-	if(6==flag && 1==PES_Platform)        //在桥尾底部
+	else if(5==flag && 0==PES_Platform)  flag=6;
+	else if(6==flag && 1==PES_Platform)        //在桥尾底部
 	{
 		glHello_control.linkInform.findLineWays = save;
-	  findLineFlag = 0;
+		findLineFlag = 0;
+		flag=7;
+	}
+	else if(7==flag && 0==PES_Platform){
 		flag=0;
 		return 1;
 	}
-	
 	return 0;
-//static findLine save;
+//	static findLine save;
 //	static u8 flag=0;
 //     if(0 == flag)
 //	 { 
@@ -124,61 +126,44 @@ u8 BlockHandleMethod_Brige()
 //	 }
 //	else if(1==flag && gl_time > 50)         //μ?′???í·μ×2?
 //	{   
-////		speedAdjustment(0,0);
-////		while(1);
-////	
 //		glHello_control.linkInform.findLineWays = FL_angle; 
 //		findLineFlag = 0;
 //		angle_flag = 0;
 //		flag = 2;
+//		gl_time=0;
 //	}
-//	else if(2==flag && gl_time > 150)          //?ú??í·??é?
+//	else if(2==flag && gl_time > 100)          //?ú??í·??é?
 //	{
-//		
-////		speedAdjustment(0,0);
-////		while(1);
 //		glHello_control.linkInform.findLineWays = FL_brige; 
 //		findLineFlag = 0;
 //		flag=3;
 //	}
-//	else if(3==flag && gl_time > 275)          //?ú??í·?￥2?
+//	else if(3==flag && gl_time > 200)          //?ú??í·?￥2?
 //	{
-////		speedAdjustment(0,0);
-////     	while(1);
-
 //		flag=4;
 //		Time3(STOP);
 //	}
 //	else if( 4 == flag )  
 //	{
-//     Time3(START);
-//	 gl_time = 0;
-//     glHello_control.linkInform.findLineWays = FL_slow_angle;
-//	 findLineFlag = 0; 
-//     angle_flag = 0;
-//	 flag = 5; 
+//		 Time3(START);
+//		 gl_time = 0;
+//		 glHello_control.linkInform.findLineWays = FL_slow_angle;
+//		 findLineFlag = 0; 
+//		 angle_flag = 0;
+//		 flag = 5; 
 //	}
 //  	//?ú??é?
-//	else if(5==flag && gl_time > 105)             //?ú???2?￥2?
+//	else if(5==flag && gl_time > 130)             //?ú???2?￥2?
 //	{
-////	    speedAdjustment(0,0);
-////     	while(1);
 //		glHello_control.linkInform.findLineWays = save;
 //	    findLineFlag = 0;
 //		flag=0;
 //		Time3(STOP);
+//		gl_time=0;
 //		return 1;
-//		
 //	}
-////	if(6==flag && 0==PES_Platform)  flag=6;
-////	if(6==flag && 1==PES_Platform)        //?ú???2μ×2?
-////	{
-////		glHello_control.linkInform.findLineWays = save;
-////	  findLineFlag = 0;
-////		flag=0;
-////		return 1;
-////	}
-////	
+
+//	
 //	return 0;
 
 
@@ -196,18 +181,27 @@ u8 BlockHandleMethod_Brige()
 */
 u8 BlockHandleMethod_DOOR(void)
 {
-//  	static u8 flag=0;     //门开标志位  
-//	/*******************  门开  ***************************/
-//	if(1==PES_Platform && 0==flag)  flag=1;
-//	else if(0==PES_Platform && 1==flag) flag=2;
-//	else if(1==PES_Platform && 2==flag)  flag=3;
-//	else if(0==PES_Platform && 3==flag)
-//	{
-//		flag=0;
-//		return 1;
-//	}      
-//	return 0;
-	return 1;
+	static findLine save;
+	static int flag=0;
+	if(flag==0 && 0== PES_Platform){
+		save = glHello_control.linkInform.findLineWays;
+		flag=1;
+	}
+	else if(flag==1 && 1 == PES_Platform){
+		flag=2;
+		glHello_control.linkInform.findLineWays = FL_slowest;
+		findLineFlag = 0;
+	}
+	else if(flag==2 && 0 == PES_Platform){
+		flag=3;
+	}
+	else if(flag==3&& 1==PES_Platform){
+		flag=0;
+		glHello_control.linkInform.findLineWays = save;
+		findLineFlag = 0;
+		return 1;
+	}		
+	return 0;
 }
 
 
@@ -439,7 +433,7 @@ static float Monitor_ROLL()
 		//led_flash();
 		flag=1;
 	}
-	else if(1==flag&&gl_time>96)         
+	else if(1==flag&&gl_time>95)         
 	{
 //		temp = Monitor_ROLL();
 //		if( temp > -10)               //如果车在跷跷板的另外一端则继续盲走后置flag=2
@@ -468,7 +462,7 @@ static float Monitor_ROLL()
 		speedAdjustment(0,0);
 		//if(pes_R==0) {speedAdjustment(2000,2400);delay_ms(10);}
 		//else if(pes_L==0) {speedAdjustment(2400,2000);delay_ms(10);}
-	    delay_ms(800);
+	    delay_ms(1000);
 
 		temp = Monitor_ROLL();
 		glHello_control.linkInform.findLineWays = FL_slow;
@@ -711,20 +705,24 @@ u8 BlockHandleMethod_Step_2 (){
 	}
 	else if(1 == flag&&1 == PES_Platform) 
 	{
-		glHello_control.linkInform.findLineWays = FL_UpPlatform;   
+		speedAdjustment(0,0);
+		delay_ms(1000);
+		glHello_control.linkInform.findLineWays = FL_slow;   
 		findLineFlag = 0;
 		Time3(START);
 		gl_time=0;
 		flag=2; 
 	}
 	else if(2==flag&&gl_time>100){
+		speedAdjustment(0,0);
+		while(1);
 		Time3(STOP);
 		gl_time=0;
 		flag=3;
 	}
 	else if(3==flag) 
 	{
-		glHello_control.linkInform.findLineWays = FL_DownPlatform;   
+		glHello_control.linkInform.findLineWays = FL_slowest;   
 		findLineFlag = 0;
 		Time3(START); //′ò?a?¨ê±?÷
 		gl_time=0;
@@ -734,17 +732,17 @@ u8 BlockHandleMethod_Step_2 (){
 	{
 		Time3(STOP); //1?±??¨ê±?÷
 		gl_time = 0;
-		glHello_control.linkInform.findLineWays = FL_DownPlatform;
+		glHello_control.linkInform.findLineWays = FL_slowest;
 		findLineFlag = 0;
 		Time3(START);
 		gl_time = 0;
 		flag = 5;
 	}
-	else if(flag==5 && gl_time>100)
+	else if(flag==5 && gl_time>150)
 	{
 		Time3(STOP);
 		gl_time=0;
-		glHello_control.linkInform.findLineWays = FL_DownPlatform;
+		glHello_control.linkInform.findLineWays = FL_slowest;
 		findLineFlag = 0;
 		Time3(START);
 		gl_time=0;
@@ -752,6 +750,8 @@ u8 BlockHandleMethod_Step_2 (){
 	}
 	else if(flag==6 && gl_time>100)
 	{
+		speedAdjustment(0,0);
+		delay_ms(1000);
 		Time3(STOP);
 		gl_time=0;
 		glHello_control.linkInform.findLineWays = save;
@@ -1837,7 +1837,7 @@ u8 BlockHandleMethod_S_BOARD_2()
 		gl_time=0;
 		flag = 3;
 	}
-	if(3==flag&&gl_time>200)
+	if(3==flag&&gl_time>220)
 	{
 		glHello_control.linkInform.findLineWays =FL_default;
 		findLineFlag = 0;
@@ -1880,7 +1880,7 @@ u8 BlockHandleMethod_26_27()
 		gl_time=0;
 		flag = 3;
 	}
-	if(3==flag&&gl_time>200)
+	if(3==flag&&gl_time>150)
 	{
 //		speedAdjustment(0,0);
 //		delay_ms(500);

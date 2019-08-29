@@ -243,9 +243,13 @@ u8 parkMethod_pesPlatform(controlCenterTypeDef *controlp)
 //		delay_ms(500);
 			glHello_control.linkInform.findLineWays = NFL_slow;
 			flag=2;
+			Time3(START);
+			gl_time=0;
 		}
-		if(2==flag&&1==Collision)
+		if(2==flag&&(1==Collision||gl_time>200))
 		{
+			Time3(STOP);
+			gl_time=0;
 			delay_ms(100);
 			flag=3;
 		}
