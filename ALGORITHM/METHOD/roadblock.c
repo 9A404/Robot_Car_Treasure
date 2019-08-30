@@ -1926,26 +1926,40 @@ u8 BlockHandleMethod_26_27()
 u8 LimtdeHeight_Method()
 {
 	static u8 flag=0;
-	if(flag == 0&&0 == PES_R)
+	if(flag == 0)
 	{
+		Time3(START);
+		gl_time=0;
+		sgAngleControl(BODY,B_DOWN);
 		flag=1;
 	}
-	if(flag==1)
-	{ 
-		//speedAdjustment(0,0);	
-	  sgAngleControl(BODY,B_UP);
-//	  delay_ms(400);
-		flag=2;	
+	else if(flag==1){
+		flag=2;
+		Time3(START);
+		gl_time=0;
 	}
-  if(flag==2&&0 == PES_R)
+	else if(flag==2&&gl_time>30)
+	{ 
+		//Time3(STOP);
+		gl_time=0;
+		glHello_control.linkInform.findLineWays = FL_quickest;
+		findLineFlag=0;
+		flag=3;	
+	}
+	else if(flag==4&&gl_time>48)
 	{
-		//speedAdjustment(0,0);	
-	  sgAngleControl(BODY,B_DOWN);
-//	  delay_ms(400);
-		flag=0;	
+		Time3(STOP);
+		glHello_control.linkInform.findLineWays = FL_slow;
+		findLineFlag=0;
+		flag=5;
+	}
+	else if(flag==5)
+	{
+		sgAngleControl(BODY,B_UP);
+		flag=0;
 		return 1;
 	}
-  return 0;
+	return 0;
 }
 
 

@@ -46,7 +46,7 @@
 /*Ä£¿éÉ¨Âë*/
 //#define MODULAR
 
-#define AUTO_Treasure
+//#define AUTO_Treasure
 
 #define _NEW_MPU6050_//ĞÂ°æÍÓÂİÒÇ
 

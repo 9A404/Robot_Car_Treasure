@@ -24,7 +24,7 @@ typedef enum {DOWN_SPEED,COMMON_SPEED,NOSPEED,TME,UPRISE,TUNNEL_SPEED,DOOR_SPEED
 typedef enum {SEEK_PESL,SEEK_PESR,SEEK3,SEEK4,SEEK_default,NOTSEEK,SEEK_SeeSaw,SEEK_SeeSaw_back,SEEK_PesPlatform,SEEK_Collision,SEEK_Collision_1,SEEK_7_6_15,SEEK_6_15_37,SEEK_digR,SEEK_digL}seekNodeWay;
 
 /*停车方法*/
-typedef enum {NOTPARK,PARK1,PARK_pesR,PARK_default,PARK_pesL,PARK_PesPlatform,PARK_Door,PARK_pesL_150,PARK_pesL_200,PARK_pesR_150,PARK_pesR_200,}carPark;
+typedef enum {NOTPARK,PARK1,PARK_pesR,PARK_default,PARK_pesL,PARK_PesPlatform,PARK_Door,PARK_pesR_100,PARK_pesL_150,PARK_pesL_200,PARK_pesR_150,PARK_pesR_200,}carPark;
 
 /*车头旋转角度*/
 typedef enum {HL_180,HL_145,HL_135,HL_105,HL_120,HL_90,HL_60,HL_45,HL_35,HL_30,HN_Rotate,HR_35,HR_45,HR_60,HR_90,HR_110,HR_120,HR_130,HR_135,HR_145,HR_180,rot_LFL,rot_RFL,rot_UL,rot_UR,Sensor_L90,Sensor_R90}carRotAngle;
